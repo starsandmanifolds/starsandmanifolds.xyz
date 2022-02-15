@@ -67,8 +67,7 @@ resource "google_compute_instance" "instance" {
   name         = random_pet.instance_name.id
   network_interface {
     access_config {
-      nat_ip                 = google_compute_address.address.address
-      public_ptr_domain_name = var.domain
+      nat_ip = google_compute_address.address.address
     }
     network = data.google_compute_network.network.name
   }
