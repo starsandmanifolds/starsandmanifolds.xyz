@@ -43,8 +43,10 @@ resource "google_compute_firewall" "firewall_http" {
     protocol = "tcp"
   }
 
-  name          = "allow-http"
-  network       = data.google_compute_network.network.name
+  name    = "allow-http"
+  network = data.google_compute_network.network.name
+
+  #tfsec:ignore:google-compute-no-public-ingress
   source_ranges = ["0.0.0.0/0"]
 }
 
@@ -54,12 +56,15 @@ resource "google_compute_firewall" "firewall_https" {
     protocol = "tcp"
   }
 
-  name          = "allow-https"
-  network       = data.google_compute_network.network.name
+  name    = "allow-https"
+  network = data.google_compute_network.network.name
+
+  #tfsec:ignore:google-compute-no-public-ingress
   source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "firewall_ssh" {
+  #tfsec:ignore:google-compute-no-public-ingress
   allow {
     ports    = ["22"]
     protocol = "tcp"
@@ -72,9 +77,13 @@ resource "google_compute_firewall" "firewall_ssh" {
 
 resource "random_pet" "instance_name" {}
 resource "google_compute_instance" "instance" {
+  #checkov:skip=CKV_GCP_30:Default service account is not actually used.
+  #tfsec:ignore:google-compute-no-default-service-account
+
   allow_stopping_for_update = true
 
-  # checkov:skip=CKV_GCP_38:Boot disk on this instance contains no sensitive data.
+  #checkov:skip=CKV_GCP_38:Boot disk on this instance contains no sensitive data.
+  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key
   boot_disk {
     initialize_params {
       image = data.google_compute_image.image.name
@@ -92,7 +101,8 @@ resource "google_compute_instance" "instance" {
   name = random_pet.instance_name.id
 
   network_interface {
-    # checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
+    #checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
+    #tfsec:ignore:google-compute-no-public-ip
     access_config {}
     network = data.google_compute_network.network.name
   }
