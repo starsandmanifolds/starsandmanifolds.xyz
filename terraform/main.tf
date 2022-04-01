@@ -46,7 +46,6 @@ resource "google_compute_firewall" "firewall_http" {
   name          = "allow-http"
   network       = data.google_compute_network.network.name
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = [google_compute_instance.instance.name]
 }
 
 resource "google_compute_firewall" "firewall_https" {
@@ -58,7 +57,6 @@ resource "google_compute_firewall" "firewall_https" {
   name          = "allow-https"
   network       = data.google_compute_network.network.name
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = [google_compute_instance.instance.name]
 }
 
 resource "google_compute_firewall" "firewall_ssh" {
@@ -70,7 +68,6 @@ resource "google_compute_firewall" "firewall_ssh" {
   name          = "allow-ssh"
   network       = data.google_compute_network.network.name
   source_ranges = var.firewall_ssh_source_ranges
-  target_tags   = [google_compute_instance.instance.name]
 }
 
 resource "random_pet" "instance_name" {}
@@ -98,10 +95,6 @@ resource "google_compute_instance" "instance" {
     # checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
     access_config {}
     network = data.google_compute_network.network.name
-  }
-
-  service_account {
-    scopes = []
   }
 
   shielded_instance_config {
