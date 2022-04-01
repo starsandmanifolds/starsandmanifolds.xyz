@@ -99,6 +99,8 @@ resource "google_compute_instance" "instance" {
   service_account {
     scopes = []
   }
+
+  shielded_instance_config {}
 }
 
 data "http" "google_domains_dynamic_dns" {
