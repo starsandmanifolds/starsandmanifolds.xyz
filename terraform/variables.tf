@@ -50,6 +50,12 @@ variable "ssh_keys" {
   type        = string
 }
 
+variable "username" {
+  default     = "adyavanapalli"
+  description = "The login username for SSH access to virtual machines."
+  type        = string
+}
+
 variable "zone" {
   default     = "us-east1-b"
   description = "The default zone to manage resources in."
