@@ -10,6 +10,22 @@ variable "domain" {
   type        = string
 }
 
+variable "google_compute_image" {
+  default = {
+    family  = "ubuntu-minimal-2110"
+    project = "ubuntu-os-cloud"
+  }
+
+  description = "The default Google compute image to use for virtual machines."
+  type        = map(string)
+}
+
+variable "machine_type" {
+  default     = "f1-micro"
+  description = "The default machine type to use for virtual machines."
+  type        = string
+}
+
 variable "project" {
   default     = "starsandmanifolds"
   description = "The default project to manage resources in."
