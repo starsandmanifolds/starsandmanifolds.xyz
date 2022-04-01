@@ -75,6 +75,8 @@ resource "google_compute_firewall" "firewall_ssh" {
 
 resource "random_pet" "instance_name" {}
 resource "google_compute_instance" "instance" {
+  allow_stopping_for_update = true
+
   # checkov:skip=CKV_GCP_38:Boot disk on this instance contains no sensitive data.
   boot_disk {
     initialize_params {
@@ -102,7 +104,9 @@ resource "google_compute_instance" "instance" {
     scopes = []
   }
 
-  shielded_instance_config {}
+  shielded_instance_config {
+    enable_secure_boot = true
+  }
 }
 
 data "http" "google_domains_dynamic_dns" {
