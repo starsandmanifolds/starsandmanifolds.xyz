@@ -63,8 +63,8 @@ resource "google_compute_firewall" "firewall_https" {
   source_ranges = ["0.0.0.0/0"]
 }
 
+#tfsec:ignore:google-compute-no-public-ingress
 resource "google_compute_firewall" "firewall_ssh" {
-  #tfsec:ignore:google-compute-no-public-ingress
   allow {
     ports    = ["22"]
     protocol = "tcp"
@@ -76,9 +76,9 @@ resource "google_compute_firewall" "firewall_ssh" {
 }
 
 resource "random_pet" "instance_name" {}
+#tfsec:ignore:google-compute-no-default-service-account
 resource "google_compute_instance" "instance" {
   #checkov:skip=CKV_GCP_30:Default service account is not actually used.
-  #tfsec:ignore:google-compute-no-default-service-account
 
   allow_stopping_for_update = true
 
