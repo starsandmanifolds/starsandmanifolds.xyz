@@ -10,6 +10,12 @@ variable "domain" {
   type        = string
 }
 
+variable "firewall_ssh_source_ranges" {
+  description = "The source CIDR ranges for which we allow SSH connections."
+  sensitive   = true
+  type        = set(string)
+}
+
 variable "google_compute_image" {
   default = {
     family  = "ubuntu-minimal-2110"

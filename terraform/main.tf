@@ -37,25 +37,40 @@ data "google_compute_network" "network" {
   name = "default"
 }
 
-resource "random_pet" "firewall_name" {}
-resource "google_compute_firewall" "firewall" {
+resource "google_compute_firewall" "firewall_http" {
   allow {
-    protocol = "icmp"
-  }
-
-  allow {
-    ports    = ["22", "80", "443"]
+    ports    = ["80"]
     protocol = "tcp"
   }
 
-  name          = random_pet.firewall_name.id
+  name          = "allow-http"
   network       = data.google_compute_network.network.name
   source_ranges = ["0.0.0.0/0"]
+  target_tags   = google_compute_instance.instance.name
+}
 
-  # This needs reference `random_pet.instance_name.id` instead of
-  # `google_compute_instance.instance.id` because otherwise it would be
-  # circular dependency.
-  target_tags = [random_pet.instance_name.id]
+resource "google_compute_firewall" "firewall_https" {
+  allow {
+    ports    = ["443"]
+    protocol = "tcp"
+  }
+
+  name          = "allow-https"
+  network       = data.google_compute_network.network.name
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = google_compute_instance.instance.name
+}
+
+resource "google_compute_firewall" "firewall_ssh" {
+  allow {
+    ports    = ["22"]
+    protocol = "tcp"
+  }
+
+  name          = "allow-ssh"
+  network       = data.google_compute_network.network.name
+  source_ranges = var.firewall_ssh_source_ranges
+  target_tags   = google_compute_instance.instance.name
 }
 
 resource "random_pet" "instance_name" {}
@@ -78,8 +93,6 @@ resource "google_compute_instance" "instance" {
   metadata = {
     ssh-keys = var.ssh_keys
   }
-
-  tags = google_compute_firewall.firewall.target_tags[*]
 }
 
 data "http" "google_domains_dynamic_dns" {
