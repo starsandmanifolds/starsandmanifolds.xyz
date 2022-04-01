@@ -86,7 +86,8 @@ resource "google_compute_instance" "instance" {
   machine_type = var.machine_type
 
   metadata = {
-    ssh-keys = var.ssh_keys
+    block-project-ssh-keys = true
+    ssh-keys               = var.ssh_keys
   }
 
   name = random_pet.instance_name.id
