@@ -74,6 +74,7 @@ resource "google_compute_firewall" "firewall_ssh" {
 }
 
 resource "random_pet" "instance_name" {}
+# checkov:skip=CKV_GCP_38:Boot disk on this instance contains no sensitive data.
 # checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
 resource "google_compute_instance" "instance" {
   boot_disk {
