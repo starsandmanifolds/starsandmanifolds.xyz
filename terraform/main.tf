@@ -15,10 +15,6 @@ terraform {
     http = {
       source = "hashicorp/http"
     }
-
-    random = {
-      source = "hashicorp/random"
-    }
   }
 }
 
@@ -75,7 +71,6 @@ resource "google_compute_firewall" "firewall_ssh" {
   source_ranges = var.firewall_ssh_source_ranges
 }
 
-resource "random_pet" "instance_name" {}
 #tfsec:ignore:google-compute-no-default-service-account
 resource "google_compute_instance" "instance" {
   #checkov:skip=CKV_GCP_30:Default service account is not actually used.
@@ -98,7 +93,7 @@ resource "google_compute_instance" "instance" {
     ssh-keys               = var.ssh_keys
   }
 
-  name = random_pet.instance_name.id
+  name = "starsandmanifolds-xyz"
 
   network_interface {
     #checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
