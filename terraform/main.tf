@@ -37,23 +37,23 @@ data "google_compute_network" "network" {
 resource "google_compute_firewall" "firewalls" {
   for_each = {
     allow-http = {
-      port          = "80"
+      ports         = ["80"]
       source_ranges = ["0.0.0.0/0"]
     }
 
     allow-https = {
-      port          = "443"
+      ports         = ["443"]
       source_ranges = ["0.0.0.0/0"]
     }
 
     allow-ssh = {
-      port          = "22"
+      ports         = ["22"]
       source_ranges = var.firewall_ssh_source_ranges
     }
   }
 
   allow {
-    ports    = [each.value.port]
+    ports    = each.value.ports
     protocol = "tcp"
   }
 
