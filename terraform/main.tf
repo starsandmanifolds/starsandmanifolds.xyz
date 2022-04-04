@@ -33,6 +33,7 @@ data "google_compute_network" "network" {
   name = "default"
 }
 
+#tfsec:ignore:google-compute-no-public-ingress
 resource "google_compute_firewall" "firewalls" {
   for_each = {
     allow-http = {
@@ -56,10 +57,8 @@ resource "google_compute_firewall" "firewalls" {
     protocol = "tcp"
   }
 
-  name    = each.key
-  network = data.google_compute_network.network.name
-
-  #tfsec:ignore:google-compute-no-public-ingress
+  name          = each.key
+  network       = data.google_compute_network.network.name
   source_ranges = each.value.source_ranges
 }
 
