@@ -33,42 +33,34 @@ data "google_compute_network" "network" {
   name = "default"
 }
 
-resource "google_compute_firewall" "firewall_http" {
+resource "google_compute_firewall" "firewalls" {
+  for_each = {
+    allow-http = {
+      port          = "80"
+      source_ranges = ["0.0.0.0/0"]
+    }
+
+    allow-https = {
+      port          = "443"
+      source_ranges = ["0.0.0.0/0"]
+    }
+
+    allow-ssh = {
+      port          = "22"
+      source_ranges = var.firewall_ssh_source_ranges
+    }
+  }
+
   allow {
-    ports    = ["80"]
+    ports    = [each.value.port]
     protocol = "tcp"
   }
 
-  name    = "allow-http"
+  name    = each.key
   network = data.google_compute_network.network.name
 
   #tfsec:ignore:google-compute-no-public-ingress
-  source_ranges = ["0.0.0.0/0"]
-}
-
-resource "google_compute_firewall" "firewall_https" {
-  allow {
-    ports    = ["443"]
-    protocol = "tcp"
-  }
-
-  name    = "allow-https"
-  network = data.google_compute_network.network.name
-
-  #tfsec:ignore:google-compute-no-public-ingress
-  source_ranges = ["0.0.0.0/0"]
-}
-
-#tfsec:ignore:google-compute-no-public-ingress
-resource "google_compute_firewall" "firewall_ssh" {
-  allow {
-    ports    = ["22"]
-    protocol = "tcp"
-  }
-
-  name          = "allow-ssh"
-  network       = data.google_compute_network.network.name
-  source_ranges = var.firewall_ssh_source_ranges
+  source_ranges = each.value.source_ranges
 }
 
 #tfsec:ignore:google-compute-no-default-service-account
