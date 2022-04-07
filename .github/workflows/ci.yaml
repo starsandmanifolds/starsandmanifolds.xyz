@@ -1,6 +1,6 @@
 name: "CI"
 
-concurrency: ""
+concurrency: "Production"
 
 on:
   push:
