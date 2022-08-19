@@ -8,96 +8,41 @@ terraform {
   }
 
   required_providers {
-    google = {
-      source = "hashicorp/google"
-    }
-
-    http = {
-      source = "hashicorp/http"
+    azurerm = {
+      source = "hashicorp/azurerm"
     }
   }
 }
 
-provider "google" {
-  project = var.project
-  region  = var.region
-  zone    = var.zone
+provider "azurerm" {
+  features {}
 }
 
-data "google_compute_image" "image" {
-  family  = var.google_compute_image.family
-  project = var.google_compute_image.project
+locals {
+  resource_group_name  = "rg-${var.project_name}-${lower(var.location)}"
+  storage_account_name = "st${var.project_name}${lower(join("", regexall("[A-Z]", var.location)))}"
 }
 
-data "google_compute_network" "network" {
-  name = "default"
+resource "azurerm_resource_group" "resource_group" {
+  location = var.location
+  name     = local.resource_group_name
 }
 
-#tfsec:ignore:google-compute-no-public-ingress
-resource "google_compute_firewall" "firewalls" {
-  for_each = {
-    allow-http = {
-      ports         = ["80"]
-      source_ranges = ["0.0.0.0/0"]
-    }
+resource "azurerm_storage_account" "storage_account" {
+  #checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
+  #checkov:skip=CKV_AZURE_43: Ignore because checkov doesn't understand that that the storage account is named properly.
+  #checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
+  #checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
 
-    allow-https = {
-      ports         = ["443"]
-      source_ranges = ["0.0.0.0/0"]
-    }
+  account_replication_type = "LRS"
+  account_tier             = "Standard"
+  location                 = azurerm_resource_group.resource_group.location
+  name                     = local.storage_account_name
+  resource_group_name      = azurerm_resource_group.resource_group.name
 
-    allow-ssh = {
-      ports         = ["22"]
-      source_ranges = var.firewall_ssh_source_ranges
-    }
+  min_tls_version = "TLS1_2"
+  network_rules {
+    bypass         = ["AzureServices"]
+    default_action = "Deny"
   }
-
-  allow {
-    ports    = each.value.ports
-    protocol = "tcp"
-  }
-
-  name          = each.key
-  network       = data.google_compute_network.network.name
-  source_ranges = each.value.source_ranges
-}
-
-#tfsec:ignore:google-compute-no-default-service-account
-resource "google_compute_instance" "instance" {
-  #checkov:skip=CKV_GCP_30:Default service account is not actually used.
-
-  allow_stopping_for_update = true
-
-  #checkov:skip=CKV_GCP_38:Boot disk on this instance contains no sensitive data.
-  #tfsec:ignore:google-compute-vm-disk-encryption-customer-key
-  boot_disk {
-    initialize_params {
-      image = data.google_compute_image.image.name
-    }
-  }
-
-  hostname     = var.domain
-  machine_type = var.machine_type
-
-  metadata = {
-    block-project-ssh-keys = true
-    ssh-keys               = var.ssh_keys
-  }
-
-  name = "starsandmanifolds-xyz"
-
-  network_interface {
-    #checkov:skip=CKV_GCP_40:Public IP address needed for SSH access.
-    #tfsec:ignore:google-compute-no-public-ip
-    access_config {}
-    network = data.google_compute_network.network.name
-  }
-
-  shielded_instance_config {
-    enable_secure_boot = true
-  }
-}
-
-data "http" "google_domains_dynamic_dns" {
-  url = "https://${var.dns_credentials}@domains.google.com/nic/update?hostname=${var.domain}&myip=${google_compute_instance.instance.network_interface.0.access_config.0.nat_ip}"
 }
