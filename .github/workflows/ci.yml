@@ -57,6 +57,10 @@ jobs:
       - checkov-scan
       - tfsec-scan
 
+    permissions:
+      contents: read
+      id-token: write
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
