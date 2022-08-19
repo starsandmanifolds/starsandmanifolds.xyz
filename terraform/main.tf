@@ -40,4 +40,8 @@ resource "azurerm_storage_account" "storage_account" {
   resource_group_name      = azurerm_resource_group.resource_group.name
 
   min_tls_version = "TLS1_2"
+  network_rules {
+    bypass         = ["AzureServices"]
+    default_action = "Deny"
+  }
 }
