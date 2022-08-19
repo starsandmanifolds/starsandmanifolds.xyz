@@ -28,10 +28,11 @@ resource "azurerm_resource_group" "resource_group" {
   name     = local.resource_group_name
 }
 
-#checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
-#checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
-#checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
 resource "azurerm_storage_account" "storage_account" {
+  #checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
+  #checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
+  #checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
+
   account_replication_type = "LRS"
   account_tier             = "Standard"
   location                 = azurerm_resource_group.resource_group.location
