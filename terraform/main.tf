@@ -25,10 +25,6 @@ locals {
   storage_account_name = "st${var.project_name}${lower(join("", regexall("[A-Z]", var.location)))}"
 }
 
-output "storage_account_name" {
-  value = local.storage_account_name
-}
-
 resource "azurerm_resource_group" "resource_group" {
   location = var.location
   name     = local.resource_group_name
@@ -40,4 +36,6 @@ resource "azurerm_storage_account" "storage_account" {
   location                 = azurerm_resource_group.resource_group.location
   name                     = local.storage_account_name
   resource_group_name      = azurerm_resource_group.resource_group.name
+
+  min_tls_version = "TLS1_2"
 }
