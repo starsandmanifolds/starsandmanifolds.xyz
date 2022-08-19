@@ -16,8 +16,6 @@ terraform {
 
 provider "azurerm" {
   features {}
-
-  use_oidc = true
 }
 
 locals {
@@ -30,6 +28,7 @@ resource "azurerm_resource_group" "resource_group" {
   name     = local.resource_group_name
 }
 
+#checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
 resource "azurerm_storage_account" "storage_account" {
   account_replication_type = "LRS"
   account_tier             = "Standard"
