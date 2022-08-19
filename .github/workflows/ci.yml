@@ -47,19 +47,17 @@ jobs:
         run: docker run --rm --interactive --volume "$(pwd):/src" aquasec/tfsec-scratch /src
 
   terraform:
+    env:
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
     environment: Production
     needs:
       - checkov-scan
       - tfsec-scan
 
     runs-on: ubuntu-latest
-    env:
-      GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-
-      TF_VAR_dns_credentials: ${{ secrets.TF_VAR_DNS_CREDENTIALS }}
-      TF_VAR_firewall_ssh_source_ranges: ${{ secrets.TF_VAR_FIREWALL_SSH_SOURCE_RANGES }}
-      TF_VAR_ssh_keys: ${{ secrets.TF_VAR_SSH_KEYS }}
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
