@@ -36,17 +36,14 @@ resource "azurerm_storage_account" "storage_account" {
   #checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
   #checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
 
-  account_replication_type = "LRS"
-  account_tier             = "Standard"
-  location                 = azurerm_resource_group.resource_group.location
-  name                     = local.storage_account_name
-  resource_group_name      = azurerm_resource_group.resource_group.name
+  account_replication_type         = "LRS"
+  account_tier                     = "Standard"
+  cross_tenant_replication_enabled = false
+  location                         = azurerm_resource_group.resource_group.location
+  name                             = local.storage_account_name
+  resource_group_name              = azurerm_resource_group.resource_group.name
 
   min_tls_version = "TLS1_2"
-  network_rules {
-    bypass         = ["AzureServices"]
-    default_action = "Deny"
-  }
   static_website {
     index_document = "index.html"
   }
@@ -64,5 +61,5 @@ resource "azurerm_storage_blob" "storage_blob" {
   type                   = "Block"
 
   content_type = "text/html"
-  source_uri   = "../starsandmanifolds.xyz/index.html"
+  source       = "../starsandmanifolds.xyz/index.html"
 }
