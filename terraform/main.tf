@@ -32,6 +32,7 @@ resource "azurerm_resource_group" "resource_group" {
 
 resource "azurerm_storage_account" "storage_account" {
   #checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
+  #checkov:skip=CKV_AZURE_35: Need to allow access to storage account from all networks so that local computer and devops agent may run unheeded.
   #checkov:skip=CKV_AZURE_43: Ignore because checkov doesn't understand that that the storage account is named properly.
   #checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
   #checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
