@@ -21,46 +21,67 @@ provider "azurerm" {
 }
 
 locals {
-  resource_group_name  = "rg-${var.project_name}-${lower(var.location)}"
-  storage_account_name = "st${var.project_name}${lower(join("", regexall("[A-Z]", var.location)))}"
+  common_resource_suffix = "${var.project_name}-${lower(var.location)}"
 }
 
 resource "azurerm_resource_group" "resource_group" {
   location = var.location
-  name     = local.resource_group_name
+  name     = "rg-${local.common_resource_suffix}"
 }
 
-resource "azurerm_storage_account" "storage_account" {
-  #checkov:skip=CKV_AZURE_33: Storage logging need not be enabled because the Queue service is not used.
-  #checkov:skip=CKV_AZURE_35: Need to allow access to storage account from all networks so that local computer and devops agent may run unheeded.
-  #checkov:skip=CKV_AZURE_43: Ignore because checkov doesn't understand that that the storage account is named properly.
-  #checkov:skip=CKV2_AZURE_1: Customer Manager key is not needed for this use case.
-  #checkov:skip=CKV2_AZURE_18: Customer Manager key is not needed for this use case.
+resource "azurerm_virtual_network" "virtual_network" {
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.resource_group.location
+  name                = "vnet-${local.common_resource_suffix}"
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
 
-  account_replication_type         = "LRS"
-  account_tier                     = "Standard"
-  cross_tenant_replication_enabled = false
-  location                         = azurerm_resource_group.resource_group.location
-  name                             = local.storage_account_name
-  resource_group_name              = azurerm_resource_group.resource_group.name
+resource "azurerm_subnet" "subnet" {
+  address_prefixes     = ["10.0.0.0/24"]
+  name                 = "snet-${local.common_resource_suffix}"
+  resource_group_name  = azurerm_resource_group.resource_group.name
+  virtual_network_name = azurerm_virtual_network.virtual_network.name
+}
 
-  min_tls_version = "TLS1_2"
-  static_website {
-    index_document = "index.html"
+resource "azurerm_network_interface" "network_interface" {
+  ip_configuration {
+    private_ip_address_allocation = "Dynamic"
+    name                          = "ipc-${local.common_resource_suffix}"
+    subnet_id                     = azurerm_subnet.subnet.id
   }
+  location            = var.location
+  name                = "nic-${local.common_resource_suffix}"
+  resource_group_name = azurerm_resource_group.resource_group.name
 }
 
-data "azurerm_storage_container" "storage_container" {
-  name                 = "$web"
-  storage_account_name = azurerm_storage_account.storage_account.name
+data "azurerm_platform_image" "platform_image" {
+  location  = var.location
+  offer     = "0001-com-ubuntu-minimal-jammy"
+  publisher = "Canonical"
+  sku       = "minimal-22_04-lts-gen2"
 }
 
-resource "azurerm_storage_blob" "storage_blob" {
-  name                   = "index.html"
-  storage_account_name   = azurerm_storage_account.storage_account.name
-  storage_container_name = data.azurerm_storage_container.storage_container.name
-  type                   = "Block"
+resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
+  admin_username        = var.username
+  location              = azurerm_resource_group.resource_group.location
+  name                  = "vm-${local.common_resource_suffix}"
+  network_interface_ids = [azurerm_network_interface.network_interface.id]
+  os_disk {
+    caching              = "None"
+    name                 = "osdisk-virtual-machine-eastus"
+    storage_account_type = "Standard_LRS"
+  }
+  resource_group_name = azurerm_resource_group.resource_group.name
+  size                = "Standard_B1ls"
 
-  content_type = "text/html"
-  source       = "../starsandmanifolds.xyz/index.html"
+  admin_ssh_key {
+    public_key = var.public_key
+    username   = var.username
+  }
+  source_image_reference {
+    offer     = data.azurerm_platform_image.platform_image.offer
+    publisher = data.azurerm_platform_image.platform_image.publisher
+    sku       = data.azurerm_platform_image.platform_image.sku
+    version   = data.azurerm_platform_image.platform_image.version
+  }
 }

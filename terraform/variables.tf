@@ -9,3 +9,15 @@ variable "project_name" {
   description = "The name of the project."
   type        = string
 }
+
+variable "public_key" {
+  description = "The public SSH key used to access the virtual machine."
+  type        = string
+  sensitive   = true
+}
+
+variable "username" {
+  description = "The username of the user that has credentials to access the virtual machine."
+  type        = string
+  sensitive   = true
+}
