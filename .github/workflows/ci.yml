@@ -52,6 +52,9 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
+      TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
+      TF_VAR_username: ${{ secrets.TF_VAR_USERNAME}}
+
     environment: Production
     needs:
       - checkov-scan
