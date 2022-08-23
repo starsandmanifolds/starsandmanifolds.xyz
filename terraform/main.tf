@@ -78,6 +78,7 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     public_key = var.public_key
     username   = var.username
   }
+  allow_extension_operations = false
   source_image_reference {
     offer     = data.azurerm_platform_image.platform_image.offer
     publisher = data.azurerm_platform_image.platform_image.publisher
