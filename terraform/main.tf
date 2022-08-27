@@ -64,6 +64,31 @@ resource "azurerm_network_interface" "network_interface" {
   resource_group_name = azurerm_resource_group.resource_group.name
 }
 
+resource "azurerm_network_security_group" "network_security_group" {
+  location            = azurerm_resource_group.resource_group.location
+  name                = "nsg-${local.common_resource_suffix}"
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
+resource "azurerm_network_security_rule" "network_security_rule" {
+  access                      = "Allow"
+  destination_address_prefix  = "VirtualNetwork"
+  destination_port_range      = "22"
+  direction                   = "Inbound"
+  name                        = "nsr-${local.common_resource_suffix}"
+  network_security_group_name = azurerm_network_security_group.network_security_group.name
+  priority                    = "100"
+  protocol                    = "Tcp"
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  source_address_prefix       = "*"
+  source_port_range           = "*"
+}
+
+resource "azurerm_network_interface_security_group_association" "network_interface_security_group_association" {
+  network_interface_id      = azurerm_network_interface.network_interface.id
+  network_security_group_id = azurerm_network_security_group.network_security_group.id
+}
+
 data "azurerm_platform_image" "platform_image" {
   location  = var.location
   offer     = "0001-com-ubuntu-minimal-jammy"
