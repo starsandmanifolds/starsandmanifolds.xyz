@@ -43,11 +43,20 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = azurerm_virtual_network.virtual_network.name
 }
 
+resource "azurerm_public_ip" "public_ip" {
+  allocation_method   = "Static"
+  location            = azurerm_resource_group.resource_group.location
+  name                = "pip-${local.common_resource_suffix}"
+  resource_group_name = azurerm_resource_group.resource_group.name
+}
+
 resource "azurerm_network_interface" "network_interface" {
   ip_configuration {
-    private_ip_address_allocation = "Dynamic"
     name                          = "ipc-${local.common_resource_suffix}"
-    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "Dynamic"
+
+    public_ip_address_id = azurerm_public_ip.public_ip.id
+    subnet_id            = azurerm_subnet.subnet.id
   }
   location            = var.location
   name                = "nic-${local.common_resource_suffix}"
