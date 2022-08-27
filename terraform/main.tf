@@ -55,6 +55,7 @@ resource "azurerm_network_interface" "network_interface" {
     name                          = "ipc-${local.common_resource_suffix}"
     private_ip_address_allocation = "Dynamic"
 
+    #checkov:skip=CKV_AZURE_119: A public IP address is needed to SSH into VM.
     public_ip_address_id = azurerm_public_ip.public_ip.id
     subnet_id            = azurerm_subnet.subnet.id
   }
