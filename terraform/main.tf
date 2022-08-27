@@ -67,9 +67,14 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
   name                  = "vm-${local.common_resource_suffix}"
   network_interface_ids = [azurerm_network_interface.network_interface.id]
   os_disk {
-    caching              = "None"
+    caching              = "ReadOnly"
     name                 = "osdisk-virtual-machine-eastus"
     storage_account_type = "Standard_LRS"
+
+    diff_disk_settings {
+      option = "Local"
+    }
+    disk_size_gb = 10
   }
   resource_group_name = azurerm_resource_group.resource_group.name
   size                = "Standard_B1ls"
