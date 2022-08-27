@@ -80,7 +80,7 @@ resource "azurerm_network_security_rule" "network_security_rule" {
   priority                    = "100"
   protocol                    = "Tcp"
   resource_group_name         = azurerm_resource_group.resource_group.name
-  source_address_prefix       = "*"
+  source_address_prefix       = "173.48.222.212"
   source_port_range           = "*"
 }
 
