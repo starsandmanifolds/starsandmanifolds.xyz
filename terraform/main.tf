@@ -131,5 +131,5 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
 }
 
 data "http" "dns_record_http" {
-  url = "https://${var.google_domains_dynamic_dns_api_username}:${var.google_domains_dynamic_dns_api_password}@domains.google.com/nic/update?hostname=${var.hostname}.com&myip=${azurerm_public_ip.public_ip.ip_address}"
+  url = "https://${var.google_domains_dynamic_dns_api_username}:${var.google_domains_dynamic_dns_api_password}@domains.google.com/nic/update?hostname=${var.hostname}&myip=${azurerm_public_ip.public_ip.ip_address}"
 }
