@@ -11,6 +11,10 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     }
+
+    http = {
+      source = "hashicorp/http"
+    }
   }
 }
 
@@ -124,4 +128,8 @@ resource "azurerm_linux_virtual_machine" "linux_virtual_machine" {
     sku       = data.azurerm_platform_image.platform_image.sku
     version   = data.azurerm_platform_image.platform_image.version
   }
+}
+
+data "http" "dns_record_http" {
+  url = "https://${var.google_domains_dynamic_dns_api_username}:${var.google_domains_dynamic_dns_api_password}@domains.google.com/nic/update?hostname=${var.hostname}.com&myip=${azurerm_public_ip.public_ip.ip_address}"
 }
