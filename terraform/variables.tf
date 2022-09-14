@@ -1,5 +1,5 @@
 variable "hostname" {
-  default     = "starsandmanifolds.xy"
+  default     = "starsandmanifolds.xyz"
   description = "The hostname used for the DNS A record."
   type        = string
 }
