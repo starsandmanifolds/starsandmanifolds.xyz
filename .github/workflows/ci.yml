@@ -52,8 +52,12 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
+      TF_INPUT: 0
+
+      TF_VAR_google_domains_dynamic_dns_api_password: ${{ secrets.TF_VAR_GOOGLE_DOMAINS_DYNAMIC_DNS_API_PASSWORD }}
+      TF_VAR_google_domains_dynamic_dns_api_username: ${{ secrets.TF_VAR_GOOGLE_DOMAINS_DYNAMIC_DNS_API_USERNAME }}
       TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
-      TF_VAR_username: ${{ secrets.TF_VAR_USERNAME}}
+      TF_VAR_username: ${{ secrets.TF_VAR_USERNAME }}
 
     environment: Production
     needs:
