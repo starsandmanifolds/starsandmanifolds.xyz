@@ -17,12 +17,31 @@
     <style>
       body {
         font-family: "Pacifico", cursive;
+        font-size: 40px;
         text-align: center;
+      }
+
+      h1 {
+        background: url("https://user-images.githubusercontent.com/89186/52150144-e63d5200-2623-11e9-979d-30958714c4c4.png")
+          repeat-x;
+        background-size: 4479px auto;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        animation: frames 30s linear infinite;
+      }
+
+      @keyframes frames {
+        0% {
+          background-position: 0px 0px;
+        }
+
+        100% {
+          background-position: -4479px 0px;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>Stars and Manifolds</h1>
-    <p>A blog about Mathematics, Physics, and Computer Science.</p>
+    <h1 class="rainbow-text-wrapper">Stars and Manifolds</h1>
   </body>
 </html>
