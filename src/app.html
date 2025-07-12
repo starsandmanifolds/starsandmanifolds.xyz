@@ -25,20 +25,22 @@
       onload="this.media='all'"
     />
     
-    <!-- Load Dancing Script for branding -->
+    <!-- Load Dancing Script for branding (subset to only "Stars and Manifolds" characters) -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap&text=Stars%20and%20Manifolds"
       media="print"
       onload="this.media='all'"
     />
     
-    <!-- KaTeX CSS for math rendering -->
+    <!-- KaTeX CSS for math rendering - load asynchronously to prevent render blocking -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css"
       integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP"
       crossorigin="anonymous"
+      media="print"
+      onload="this.media='all'"
     />
 
     %sveltekit.head%

@@ -4,15 +4,15 @@
   const currentYear = new Date().getFullYear();
 </script>
 
-<footer id="contact" class="bg-neutral-900 border-t border-neutral-800 py-12">
+<footer id="contact" class="bg-space border-t border-neutral-800 py-12">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Brand -->
         <div>
-          <h3 class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
+          <div class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
             {SITE_CONFIG.name}
-          </h3>
+          </div>
           <p class="text-neutral-400 text-sm">
             {SITE_CONFIG.tagline}
           </p>
@@ -20,7 +20,7 @@
         
         <!-- Quick Links -->
         <div>
-          <h4 class="font-semibold mb-4 text-neutral-100">Quick Links</h4>
+          <div class="font-semibold mb-4 text-neutral-100">Quick Links</div>
           <ul class="space-y-2">
             <li>
               <a href="/about" class="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
@@ -47,7 +47,7 @@
         
         <!-- Social Links -->
         <div>
-          <h4 class="font-semibold mb-4 text-neutral-100">Connect</h4>
+          <div class="font-semibold mb-4 text-neutral-100">Connect</div>
           <div class="flex space-x-4">
             {#each SITE_CONFIG.socialLinks as link}
               <a

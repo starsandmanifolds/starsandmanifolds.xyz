@@ -8,7 +8,7 @@
   }
 </script>
 
-<header class="fixed top-0 w-full bg-neutral-950 border-b border-neutral-800 z-50">
+<header class="fixed top-0 w-full bg-space border-b border-neutral-800 z-50">
   <div class="container mx-auto px-4">
     <nav class="flex items-center justify-between h-16">
       <!-- Logo -->
