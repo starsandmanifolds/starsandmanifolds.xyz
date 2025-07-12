@@ -1,0 +1,71 @@
+/* Fonts are loaded via link tags in app.html for better performance */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Smooth transitions for theme changes */
+  html {
+    @apply transition-colors duration-300;
+    /* Always show vertical scrollbar to prevent layout shift */
+    overflow-y: scroll;
+  }
+  
+  /* Default light mode background and text */
+  body {
+    @apply bg-white text-neutral-900;
+  }
+  
+  /* Dark mode background and text */
+  html.dark body {
+    @apply bg-neutral-950 text-neutral-100;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Selection colors */
+  ::selection {
+    @apply bg-primary-500 text-white;
+  }
+  
+  /* Dark mode selection */
+  html.dark ::selection {
+    @apply bg-primary-600;
+  }
+}
+
+/* Code block styling */
+.prose pre {
+  @apply rounded-lg my-6 p-0 overflow-hidden bg-neutral-900 dark:bg-neutral-950;
+}
+
+.prose pre code {
+  @apply block p-4 overflow-x-auto text-sm;
+}
+
+/* Shiki overrides */
+.prose .shiki {
+  @apply bg-neutral-900 dark:bg-neutral-950 m-0;
+}
+
+.prose .shiki code {
+  @apply bg-transparent;
+}
+
+/* KaTeX math styling */
+.prose .katex {
+  @apply text-neutral-900 dark:text-neutral-100;
+  font-size: 1.1em;
+}
+
+.prose .katex-display {
+  @apply my-6;
+}
+
+/* Math block background */
+.prose .katex-display > .katex {
+  @apply bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg;
+}
