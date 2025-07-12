@@ -5,8 +5,6 @@ excerpt: How principles from physics can inform better software design patterns 
 tags: ["Physics", "Software Design", "Theory"]
 ---
 
-# The Intersection of Physics and Software Engineering
-
 As someone with a background in both physics and software engineering, I've often found that principles from physics can provide powerful insights into software design. Let's explore some of these connections.
 
 ## Conservation Laws in Software

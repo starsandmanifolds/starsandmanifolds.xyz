@@ -25,7 +25,7 @@
   
   <main class="flex-grow pt-24 pb-16">
     <article class="container mx-auto px-4">
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-4xl mx-auto">
         <!-- Post header -->
         <header class="mb-8">
           <h1 class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">
@@ -47,7 +47,7 @@
         </header>
         
         <!-- Post content -->
-        <div class="prose prose-lg dark:prose-invert mx-auto max-w-none prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-950 prose-pre:text-neutral-100">
+        <div class="prose prose-lg dark:prose-invert max-w-none prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-950 prose-pre:text-neutral-100">
           {#if data.post.content}
             <svelte:component this={data.post.content} />
           {:else}

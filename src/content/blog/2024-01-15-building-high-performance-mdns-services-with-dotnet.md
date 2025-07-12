@@ -5,8 +5,6 @@ excerpt: A deep dive into implementing multicast DNS services using .NET, explor
 tags: ["C#", ".NET", "Networking", "mDNS"]
 ---
 
-# Building High-Performance mDNS Services with .NET
-
 Multicast DNS (mDNS) is a powerful protocol that enables automatic service discovery on local networks without requiring a central DNS server. In this post, we'll explore how to build high-performance mDNS services using .NET.
 
 ## What is mDNS?
