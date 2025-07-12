@@ -48,7 +48,7 @@
   </div>
   
   <!-- Gradient divider at bottom of header -->
-  <div class="divider-gradient"></div>
+  <div class="divider-space"></div>
   
   <div class="container mx-auto px-4">
     <!-- Mobile Menu -->
