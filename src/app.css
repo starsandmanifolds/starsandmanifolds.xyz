@@ -236,3 +236,86 @@ code, pre, .shiki, .hljs {
   height: 1px;
   width: 100%;
 }
+
+/* Alternative 1: Dual Gradient with Glow Effect */
+.divider-gradient-glow {
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(56, 189, 248, 0.3) 20%, 
+    rgba(56, 189, 248, 0.5) 50%,
+    rgba(56, 189, 248, 0.3) 80%, 
+    transparent 100%
+  );
+  filter: blur(1px);
+  position: relative;
+}
+.divider-gradient-glow::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: inherit;
+  filter: blur(4px);
+  opacity: 0.5;
+}
+
+/* Alternative 2: Animated Shimmer Effect */
+.divider-gradient-shimmer {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(163, 163, 163, 0.1) 25%, 
+    rgba(163, 163, 163, 0.3) 50%,
+    rgba(163, 163, 163, 0.1) 75%, 
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Alternative 3: Dotted Gradient Pattern */
+.divider-dots {
+  height: 3px;
+  background-image: radial-gradient(circle, rgba(163, 163, 163, 0.3) 1px, transparent 1px);
+  background-size: 8px 3px;
+  background-position: center;
+  opacity: 0.5;
+}
+
+/* Alternative 4: Multi-Color Space Theme */
+.divider-space {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(56, 189, 248, 0.2) 15%, /* blue */
+    rgba(147, 51, 234, 0.2) 35%, /* purple */
+    rgba(236, 72, 153, 0.2) 65%, /* pink */
+    rgba(56, 189, 248, 0.2) 85%, /* blue */
+    transparent 100%
+  );
+}
+
+/* Alternative 5: Centered Short Line with Fade */
+.divider-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+.divider-centered::before {
+  content: '';
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(163, 163, 163, 0.4), 
+    transparent
+  );
+}

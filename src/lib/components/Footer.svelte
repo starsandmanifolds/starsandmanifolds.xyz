@@ -5,7 +5,7 @@
 </script>
 
 <!-- Gradient divider above footer -->
-<div class="divider-gradient"></div>
+<div class="divider-space"></div>
 
 <footer id="contact" class="bg-space py-12">
   <div class="container mx-auto px-4">
@@ -85,7 +85,7 @@
       
       <!-- Gradient divider before copyright -->
       <div class="mt-8 pt-8 text-center">
-        <div class="divider-gradient mb-8"></div>
+        <div class="divider-space mb-8"></div>
         <p class="text-sm text-neutral-400">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
