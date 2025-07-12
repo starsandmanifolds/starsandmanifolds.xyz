@@ -8,7 +8,7 @@
   }
 </script>
 
-<header class="fixed top-0 w-full bg-space border-b border-neutral-800 z-50">
+<header class="fixed top-0 w-full bg-space z-50">
   <div class="container mx-auto px-4">
     <nav class="flex items-center justify-between h-16">
       <!-- Logo -->
@@ -45,7 +45,12 @@
         </button>
       </div>
     </nav>
-    
+  </div>
+  
+  <!-- Gradient divider at bottom of header -->
+  <div class="divider-gradient"></div>
+  
+  <div class="container mx-auto px-4">
     <!-- Mobile Menu -->
     {#if mobileMenuOpen}
       <div class="md:hidden border-t border-neutral-800 py-4">
