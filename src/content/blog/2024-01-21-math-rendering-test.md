@@ -5,8 +5,6 @@ excerpt: Testing LaTeX math rendering with various mathematical expressions and 
 tags: ["Mathematics", "Test", "LaTeX"]
 ---
 
-# Mathematics Rendering Test
-
 This post tests the LaTeX math rendering capabilities using KaTeX with rehype-katex-svelte.
 
 ## Inline Math

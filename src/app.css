@@ -1,7 +1,40 @@
 /* Fonts are loaded via link tags in app.html for better performance */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #d4d4d4;
+  --color-neutral-400: #a3a3a3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+  --color-neutral-950: #0a0a0a;
+
+  --font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace;
+  --font-family-decorative: 'Dancing Script', cursive;
+}
+
+/* Define utility classes for custom fonts in Tailwind CSS v4 */
+@utility font-decorative {
+  font-family: var(--font-family-decorative);
+}
 
 @layer base {
   /* Smooth transitions for theme changes */
@@ -9,15 +42,12 @@
     @apply transition-colors duration-300;
     /* Always show vertical scrollbar to prevent layout shift */
     overflow-y: scroll;
+    /* Force dark theme */
+    color-scheme: dark;
   }
   
-  /* Default light mode background and text */
+  /* Always use dark theme */
   body {
-    @apply bg-white text-neutral-900;
-  }
-  
-  /* Dark mode background and text */
-  html.dark body {
     @apply bg-neutral-950 text-neutral-100;
   }
   
@@ -28,36 +58,146 @@
   
   /* Selection colors */
   ::selection {
-    @apply bg-primary-500 text-white;
+    @apply bg-primary-600 text-white;
   }
-  
-  /* Dark mode selection */
-  html.dark ::selection {
-    @apply bg-primary-600;
-  }
+}
+
+/* Typography/Prose Styles - Dark Theme Only */
+.prose {
+  color: theme('colors.neutral.300');
+  max-width: none;
+  line-height: 1.75;
+}
+
+.prose h1 {
+  color: theme('colors.neutral.100');
+  font-weight: 800;
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+
+.prose h2 {
+  color: theme('colors.neutral.100');
+  font-weight: 700;
+  font-size: 1.5em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+  line-height: 1.3333333;
+}
+
+.prose h3 {
+  color: theme('colors.neutral.100');
+  font-weight: 600;
+  font-size: 1.25em;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+  line-height: 1.6;
+}
+
+.prose h4 {
+  color: theme('colors.neutral.100');
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.prose p {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+
+.prose a {
+  color: theme('colors.primary.400');
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.prose a:hover {
+  color: theme('colors.primary.300');
+}
+
+.prose strong {
+  color: theme('colors.neutral.100');
+  font-weight: 600;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose code {
+  color: theme('colors.neutral.100');
+  background-color: theme('colors.neutral.800');
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-weight: 400;
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace;
+  font-variant-ligatures: common-ligatures;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+.prose ul {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-left: 1.625em;
+}
+
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose blockquote {
+  font-weight: 500;
+  font-style: italic;
+  color: theme('colors.neutral.100');
+  border-left-width: 0.25rem;
+  border-left-color: theme('colors.neutral.700');
+  quotes: "\201C""\201D""\2018""\2019";
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+  padding-left: 1em;
 }
 
 /* Code block styling */
 .prose pre {
-  @apply rounded-lg my-6 p-0 overflow-hidden bg-neutral-900 dark:bg-neutral-950;
+  @apply rounded-lg my-6 p-0 overflow-hidden bg-neutral-950;
 }
 
 .prose pre code {
   @apply block p-4 overflow-x-auto text-sm;
+  background-color: transparent !important;
+  color: theme('colors.neutral.100') !important;
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+  font-variant-ligatures: common-ligatures !important;
+  font-feature-settings: "liga" 1, "calt" 1 !important;
 }
 
 /* Shiki overrides */
 .prose .shiki {
-  @apply bg-neutral-900 dark:bg-neutral-950 m-0;
+  @apply bg-neutral-950 m-0;
 }
 
 .prose .shiki code {
   @apply bg-transparent;
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+  font-variant-ligatures: common-ligatures !important;
+  font-feature-settings: "liga" 1, "calt" 1 !important;
 }
 
 /* KaTeX math styling */
 .prose .katex {
-  @apply text-neutral-900 dark:text-neutral-100;
+  @apply text-neutral-100;
   font-size: 1.1em;
 }
 
@@ -67,5 +207,12 @@
 
 /* Math block background */
 .prose .katex-display > .katex {
-  @apply bg-neutral-50 dark:bg-neutral-900 p-4 rounded-lg;
+  @apply bg-neutral-900 p-4 rounded-lg;
+}
+
+/* Global ligature support for all code elements */
+code, pre, .shiki, .hljs {
+  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+  font-variant-ligatures: common-ligatures !important;
+  font-feature-settings: "liga" 1, "calt" 1 !important;
 }

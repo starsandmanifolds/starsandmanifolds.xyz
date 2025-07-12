@@ -4,41 +4,41 @@
   const currentYear = new Date().getFullYear();
 </script>
 
-<footer id="contact" class="bg-neutral-100 dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800 py-12">
+<footer id="contact" class="bg-neutral-900 border-t border-neutral-800 py-12">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Brand -->
         <div>
-          <h3 class="text-3xl font-decorative font-bold mb-4 text-neutral-900 dark:text-neutral-100">
+          <h3 class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
             {SITE_CONFIG.name}
           </h3>
-          <p class="text-neutral-600 dark:text-neutral-400 text-sm">
+          <p class="text-neutral-400 text-sm">
             {SITE_CONFIG.tagline}
           </p>
         </div>
         
         <!-- Quick Links -->
         <div>
-          <h4 class="font-semibold mb-4 text-neutral-900 dark:text-neutral-100">Quick Links</h4>
+          <h4 class="font-semibold mb-4 text-neutral-100">Quick Links</h4>
           <ul class="space-y-2">
             <li>
-              <a href="/about" class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
+              <a href="/about" class="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
                 About
               </a>
             </li>
             <li>
-              <a href="/projects" class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
+              <a href="/projects" class="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
                 Projects
               </a>
             </li>
             <li>
-              <a href="/skills" class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
+              <a href="/skills" class="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
                 Skills
               </a>
             </li>
             <li>
-              <a href="/blog" class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 text-sm transition-colors">
+              <a href="/blog" class="text-neutral-400 hover:text-primary-400 text-sm transition-colors">
                 Blog
               </a>
             </li>
@@ -47,14 +47,14 @@
         
         <!-- Social Links -->
         <div>
-          <h4 class="font-semibold mb-4 text-neutral-900 dark:text-neutral-100">Connect</h4>
+          <h4 class="font-semibold mb-4 text-neutral-100">Connect</h4>
           <div class="flex space-x-4">
             {#each SITE_CONFIG.socialLinks as link}
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                class="text-neutral-400 hover:text-primary-400 transition-colors"
                 aria-label={link.name}
               >
                 {#if link.name === 'GitHub'}
@@ -81,8 +81,8 @@
       </div>
       
       <!-- Copyright -->
-      <div class="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-center">
-        <p class="text-sm text-neutral-600 dark:text-neutral-400">
+      <div class="mt-8 pt-8 border-t border-neutral-800 text-center">
+        <p class="text-sm text-neutral-400">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
       </div>

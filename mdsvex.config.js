@@ -31,7 +31,7 @@ const config = {
       if (!highlighter) {
         highlighter = await createHighlighter({
           themes: ['github-dark'],
-          langs: ['javascript', 'typescript', 'csharp', 'cpp', 'python', 'bash', 'json', 'markdown', 'css', 'html', 'text']
+          langs: ['javascript', 'typescript', 'csharp', 'cpp', 'python', 'bash', 'json', 'markdown', 'css', 'html', 'text', 'rust', 'haskell']
         });
       }
       

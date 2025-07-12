@@ -5,8 +5,6 @@ excerpt: Exploring modern C++ features and their applications in high-performanc
 tags: ["C++", "Systems Programming", "Performance"]
 ---
 
-# Modern C++ in Systems Programming
-
 C++ has evolved significantly since C++11, introducing features that make systems programming safer and more expressive without sacrificing performance. Let's explore how modern C++ enhances systems programming.
 
 ## Smart Pointers: Memory Safety Without Garbage Collection
