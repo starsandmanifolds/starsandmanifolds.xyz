@@ -4,7 +4,10 @@
   const currentYear = new Date().getFullYear();
 </script>
 
-<footer id="contact" class="bg-space border-t border-neutral-800 py-12">
+<!-- Gradient divider above footer -->
+<div class="divider-gradient"></div>
+
+<footer id="contact" class="bg-space py-12">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -80,8 +83,9 @@
         </div>
       </div>
       
-      <!-- Copyright -->
-      <div class="mt-8 pt-8 border-t border-neutral-800 text-center">
+      <!-- Gradient divider before copyright -->
+      <div class="mt-8 pt-8 text-center">
+        <div class="divider-gradient mb-8"></div>
         <p class="text-sm text-neutral-400">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
