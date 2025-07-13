@@ -24,14 +24,14 @@ public class MdnsResponder
 {
     private readonly UdpClient udpClient;
     private readonly IPEndPoint mdnsEndpoint;
-    
+
     public MdnsResponder()
     {
         mdnsEndpoint = new IPEndPoint(IPAddress.Parse("224.0.0.251"), 5353);
         udpClient = new UdpClient();
         udpClient.JoinMulticastGroup(IPAddress.Parse("224.0.0.251"));
     }
-    
+
     public async Task StartAsync()
     {
         // Implementation details...

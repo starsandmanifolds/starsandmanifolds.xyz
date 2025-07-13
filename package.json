@@ -33,6 +33,8 @@
   },
   "type": "module",
   "dependencies": {
-    "@tailwindcss/postcss": "^4.1.11"
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/three": "^0.178.1",
+    "three": "^0.178.0"
   }
 }

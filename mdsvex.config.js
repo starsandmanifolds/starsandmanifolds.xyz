@@ -1,7 +1,7 @@
-import { escapeSvelte } from 'mdsvex';
-import { createHighlighter } from 'shiki';
-import remarkMath from 'remark-math';
-import rehypeKatexSvelte from 'rehype-katex-svelte';
+import { escapeSvelte } from "mdsvex";
+import { createHighlighter } from "shiki";
+import remarkMath from "remark-math";
+import rehypeKatexSvelte from "rehype-katex-svelte";
 
 // Global singleton highlighter to prevent multiple instances
 let highlighterInstance = null;
@@ -11,21 +11,35 @@ async function getHighlighter() {
   if (highlighterInstance) {
     return highlighterInstance;
   }
-  
+
   if (isHighlighterInitializing) {
     // Wait for the current initialization to complete
     while (isHighlighterInitializing) {
-      await new Promise(resolve => setTimeout(resolve, 50));
+      await new Promise((resolve) => setTimeout(resolve, 50));
     }
     return highlighterInstance;
   }
-  
+
   isHighlighterInitializing = true;
-  
+
   try {
     highlighterInstance = await createHighlighter({
-      themes: ['github-dark'],
-      langs: ['javascript', 'typescript', 'csharp', 'cpp', 'python', 'bash', 'json', 'markdown', 'css', 'html', 'text', 'rust', 'haskell']
+      themes: ["github-dark"],
+      langs: [
+        "javascript",
+        "typescript",
+        "csharp",
+        "cpp",
+        "python",
+        "bash",
+        "json",
+        "markdown",
+        "css",
+        "html",
+        "text",
+        "rust",
+        "haskell",
+      ],
     });
     return highlighterInstance;
   } finally {
@@ -35,7 +49,7 @@ async function getHighlighter() {
 
 /** @type {import('mdsvex').MdsvexOptions} */
 const config = {
-  extensions: ['.md'],
+  extensions: [".md"],
   remarkPlugins: [remarkMath],
   rehypePlugins: [
     [
@@ -50,23 +64,25 @@ const config = {
           "\\ZZ": "\\mathbb{Z}",
         },
         throwOnError: false,
-        strict: false
-      }
-    ]
+        strict: false,
+      },
+    ],
   ],
   highlight: {
-    highlighter: async (code, lang = 'text') => {
+    highlighter: async (code, lang = "text") => {
       try {
         const highlighter = await getHighlighter();
-        const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: 'github-dark' }));
+        const html = escapeSvelte(
+          highlighter.codeToHtml(code, { lang, theme: "github-dark" }),
+        );
         return `{@html \`${html}\`}`;
       } catch (error) {
-        console.warn('Shiki highlighting failed for language:', lang, error);
+        console.warn("Shiki highlighting failed for language:", lang, error);
         // Fallback to simple code block if Shiki fails
         return `<pre><code class="language-${lang}">${code}</code></pre>`;
       }
-    }
-  }
+    },
+  },
 };
 
 export default config;
