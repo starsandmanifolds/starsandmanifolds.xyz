@@ -27,7 +27,7 @@
   let time = 0;
   let isVisible = true; // Track visibility state
   let resizeTimeout: number;
-  
+
   // Pre-create reusable paths for each star type
   const starPaths = new Map<string, Path2D>();
 
@@ -192,7 +192,7 @@
   function getOrCreateStarPath(size: number): Path2D {
     const cacheKey = size.toFixed(2);
     let path = starPaths.get(cacheKey);
-    
+
     if (!path) {
       path = new Path2D();
       // Four-pointed star centered at origin
@@ -207,7 +207,7 @@
       path.closePath();
       starPaths.set(cacheKey, path);
     }
-    
+
     return path;
   }
 
@@ -355,10 +355,10 @@
     for (const [type, typeStars] of Object.entries(starsByType)) {
       // Skip if no stars of this type
       if (!typeStars.length) continue;
-      
+
       // Set shadow once per type
       ctx.save();
-      
+
       if (type === "diamond") {
         ctx.shadowBlur = 6;
       } else if (type === "large") {
@@ -369,17 +369,18 @@
 
       // Batch similar opacity stars together to reduce state changes
       let lastOpacity = -1;
-      
+
       for (const star of typeStars) {
         // Calculate twinkle effect
         const twinkle =
           Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.5 + 0.5;
-        const opacity = Math.round((star.baseOpacity * (0.5 + twinkle * 0.5)) * 100) / 100; // Round to 2 decimals
+        const opacity =
+          Math.round(star.baseOpacity * (0.5 + twinkle * 0.5) * 100) / 100; // Round to 2 decimals
 
         // Only update fillStyle if opacity changed significantly
         if (Math.abs(opacity - lastOpacity) > 0.05) {
           ctx.fillStyle = `rgba(${star.colorString}, ${opacity})`;
-          
+
           // Set shadow color only for glowing stars
           if (ctx.shadowBlur > 0) {
             ctx.shadowColor = `rgba(${star.colorString}, ${opacity * 0.5})`;
@@ -392,7 +393,7 @@
         ctx.fill(star.path!);
         ctx.translate(-star.x, -star.y);
       }
-      
+
       ctx.restore();
     }
 
@@ -413,7 +414,7 @@
 
   function handleResize() {
     if (!canvas) return;
-    
+
     // Debounce resize events
     clearTimeout(resizeTimeout);
     resizeTimeout = window.setTimeout(() => {
@@ -426,13 +427,13 @@
 
   onMount(() => {
     ctx = canvas.getContext("2d")!; // Keep alpha enabled to show background color
-    
+
     // Generate and group stars immediately
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     stars = generateStars();
     groupStars(stars);
-    
+
     // Start animation
     draw();
 
