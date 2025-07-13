@@ -22,7 +22,7 @@ export function loadBlogPosts(): BlogPost[] {
 
     posts.push({
       title: metadata.title || "Untitled",
-      date: metadata.date || date,
+      date: date,
       excerpt: metadata.excerpt || "",
       slug: slugWithHyphens,
       tags: metadata.tags || [],
@@ -50,7 +50,7 @@ export async function loadBlogPost(slug: string) {
 
       return {
         title: metadata.title || "Untitled",
-        date: metadata.date || date,
+        date: date,
         excerpt: metadata.excerpt || "",
         slug: slug,
         tags: metadata.tags || [],
