@@ -39,4 +39,4 @@ $$
 \end{align*}
 $$
 
-, i.e. the acceleration vector is proportional to the negative of the position vector. $\square$
+, i.e. the acceleration vector is proportional to the negative of the position vector.
