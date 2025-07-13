@@ -6,22 +6,29 @@
 
 <svelte:head>
   <title>About - {SITE_CONFIG.name}</title>
-  <meta name="description" content="About {SITE_CONFIG.name} - Software engineer with a background in Physics, Mathematics, and AI." />
+  <meta
+    name="description"
+    content="About {SITE_CONFIG.name} - Software engineer with a background in Physics, Mathematics, and AI."
+  />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
   <Header />
-  
+
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100">
+        <h1
+          class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100"
+        >
           {ABOUT_CONTENT.title}
         </h1>
-        
+
         <div class="prose prose-xl dark:prose-invert max-w-none">
           {#each ABOUT_CONTENT.paragraphs as paragraph}
-            <p class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6">
+            <p
+              class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6"
+            >
               {paragraph}
             </p>
           {/each}
@@ -29,6 +36,6 @@
       </div>
     </div>
   </main>
-  
+
   <Footer />
 </div>

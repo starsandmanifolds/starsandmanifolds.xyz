@@ -29,15 +29,15 @@ export interface BlogPost {
 
 export interface Skill {
   name: string;
-  category: 'language' | 'framework' | 'tool' | 'other';
-  proficiency?: 'beginner' | 'intermediate' | 'advanced' | 'expert';
+  category: "language" | "framework" | "tool" | "other";
+  proficiency?: "beginner" | "intermediate" | "advanced" | "expert";
 }
 
 export interface TimelineItem {
   date: string;
   title: string;
   description: string;
-  type: 'work' | 'education' | 'achievement';
+  type: "work" | "education" | "achievement";
 }
 
 export interface SiteConfig {

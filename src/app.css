@@ -29,9 +29,12 @@
   /* Custom space-inspired background color from logo */
   --color-space: #00071b;
 
-  --font-family-sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-family-mono: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace;
-  --font-family-decorative: 'Dancing Script', cursive;
+  --font-family-sans:
+    Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    sans-serif;
+  --font-family-mono:
+    "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace;
+  --font-family-decorative: "Dancing Script", cursive;
 }
 
 /* Define utility classes for custom fonts and colors in Tailwind CSS v4 */
@@ -52,18 +55,19 @@
     /* Force dark theme */
     color-scheme: dark;
   }
-  
+
   /* Always use dark theme with space-inspired background */
   body {
     background-color: var(--color-space);
     color: var(--color-neutral-100);
+    position: relative;
   }
-  
+
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;
   }
-  
+
   /* Selection colors */
   ::selection {
     @apply bg-primary-600 text-white;
@@ -72,13 +76,13 @@
 
 /* Typography/Prose Styles - Dark Theme Only */
 .prose {
-  color: theme('colors.neutral.300');
+  color: theme("colors.neutral.300");
   max-width: none;
   line-height: 1.75;
 }
 
 .prose h1 {
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   font-weight: 800;
   font-size: 2.25em;
   margin-top: 0;
@@ -87,7 +91,7 @@
 }
 
 .prose h2 {
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   font-weight: 700;
   font-size: 1.5em;
   margin-top: 2em;
@@ -96,7 +100,7 @@
 }
 
 .prose h3 {
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   font-weight: 600;
   font-size: 1.25em;
   margin-top: 1.6em;
@@ -105,7 +109,7 @@
 }
 
 .prose h4 {
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   font-weight: 600;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
@@ -118,17 +122,17 @@
 }
 
 .prose a {
-  color: theme('colors.primary.400');
+  color: theme("colors.primary.400");
   text-decoration: underline;
   font-weight: 500;
 }
 
 .prose a:hover {
-  color: theme('colors.primary.300');
+  color: theme("colors.primary.300");
 }
 
 .prose strong {
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   font-weight: 600;
 }
 
@@ -137,15 +141,17 @@
 }
 
 .prose code {
-  color: theme('colors.neutral.100');
-  background-color: theme('colors.neutral.800');
+  color: theme("colors.neutral.100");
+  background-color: theme("colors.neutral.800");
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-weight: 400;
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace;
+  font-family: "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace;
   font-variant-ligatures: common-ligatures;
-  font-feature-settings: "liga" 1, "calt" 1;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
 }
 
 .prose ul {
@@ -168,10 +174,10 @@
 .prose blockquote {
   font-weight: 500;
   font-style: italic;
-  color: theme('colors.neutral.100');
+  color: theme("colors.neutral.100");
   border-left-width: 0.25rem;
-  border-left-color: theme('colors.neutral.700');
-  quotes: "\201C""\201D""\2018""\2019";
+  border-left-color: theme("colors.neutral.700");
+  quotes: "\201C" "\201D" "\2018" "\2019";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
   padding-left: 1em;
@@ -185,10 +191,13 @@
 .prose pre code {
   @apply block p-4 overflow-x-auto text-sm;
   background-color: transparent !important;
-  color: theme('colors.neutral.100') !important;
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+  color: theme("colors.neutral.100") !important;
+  font-family:
+    "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace !important;
   font-variant-ligatures: common-ligatures !important;
-  font-feature-settings: "liga" 1, "calt" 1 !important;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1 !important;
 }
 
 /* Shiki overrides */
@@ -198,9 +207,12 @@
 
 .prose .shiki code {
   @apply bg-transparent;
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+  font-family:
+    "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace !important;
   font-variant-ligatures: common-ligatures !important;
-  font-feature-settings: "liga" 1, "calt" 1 !important;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1 !important;
 }
 
 /* KaTeX math styling */
@@ -219,103 +231,28 @@
 }
 
 /* Global ligature support for all code elements */
-code, pre, .shiki, .hljs {
-  font-family: 'Fira Code', 'JetBrains Mono', Consolas, Monaco, monospace !important;
+code,
+pre,
+.shiki,
+.hljs {
+  font-family:
+    "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace !important;
   font-variant-ligatures: common-ligatures !important;
-  font-feature-settings: "liga" 1, "calt" 1 !important;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1 !important;
 }
 
-/* Gradient dividers */
-.divider-gradient {
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(163, 163, 163, 0.2) 15%, 
-    rgba(163, 163, 163, 0.2) 85%, 
-    transparent 100%
-  );
-  height: 1px;
-  width: 100%;
-}
-
-/* Alternative 1: Dual Gradient with Glow Effect */
-.divider-gradient-glow {
-  height: 2px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(56, 189, 248, 0.3) 20%, 
-    rgba(56, 189, 248, 0.5) 50%,
-    rgba(56, 189, 248, 0.3) 80%, 
-    transparent 100%
-  );
-  filter: blur(1px);
-  position: relative;
-}
-.divider-gradient-glow::after {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: 0;
-  right: 0;
-  height: 6px;
-  background: inherit;
-  filter: blur(4px);
-  opacity: 0.5;
-}
-
-/* Alternative 2: Animated Shimmer Effect */
-.divider-gradient-shimmer {
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(163, 163, 163, 0.1) 25%, 
-    rgba(163, 163, 163, 0.3) 50%,
-    rgba(163, 163, 163, 0.1) 75%, 
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
-}
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-/* Alternative 3: Dotted Gradient Pattern */
-.divider-dots {
-  height: 3px;
-  background-image: radial-gradient(circle, rgba(163, 163, 163, 0.3) 1px, transparent 1px);
-  background-size: 8px 3px;
-  background-position: center;
-  opacity: 0.5;
-}
-
-/* Alternative 4: Multi-Color Space Theme */
+/* Multi-Color Space Theme Divider */
 .divider-space {
   height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    rgba(56, 189, 248, 0.2) 15%, /* blue */
-    rgba(147, 51, 234, 0.2) 35%, /* purple */
-    rgba(236, 72, 153, 0.2) 65%, /* pink */
-    rgba(56, 189, 248, 0.2) 85%, /* blue */
-    transparent 100%
-  );
-}
-
-/* Alternative 5: Centered Short Line with Fade */
-.divider-centered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem 0;
-}
-.divider-centered::before {
-  content: '';
-  width: 100px;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(163, 163, 163, 0.4), 
-    transparent
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(56, 189, 248, 0.2) 15%,
+    /* blue */ rgba(147, 51, 234, 0.2) 35%,
+    /* purple */ rgba(236, 72, 153, 0.2) 65%,
+    /* pink */ rgba(56, 189, 248, 0.2) 85%,
+    /* blue */ transparent 100%
   );
 }

@@ -42,7 +42,7 @@ c & d
 \begin{bmatrix}
 x \\
 y
-\end{bmatrix} = 
+\end{bmatrix} =
 \begin{bmatrix}
 ax + by \\
 cx + dy
@@ -69,7 +69,7 @@ $$i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{r},t) = \hat{H}\Psi(\mathbf{r},t
 Here we use some predefined macros:
 
 - Real numbers: $\RR$
-- Complex numbers: $\CC$ 
+- Complex numbers: $\CC$
 - Natural numbers: $\NN$
 - Integers: $\ZZ$
 - Vector notation: $\vec{F} = m\vec{a}$
