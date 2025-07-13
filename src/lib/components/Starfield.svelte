@@ -195,15 +195,27 @@
 
     if (!path) {
       path = new Path2D();
-      // Four-pointed star centered at origin
-      path.moveTo(0, -size); // Top
-      path.lineTo(size * 0.16, -size * 0.2); // Top-right curve
-      path.lineTo(size, 0); // Right
-      path.lineTo(size * 0.16, size * 0.2); // Bottom-right curve
-      path.lineTo(0, size); // Bottom
-      path.lineTo(-size * 0.16, size * 0.2); // Bottom-left curve
-      path.lineTo(-size, 0); // Left
-      path.lineTo(-size * 0.16, -size * 0.2); // Top-left curve
+
+      // Create a plus sign with hyperbolic curves connecting the vertices
+      // The four vertices are at: top (0, -size), right (size, 0), bottom (0, size), left (-size, 0)
+
+      // Start at top vertex
+      path.moveTo(0, -size);
+
+      // Hyperbolic curve from top to right
+      // For a hyperbola connecting (0, -size) to (size, 0), we need the curve to bow inward
+      const inset = size * 0.15; // Much sharper curve toward center
+      path.quadraticCurveTo(inset, -inset, size, 0);
+
+      // Hyperbolic curve from right to bottom
+      path.quadraticCurveTo(inset, inset, 0, size);
+
+      // Hyperbolic curve from bottom to left
+      path.quadraticCurveTo(-inset, inset, -size, 0);
+
+      // Hyperbolic curve from left back to top
+      path.quadraticCurveTo(-inset, -inset, 0, -size);
+
       path.closePath();
       starPaths.set(cacheKey, path);
     }
