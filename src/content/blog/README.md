@@ -11,7 +11,6 @@ To add a new blog post:
 ```markdown
 ---
 title: Your Blog Post Title
-date: 2024-01-20
 excerpt: A brief description of your blog post that will appear in the blog list.
 tags: ["Tag1", "Tag2", "Tag3"]
 ---
@@ -20,8 +19,6 @@ tags: ["Tag1", "Tag2", "Tag3"]
 4. Write your content in Markdown below the front matter:
 
 ```markdown
-# Your Blog Post Title
-
 Your introduction paragraph...
 
 ## Section Heading
@@ -33,9 +30,10 @@ Content...
 ## Front Matter Fields
 
 - `title` (required): The title of your blog post
-- `date` (optional): Publication date in YYYY-MM-DD format. If not provided, it will be extracted from the filename
 - `excerpt` (required): A brief description shown in the blog list
 - `tags` (required): An array of tags for categorization
+
+**Note**: The publication date is automatically extracted from the filename (YYYY-MM-DD format).
 
 ## Markdown Features
 
