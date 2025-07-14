@@ -18,12 +18,6 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <h1
-          class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100"
-        >
-          {ABOUT_CONTENT.title}
-        </h1>
-
         <div class="prose prose-xl dark:prose-invert max-w-none">
           {#each ABOUT_CONTENT.paragraphs as paragraph}
             <p
