@@ -19,6 +19,7 @@ where $f_n$ are the coefficients and $n \in \{0, 1, 2, \ldots\}$. This discrete 
 ## The Continuous Extension
 
 Let's extend the index $n$ from discrete integers to a continuous parameter $t \in [0, \infty)$. This transforms:
+
 - The discrete coefficients $f_n$ into a continuous function $f(t)$
 - The summation $\sum$ into an integral $\int$
 
@@ -45,7 +46,7 @@ $$
 For convergence, we need $x \in (0, 1)$, which means $\ln x < 0$. Let's make a substitution to clarify this structure. Setting $s = -\ln x$ (so $s > 0$ when $0 < x < 1$), we get:
 
 $$
-F(e^{-s}) = \int_0^{\infty} f(t) e^{-st} \, dt = \mathcal{L}\{f(t)\}(s)
+\int_0^{\infty} f(t) e^{-st} \, dt \triangleq \mathscr{L}\{f(t)\}(s)
 $$
 
 This is precisely the Laplace transform of $f(t)$!
