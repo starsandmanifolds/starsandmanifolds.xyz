@@ -5,27 +5,26 @@ To add a new blog post:
 1. Create a new Markdown file in this directory (`src/content/blog/`)
 2. Name it using the format: `YYYY-MM-DD-your-post-slug.md`
    - Example: `2024-01-20-understanding-rust-ownership.md`
-
 3. Add front matter at the top of the file:
 
-```markdown
----
-title: Your Blog Post Title
-excerpt: A brief description of your blog post that will appear in the blog list.
-tags: ["Tag1", "Tag2", "Tag3"]
----
-```
+   ```md
+   ---
+   title: Your Blog Post Title
+   excerpt: A brief description of your blog post that will appear in the blog list.
+   tags: ["Tag1", "Tag2", "Tag3"]
+   ---
+   ```
 
 4. Write your content in Markdown below the front matter:
 
-```markdown
-Your introduction paragraph...
+   ```markdown
+   Your introduction paragraph...
 
-## Section Heading
+   ## Section Heading
 
-Content...
+   Content...
 
-```
+   ```
 
 ## Front Matter Fields
 
@@ -38,6 +37,7 @@ Content...
 ## Markdown Features
 
 You can use all standard Markdown features:
+
 - **Bold text**
 - *Italic text*
 - `Inline code`
@@ -53,18 +53,23 @@ You can use all standard Markdown features:
 You can include mathematical equations using LaTeX syntax:
 
 ### Inline Math
+
 Use single dollar signs for inline math: `$E = mc^2$` renders as $E = mc^2$
 
 ### Display Math
+
 Use double dollar signs for display math:
-```
+
+```latex
 $$
 \frac{x}{y} = \frac{a}{b}
 $$
 ```
 
 ### Available Macros
+
 The following LaTeX macros are predefined:
+
 - `\vec{F}` for bold vectors
 - `\RR` for real numbers (ℝ)
 - `\CC` for complex numbers (ℂ)
@@ -72,6 +77,7 @@ The following LaTeX macros are predefined:
 - `\ZZ` for integers (ℤ)
 
 ### Examples
+
 - Inline: `$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$`
 - Display: `$$\int_{-\infty}^{\infty} e^{-x^2} dx = \sqrt{\pi}$$`
 - Vectors: `$\vec{F} = m\vec{a}$`
