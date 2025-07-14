@@ -10,7 +10,7 @@
 <footer id="contact" class="bg-space py-12">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Brand -->
         <div>
           <div class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
@@ -21,49 +21,10 @@
           </p>
         </div>
 
-        <!-- Quick Links -->
-        <div>
-          <div class="font-semibold mb-4 text-neutral-100">Quick Links</div>
-          <ul class="space-y-2">
-            <li>
-              <a
-                href="/about"
-                class="text-neutral-400 hover:text-primary-400 text-sm transition-colors"
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="/projects"
-                class="text-neutral-400 hover:text-primary-400 text-sm transition-colors"
-              >
-                Projects
-              </a>
-            </li>
-            <li>
-              <a
-                href="/skills"
-                class="text-neutral-400 hover:text-primary-400 text-sm transition-colors"
-              >
-                Skills
-              </a>
-            </li>
-            <li>
-              <a
-                href="/blog"
-                class="text-neutral-400 hover:text-primary-400 text-sm transition-colors"
-              >
-                Blog
-              </a>
-            </li>
-          </ul>
-        </div>
-
         <!-- Social Links -->
-        <div>
+        <div class="md:text-right">
           <div class="font-semibold mb-4 text-neutral-100">Connect</div>
-          <div class="flex space-x-4">
+          <div class="flex space-x-4 md:justify-end">
             {#each SITE_CONFIG.socialLinks as link}
               <a
                 href={link.href}
