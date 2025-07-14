@@ -78,33 +78,6 @@ export const SKILLS: Skill[] = [
   { name: "AI/ML", category: "other", proficiency: "intermediate" },
 ];
 
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    title: "Building High-Performance mDNS Services with .NET",
-    date: "2024-01-15",
-    excerpt:
-      "A deep dive into implementing multicast DNS services using .NET, exploring performance optimizations and real-world applications.",
-    slug: "mdns-services-dotnet",
-    tags: ["C#", ".NET", "Networking", "mDNS"],
-  },
-  {
-    title: "The Intersection of Physics and Software Engineering",
-    date: "2024-01-08",
-    excerpt:
-      "How principles from physics can inform better software design patterns and help us build more robust systems.",
-    slug: "physics-software-engineering",
-    tags: ["Physics", "Software Design", "Theory"],
-  },
-  {
-    title: "Modern C++ in Systems Programming",
-    date: "2023-12-20",
-    excerpt:
-      "Exploring modern C++ features and their applications in high-performance systems programming.",
-    slug: "modern-cpp-systems",
-    tags: ["C++", "Systems Programming", "Performance"],
-  },
-];
-
 export const TIMELINE: TimelineItem[] = [
   // Professional timeline will be added here when needed
 ];
