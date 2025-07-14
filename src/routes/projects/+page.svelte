@@ -15,11 +15,6 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <h1
-          class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100"
-        >
-          Projects
-        </h1>
         <p class="text-xl text-neutral-600 dark:text-neutral-400 mb-12">
           Here are some of the projects I've worked on.
         </p>

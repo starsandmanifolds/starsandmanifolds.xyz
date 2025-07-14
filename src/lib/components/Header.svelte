@@ -1,5 +1,6 @@
 <script lang="ts">
   import { NAV_ITEMS, SITE_CONFIG } from "$lib/constants";
+  import { page } from "$app/stores";
 
   let mobileMenuOpen = false;
 
@@ -21,7 +22,7 @@
         {#each NAV_ITEMS as item}
           <a
             href={item.href}
-            class="text-neutral-400 hover:text-primary-400 transition-colors"
+            class="text-neutral-400 hover:text-primary-400 transition-colors {$page.url.pathname === item.href ? 'text-primary-400 border-b-2 border-primary-400' : ''}"
           >
             {item.label}
           </a>
@@ -73,7 +74,7 @@
           <a
             href={item.href}
             on:click={() => (mobileMenuOpen = false)}
-            class="block py-2 text-neutral-400 hover:text-primary-400 transition-colors"
+            class="block py-2 text-neutral-400 hover:text-primary-400 transition-colors {$page.url.pathname === item.href ? 'text-primary-400' : ''}"
           >
             {item.label}
           </a>
