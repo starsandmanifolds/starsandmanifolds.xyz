@@ -20,12 +20,16 @@ export function loadBlogPosts(): BlogPost[] {
     // The metadata from front matter
     const metadata = file.metadata || {};
 
+    // Skip posts that are not published
+    if (!metadata.publish) continue;
+
     posts.push({
       title: metadata.title || "Untitled",
       date: date,
       excerpt: metadata.excerpt || "",
       slug: slugWithHyphens,
       tags: metadata.tags || [],
+      publish: metadata.publish,
     });
   }
 
@@ -48,12 +52,16 @@ export async function loadBlogPost(slug: string) {
       const [, date] = match;
       const metadata = file.metadata || {};
 
+      // Skip posts that are not published
+      if (!metadata.publish) return null;
+
       return {
         title: metadata.title || "Untitled",
         date: date,
         excerpt: metadata.excerpt || "",
         slug: slug,
         tags: metadata.tags || [],
+        publish: metadata.publish,
         content: file.default, // The rendered component
       };
     }
