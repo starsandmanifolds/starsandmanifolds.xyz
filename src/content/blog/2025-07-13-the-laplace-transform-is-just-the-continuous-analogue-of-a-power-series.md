@@ -2,6 +2,7 @@
 title: The Laplace Transform is Just the Continuous Analogue of a Power Series
 excerpt: Exploring the deep connection between power series and the Laplace transform by extending discrete indices to continuous parameters.
 tags: ["Mathematics", "Analysis", "Transforms"]
+state: published
 ---
 
 The Laplace transform is a fundamental tool in mathematics and engineering, but its connection to more elementary concepts isn't always clear. In this article, we'll show how the Laplace transform naturally emerges when we generalize the familiar power series from discrete to continuous indices.
