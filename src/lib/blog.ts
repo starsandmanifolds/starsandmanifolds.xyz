@@ -20,8 +20,8 @@ export function loadBlogPosts(): BlogPost[] {
     // The metadata from front matter
     const metadata = file.metadata || {};
 
-    // Skip posts that are not published
-    if (!metadata.publish) continue;
+    // Skip posts that are not in a published state
+    if (metadata.state !== "published") continue;
 
     posts.push({
       title: metadata.title || "Untitled",
@@ -29,7 +29,7 @@ export function loadBlogPosts(): BlogPost[] {
       excerpt: metadata.excerpt || "",
       slug: slugWithHyphens,
       tags: metadata.tags || [],
-      publish: metadata.publish,
+      state: metadata.state,
     });
   }
 
@@ -52,8 +52,8 @@ export async function loadBlogPost(slug: string) {
       const [, date] = match;
       const metadata = file.metadata || {};
 
-      // Skip posts that are not published
-      if (!metadata.publish) return null;
+      // Skip posts that are not in a published state
+      if (metadata.state !== "published") return null;
 
       return {
         title: metadata.title || "Untitled",
@@ -61,7 +61,7 @@ export async function loadBlogPost(slug: string) {
         excerpt: metadata.excerpt || "",
         slug: slug,
         tags: metadata.tags || [],
-        publish: metadata.publish,
+        state: metadata.state,
         content: file.default, // The rendered component
       };
     }

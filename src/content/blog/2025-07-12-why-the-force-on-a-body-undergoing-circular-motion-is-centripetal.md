@@ -2,6 +2,7 @@
 title: Why the Force on a Body Undergoing Circular Motion is Centripetal
 excerpt: A mathematical derivation showing why circular motion requires a center-directed force, starting from the position vector and using Newton's laws.
 tags: ["Physics", "Mathematics", "Classical Mechanics"]
+state: published
 ---
 
 When observing objects in circular motion, from planets orbiting the sun to electrons in particle accelerators, we find they all require a force directed toward the center of their circular path. This centripetal force is not a new type of force, but rather the net force required to maintain circular motion. Let's derive why this must be the case using vector calculus.

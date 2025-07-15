@@ -12,7 +12,7 @@ To add a new blog post:
    title: Your Blog Post Title
    excerpt: A brief description of your blog post that will appear in the blog list.
    tags: ["Tag1", "Tag2", "Tag3"]
-   publish: true
+   state: published
    ---
    ```
 
@@ -32,7 +32,7 @@ To add a new blog post:
 - `title` (required): The title of your blog post
 - `excerpt` (required): A brief description shown in the blog list
 - `tags` (required): An array of tags for categorization
-- `publish` (required): Boolean to control visibility (set to `true` to make the post visible)
+- `state` (required): An enum representing the post's state (e.g., published, draft)
 
 **Note**: The publication date is automatically extracted from the filename (YYYY-MM-DD format).
 

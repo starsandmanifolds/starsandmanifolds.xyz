@@ -24,7 +24,7 @@ export interface BlogPost {
   excerpt: string;
   slug: string;
   tags: string[];
-  publish: boolean;
+  state: "draft" | "published";
   content?: any; // Svelte component for rendered markdown
 }
 
