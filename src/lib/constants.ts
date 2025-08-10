@@ -50,6 +50,13 @@ export const ABOUT_CONTENT: AboutContent = {
 
 export const PROJECTS: Project[] = [
   {
+    title: "bh1750.py",
+    description:
+      "A production-quality, robust, and memory-efficient MicroPython driver for the BH1750 I2C ambient light sensor.",
+    technologies: ["MicroPython", "Embedded", "IoT", "Driver"],
+    githubUrl: "https://github.com/adyavanapalli/bh1750.py",
+  },
+  {
     title: "MdnsListener",
     description:
       "A high-performance, production-ready multicast DNS (mDNS) listener built with .NET, designed to discover and monitor services on the local network using the mDNS protocol (RFC 6762).",
