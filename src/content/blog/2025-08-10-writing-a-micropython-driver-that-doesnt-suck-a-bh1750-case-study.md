@@ -18,6 +18,7 @@ Your microcontroller has about as much RAM as a potato. Every time you create a 
 A good driver is a minimalist. It cleans up after itself and, more importantly, avoids making a mess in the first place.
 
 **Meal Prep for Your Code: Pre-allocate Buffers**
+
 Instead of creating new `bytearray` objects for I2C communication every single time you talk to the sensor, make them once when the driver starts. It’s like meal prepping for your code: do the work upfront so you can be lazy and efficient later.
 
 ```python
@@ -37,6 +38,7 @@ class BH1750:
 ```
 
 **Use `const()` Because Change is Scary**
+
 Hardware addresses and command codes aren't going to change. By using `micropython.const()`, you're telling the interpreter, "This is a number, not a variable." It saves a bit of RAM, but more importantly, it makes your code's intent clearer.
 
 ```python
