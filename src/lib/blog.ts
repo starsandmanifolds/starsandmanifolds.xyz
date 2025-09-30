@@ -23,8 +23,8 @@ export function loadBlogPosts(): BlogPost[] {
 
     const [, date, slugWithHyphens] = match;
 
-    // Parse frontmatter
-    const { data: metadata } = matter(rawContent);
+    // Parse frontmatter and content
+    const { data: metadata, content } = matter(rawContent);
 
     // Skip posts that are not in a published state
     if (metadata.state !== "published") continue;
@@ -36,6 +36,7 @@ export function loadBlogPosts(): BlogPost[] {
       slug: slugWithHyphens,
       tags: metadata.tags || [],
       state: metadata.state,
+      content: content, // Include raw markdown content for search
     });
   }
 
