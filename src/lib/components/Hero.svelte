@@ -27,6 +27,7 @@
           width="384"
           height="384"
           loading="eager"
+          fetchpriority="high"
         />
       </picture>
 
