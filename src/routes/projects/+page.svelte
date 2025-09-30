@@ -1,7 +1,11 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { PROJECTS, SITE_CONFIG, SITE_URL } from "$lib/constants";
+  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
+  import type { PageData } from "./$types";
+
+  let { data }: { data: PageData } = $props();
+  const { projects } = data;
 
   const canonicalUrl = `${SITE_URL}/projects`;
   const description = "Projects and open source work by Anand Shankar Dyavanapalli.";
@@ -35,53 +39,55 @@
           Here are some of the projects I've worked on.
         </p>
 
-        {#if PROJECTS.length > 0}
+        {#if projects.length > 0}
           <ul class="space-y-6">
-            {#each PROJECTS as project}
+            {#each projects as project}
               <li
                 class="border-b border-neutral-200 dark:border-neutral-800 pb-6"
               >
                 <div class="space-y-3">
-                  <!-- Title with links -->
+                  <!-- Title with link to detail page -->
                   <div class="flex items-start justify-between gap-4">
-                    {#if project.githubUrl}
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="group inline-flex items-center gap-1"
-                      >
-                        <h2
-                          class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
-                        >
-                          {project.title}
-                        </h2>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="currentColor"
-                          viewBox="0 0 16 16"
-                          class="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-600 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
-                          />
-                          <path
-                            fill-rule="evenodd"
-                            d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
-                          />
-                        </svg>
-                      </a>
-                    {:else}
+                    <a
+                      href="/projects/{project.slug}"
+                      class="group inline-flex items-center gap-2"
+                    >
                       <h2
-                        class="text-xl font-medium text-neutral-900 dark:text-neutral-100"
+                        class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                       >
                         {project.title}
                       </h2>
-                    {/if}
+                    </a>
 
-                    {#if project.liveUrl}
-                      <div class="flex-shrink-0">
+                    <!-- External links -->
+                    <div class="flex gap-3 flex-shrink-0">
+                      {#if project.githubUrl}
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+                          aria-label="View on GitHub"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            class="w-5 h-5"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
+                            />
+                            <path
+                              fill-rule="evenodd"
+                              d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
+                            />
+                          </svg>
+                        </a>
+                      {/if}
+
+                      {#if project.liveUrl}
                         <a
                           href={project.liveUrl}
                           target="_blank"
@@ -104,8 +110,8 @@
                             />
                           </svg>
                         </a>
-                      </div>
-                    {/if}
+                      {/if}
+                    </div>
                   </div>
 
                   <!-- Description -->
