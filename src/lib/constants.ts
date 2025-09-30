@@ -44,9 +44,9 @@ export const HERO_CONTENT: HeroContent = {
 export const ABOUT_CONTENT: AboutContent = {
   title: "About Me",
   paragraphs: [
-    "Fullstack software engineer with strong problem-solving skills, experience developing on large code bases, and a background in Physics, Mathematics, and AI.",
-    "I enjoy tackling complex technical challenges and building robust, scalable solutions. My diverse background in sciences and engineering helps me approach problems from unique perspectives.",
-    "Currently focused on building high-performance systems and exploring the intersection of software engineering with my academic foundations.",
+    "I'm a software engineer with a background in Physics, Mathematics, and AI. I spend my days writing code and solving technical problems, but what really gets me excited is building things that make life easier for people I care about.",
+    "Beyond software, I'm into DIY projects, electronics, and inventing things. There's something deeply satisfying about taking an idea, tinkering with it until it works, and seeing someone actually use it. Whether it's a CLI tool that helps my wife with her doctorate, a WhatsApp chatbot that handles the errands my parents keep bugging me about, or a hardware project that solves a small annoyance, I love that moment when something you built actually helps.",
+    "I approach problems from different angles thanks to my background in sciences and engineering. And honestly, most of what I build starts as play, me nerding out over something interesting, and it just happens to turn into something useful.",
   ],
 };
 
