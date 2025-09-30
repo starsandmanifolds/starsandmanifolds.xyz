@@ -381,8 +381,16 @@
 
     clearTimeout(resizeTimeout);
     resizeTimeout = window.setTimeout(() => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      // Skip if dimensions haven't actually changed
+      if (canvas.width === newWidth && canvas.height === newHeight) {
+        return;
+      }
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
 
       if (gl) {
         gl.viewport(0, 0, canvas.width, canvas.height);

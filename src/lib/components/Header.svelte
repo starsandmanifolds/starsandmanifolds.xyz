@@ -1,11 +1,20 @@
 <script lang="ts">
   import { NAV_ITEMS, SITE_CONFIG } from "$lib/constants";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 
-  let mobileMenuOpen = false;
+  let mobileMenuOpen = $state(false);
 
   function toggleMobileMenu() {
     mobileMenuOpen = !mobileMenuOpen;
+  }
+
+  function isActive(itemHref: string): boolean {
+    const pathname = page.url.pathname;
+    // Exact match for homepage
+    if (itemHref === "/" && pathname === "/") return true;
+    // For other pages, check if pathname starts with the href
+    if (itemHref !== "/" && pathname.startsWith(itemHref)) return true;
+    return false;
   }
 </script>
 
@@ -22,7 +31,7 @@
         {#each NAV_ITEMS as item}
           <a
             href={item.href}
-            class="text-neutral-400 hover:text-primary-400 transition-colors {$page.url.pathname === item.href ? 'text-primary-400 border-b-2 border-primary-400' : ''}"
+            class="text-neutral-400 hover:text-primary-400 transition-colors {isActive(item.href) ? 'text-primary-400 border-b-2 border-primary-400' : ''}"
           >
             {item.label}
           </a>
@@ -32,9 +41,11 @@
       <!-- Mobile Menu Button -->
       <div class="md:hidden">
         <button
-          on:click={toggleMobileMenu}
+          onclick={toggleMobileMenu}
           class="p-2 rounded-lg hover:bg-neutral-800 transition-colors"
           aria-label="Toggle mobile menu"
+          aria-expanded={mobileMenuOpen}
+          aria-controls="mobile-menu"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +80,12 @@
   <div class="container mx-auto px-4">
     <!-- Mobile Menu -->
     {#if mobileMenuOpen}
-      <div class="md:hidden border-t border-neutral-800 py-4">
+      <div id="mobile-menu" class="md:hidden border-t border-neutral-800 py-4">
         {#each NAV_ITEMS as item}
           <a
             href={item.href}
-            on:click={() => (mobileMenuOpen = false)}
-            class="block py-2 text-neutral-400 hover:text-primary-400 transition-colors {$page.url.pathname === item.href ? 'text-primary-400' : ''}"
+            onclick={() => (mobileMenuOpen = false)}
+            class="block py-2 text-neutral-400 hover:text-primary-400 transition-colors {isActive(item.href) ? 'text-primary-400' : ''}"
           >
             {item.label}
           </a>

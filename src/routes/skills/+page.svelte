@@ -1,7 +1,10 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SKILLS, SITE_CONFIG } from "$lib/constants";
+  import { SKILLS, SITE_CONFIG, SITE_URL } from "$lib/constants";
+
+  const canonicalUrl = `${SITE_URL}/skills`;
+  const description = "Technical skills and expertise - Languages, frameworks, and technologies.";
 
   const skillsByCategory = SKILLS.reduce(
     (acc, skill) => {
@@ -23,10 +26,20 @@
 
 <svelte:head>
   <title>Skills - {SITE_CONFIG.name}</title>
-  <meta
-    name="description"
-    content="Technical skills and expertise of {SITE_CONFIG.name}."
-  />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content="Skills - {SITE_CONFIG.name}" />
+  <meta property="og:description" content={description} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalUrl} />
+  <meta property="twitter:title" content="Skills - {SITE_CONFIG.name}" />
+  <meta property="twitter:description" content={description} />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
