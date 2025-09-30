@@ -31,12 +31,6 @@ export interface BlogPost {
   content?: string; // HTML string for rendered markdown
 }
 
-export interface Skill {
-  name: string;
-  category: "language" | "framework" | "tool" | "other";
-  proficiency?: "beginner" | "intermediate" | "advanced" | "expert";
-}
-
 export interface TimelineItem {
   date: string;
   title: string;
