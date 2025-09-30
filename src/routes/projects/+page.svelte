@@ -1,12 +1,28 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { PROJECTS, SITE_CONFIG } from "$lib/constants";
+  import { PROJECTS, SITE_CONFIG, SITE_URL } from "$lib/constants";
+
+  const canonicalUrl = `${SITE_URL}/projects`;
+  const description = "Projects and open source work by Anand Shankar Dyavanapalli.";
 </script>
 
 <svelte:head>
   <title>Projects - {SITE_CONFIG.name}</title>
-  <meta name="description" content="Projects and work by {SITE_CONFIG.name}." />
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content="Projects - {SITE_CONFIG.name}" />
+  <meta property="og:description" content={description} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalUrl} />
+  <meta property="twitter:title" content="Projects - {SITE_CONFIG.name}" />
+  <meta property="twitter:description" content={description} />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
@@ -96,6 +112,30 @@
                   <p class="text-neutral-600 dark:text-neutral-400">
                     {project.description}
                   </p>
+
+                  <!-- Blog post link -->
+                  {#if project.blogPostSlug}
+                    <a
+                      href="/blog/{project.blogPostSlug}"
+                      class="inline-flex items-center gap-1.5 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors font-medium"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-4 h-4"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                        />
+                      </svg>
+                      Read more
+                    </a>
+                  {/if}
 
                   <!-- Technologies -->
                   <div class="flex flex-wrap gap-2">

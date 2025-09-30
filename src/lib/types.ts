@@ -16,6 +16,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
+  blogPostSlug?: string;
 }
 
 export interface BlogPost {
@@ -25,7 +26,7 @@ export interface BlogPost {
   slug: string;
   tags: string[];
   state: "draft" | "published";
-  content?: any; // Svelte component for rendered markdown
+  content?: string; // HTML string for rendered markdown
 }
 
 export interface Skill {

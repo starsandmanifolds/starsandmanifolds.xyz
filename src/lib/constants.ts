@@ -9,6 +9,8 @@ import type {
   TimelineItem,
 } from "./types";
 
+export const SITE_URL = "https://starsandmanifolds.xyz";
+
 export const SITE_CONFIG: SiteConfig = {
   name: "Stars and Manifolds",
   title: "Stars and Manifolds",
@@ -55,6 +57,7 @@ export const PROJECTS: Project[] = [
       "A production-quality, robust, and memory-efficient MicroPython driver for the BH1750 I2C ambient light sensor.",
     technologies: ["MicroPython", "Embedded", "IoT", "Driver"],
     githubUrl: "https://github.com/adyavanapalli/bh1750.py",
+    blogPostSlug: "writing-a-micropython-driver-that-doesnt-suck-a-bh1750-case-study",
   },
   {
     title: "MdnsListener",

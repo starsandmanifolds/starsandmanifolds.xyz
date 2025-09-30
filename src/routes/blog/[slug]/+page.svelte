@@ -1,23 +1,50 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SITE_CONFIG } from "$lib/constants";
+  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
+  import { formatDate } from "$lib/utils/date";
   import type { PageData } from "./$types";
 
-  export let data: PageData;
+  let { data }: { data: PageData } = $props();
 
-  function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
+  const canonicalUrl = `${SITE_URL}/blog/${data.post.slug}`;
+
+  // Create structured data for SEO
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": data.post.title,
+    "description": data.post.excerpt,
+    "datePublished": data.post.date,
+    "author": {
+      "@type": "Person",
+      "name": "Anand Shankar Dyavanapalli",
+      "url": SITE_URL
+    },
+    "keywords": data.post.tags.join(", "),
+    "url": canonicalUrl
+  };
 </script>
 
 <svelte:head>
   <title>{data.post.title} - {SITE_CONFIG.name}</title>
   <meta name="description" content={data.post.excerpt} />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={data.post.title} />
+  <meta property="og:description" content={data.post.excerpt} />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalUrl} />
+  <meta property="twitter:title" content={data.post.title} />
+  <meta property="twitter:description" content={data.post.excerpt} />
+
+  <!-- Structured Data -->
+  {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
@@ -57,7 +84,7 @@
           class="prose prose-lg dark:prose-invert max-w-none prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-950 prose-pre:text-neutral-100"
         >
           {#if data.post.content}
-            <svelte:component this={data.post.content} />
+            {@html data.post.content}
           {:else}
             <p
               class="text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed"

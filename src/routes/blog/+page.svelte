@@ -1,70 +1,28 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SITE_CONFIG } from "$lib/constants";
-  import { loadBlogPosts } from "$lib/blog";
-  import type { BlogPost } from "$lib/types";
+  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
+  import { formatDate } from "$lib/utils/date";
+  import type { PageData } from "./$types";
 
-  const blogPosts = loadBlogPosts();
-  let searchQuery = "";
-  let filteredPosts: BlogPost[] = blogPosts;
+  let { data }: { data: PageData } = $props();
 
-  // Load blog content for search
-  const blogFiles = import.meta.glob("/src/content/blog/*.md", { 
-    eager: true,
-    query: '?raw',
-    import: 'default'
-  });
-  
-  // Extract text content from markdown
-  const postContents: Record<string, string> = {};
-  for (const [path, content] of Object.entries(blogFiles)) {
-    const filename = path.split('/').pop() || '';
-    const match = filename.match(/^(\d{4}-\d{2}-\d{2})-(.+)\.md$/);
-    if (match) {
-      const [, , slug] = match;
-      // Remove frontmatter and convert to plain text for searching
-      const textContent = content
-        .replace(/^---[\s\S]*?---\n/, '') // Remove frontmatter
-        .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-        .replace(/\$\$[\s\S]*?\$\$/g, '') // Remove display math
-        .replace(/\$[^$]*?\$/g, '') // Remove inline math
-        .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // Convert links to text
-        .replace(/[#*_`]/g, '') // Remove markdown formatting
-        .toLowerCase();
-      postContents[slug] = textContent;
-    }
-  }
+  let searchQuery = $state("");
 
-  function searchPosts() {
+  // Use $derived.by for computed/filtered posts
+  const filteredPosts = $derived.by(() => {
     if (!searchQuery.trim()) {
-      filteredPosts = blogPosts;
-      return;
+      return data.posts;
     }
 
     const query = searchQuery.toLowerCase();
-    filteredPosts = blogPosts.filter(post => {
-      // Search in title, excerpt, and tags
+    return data.posts.filter(post => {
       const inTitle = post.title.toLowerCase().includes(query);
       const inExcerpt = post.excerpt.toLowerCase().includes(query);
       const inTags = post.tags.some(tag => tag.toLowerCase().includes(query));
-      
-      // Search in content
-      const inContent = postContents[post.slug]?.includes(query) || false;
-      
-      return inTitle || inExcerpt || inTags || inContent;
+      return inTitle || inExcerpt || inTags;
     });
-  }
-
-  function formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  }
-
-  $: searchQuery, searchPosts();
+  });
 </script>
 
 <svelte:head>
@@ -73,6 +31,7 @@
     name="description"
     content="Blog posts about software engineering, technology, and more."
   />
+  <link rel="canonical" href="{SITE_URL}/blog" />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
@@ -110,7 +69,7 @@
           </svg>
           {#if searchQuery}
             <button
-              on:click={() => searchQuery = ''}
+              onclick={() => searchQuery = ''}
               class="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors"
               aria-label="Clear search"
             >
@@ -138,7 +97,7 @@
               No posts found matching "{searchQuery}"
             </p>
             <button
-              on:click={() => searchQuery = ''}
+              onclick={() => searchQuery = ''}
               class="mt-4 text-primary-600 dark:text-primary-400 hover:underline"
             >
               Clear search
