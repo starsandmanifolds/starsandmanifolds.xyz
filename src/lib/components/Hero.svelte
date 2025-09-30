@@ -19,9 +19,9 @@
           srcset="/logo-256.webp 1x, /logo-512.webp 2x"
           type="image/webp"
         />
-        <!-- Fallback to PNG for older browsers -->
+        <!-- Fallback to WebP for browsers without picture element support -->
         <img
-          src="/logo.png"
+          src="/logo.webp"
           alt="Stars and Manifolds Logo"
           class="w-64 h-64 md:w-96 md:h-96 mx-auto rounded-full shadow-lg"
           width="384"
