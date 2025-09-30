@@ -9,6 +9,36 @@
 
   let searchQuery = $state("");
 
+  // Helper function to highlight search terms in text
+  function highlightText(text: string, query: string): string {
+    if (!query.trim()) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-600">$1</mark>');
+  }
+
+  // Helper function to extract content snippet with search term
+  function getContentSnippet(content: string, query: string, maxLength: number = 150): string | null {
+    if (!content || !query.trim()) return null;
+
+    const lowerContent = content.toLowerCase();
+    const lowerQuery = query.toLowerCase();
+    const index = lowerContent.indexOf(lowerQuery);
+
+    if (index === -1) return null;
+
+    // Get text around the match
+    const start = Math.max(0, index - 60);
+    const end = Math.min(content.length, index + query.length + 90);
+
+    let snippet = content.substring(start, end);
+
+    // Add ellipsis if needed
+    if (start > 0) snippet = '...' + snippet;
+    if (end < content.length) snippet = snippet + '...';
+
+    return snippet;
+  }
+
   // Use $derived.by for computed/filtered posts
   const filteredPosts = $derived.by(() => {
     if (!searchQuery.trim()) {
@@ -20,7 +50,8 @@
       const inTitle = post.title.toLowerCase().includes(query);
       const inExcerpt = post.excerpt.toLowerCase().includes(query);
       const inTags = post.tags.some(tag => tag.toLowerCase().includes(query));
-      return inTitle || inExcerpt || inTags;
+      const inContent = post.content ? post.content.toLowerCase().includes(query) : false;
+      return inTitle || inExcerpt || inTags || inContent;
     });
   });
 </script>
@@ -125,13 +156,31 @@
                       <h2
                         class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                       >
-                        {post.title}
+                        {#if searchQuery}
+                          {@html highlightText(post.title, searchQuery)}
+                        {:else}
+                          {post.title}
+                        {/if}
                       </h2>
                     </a>
                     {#if post.excerpt}
                       <p class="text-neutral-600 dark:text-neutral-400">
-                        {post.excerpt}
+                        {#if searchQuery}
+                          {@html highlightText(post.excerpt, searchQuery)}
+                        {:else}
+                          {post.excerpt}
+                        {/if}
                       </p>
+                    {/if}
+                    {#if searchQuery && post.content}
+                      {@const snippet = getContentSnippet(post.content, searchQuery)}
+                      {#if snippet}
+                        <div class="mt-3 p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-700">
+                          <p class="text-sm text-neutral-600 dark:text-neutral-400 italic">
+                            {@html highlightText(snippet, searchQuery)}
+                          </p>
+                        </div>
+                      {/if}
                     {/if}
                     {#if post.tags && post.tags.length > 0}
                       <div class="flex flex-wrap gap-2 mt-2">
@@ -139,7 +188,11 @@
                           <span
                             class="px-3 py-1 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-sm"
                           >
-                            {tag}
+                            {#if searchQuery}
+                              {@html highlightText(tag, searchQuery)}
+                            {:else}
+                              {tag}
+                            {/if}
                           </span>
                         {/each}
                       </div>
