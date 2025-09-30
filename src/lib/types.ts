@@ -13,10 +13,14 @@ export interface Project {
   title: string;
   description: string;
   technologies: string[];
+  slug: string;
+  state: "draft" | "published";
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
   blogPostSlug?: string;
+  order?: number;
+  content?: string;
 }
 
 export interface BlogPost {
