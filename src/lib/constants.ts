@@ -5,7 +5,6 @@ import type {
   AboutContent,
   Project,
   BlogPost,
-  Skill,
   TimelineItem,
 } from "./types";
 
@@ -29,7 +28,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
   { label: "Projects", href: "/projects" },
-  { label: "Skills", href: "/skills" },
 ];
 
 export const HERO_CONTENT: HeroContent = {
@@ -49,27 +47,6 @@ export const ABOUT_CONTENT: AboutContent = {
     "I approach problems from different angles thanks to my background in sciences and engineering. And honestly, most of what I build starts as play, me nerding out over something interesting, and it just happens to turn into something useful.",
   ],
 };
-
-
-export const SKILLS: Skill[] = [
-  // Languages
-  { name: "C#", category: "language", proficiency: "expert" },
-  { name: "C", category: "language", proficiency: "advanced" },
-  { name: "C++", category: "language", proficiency: "advanced" },
-  { name: "JavaScript", category: "language", proficiency: "advanced" },
-  { name: "Python", category: "language", proficiency: "advanced" },
-  { name: "Kotlin", category: "language", proficiency: "intermediate" },
-
-  // Frameworks & Technologies
-  { name: ".NET", category: "framework", proficiency: "expert" },
-  { name: "React", category: "framework", proficiency: "advanced" },
-  { name: "Svelte", category: "framework", proficiency: "intermediate" },
-
-  // Other
-  { name: "Physics", category: "other", proficiency: "advanced" },
-  { name: "Mathematics", category: "other", proficiency: "advanced" },
-  { name: "AI/ML", category: "other", proficiency: "intermediate" },
-];
 
 export const TIMELINE: TimelineItem[] = [
   // Professional timeline will be added here when needed
