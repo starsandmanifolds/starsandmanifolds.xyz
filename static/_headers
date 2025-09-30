@@ -1,0 +1,15 @@
+# Cache static assets for 1 year
+/_app/immutable/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache logo images for 1 year
+/logo*.webp
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache fonts for 1 year
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML files - cache but revalidate
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
