@@ -8,12 +8,16 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lighthouse": "npm run build && lhci autorun",
+    "lighthouse:urls": "node scripts/extract-sitemap-urls.js",
+    "lighthouse:open": "open .lighthouseci/lhr-*.html"
   },
   "devDependencies": {
     "@fontsource/dancing-script": "^5.2.8",
     "@fontsource/fira-code": "^5.2.7",
     "@fontsource/inter": "^5.2.8",
+    "@lhci/cli": "^0.15.1",
     "@sveltejs/adapter-auto": "^6.1.0",
     "@sveltejs/adapter-cloudflare": "^7.2.3",
     "@sveltejs/kit": "^2.48.4",
