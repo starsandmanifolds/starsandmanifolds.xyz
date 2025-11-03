@@ -16,7 +16,7 @@
           <div class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
             {SITE_CONFIG.name}
           </div>
-          <p class="text-neutral-400 text-sm">
+          <p class="text-neutral-300 text-sm">
             {SITE_CONFIG.tagline}
           </p>
         </div>
@@ -30,7 +30,7 @@
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-neutral-400 hover:text-primary-400 transition-colors"
+                class="text-neutral-300 hover:text-primary-400 transition-colors"
                 aria-label={link.name}
               >
                 {#if link.name === "GitHub"}
@@ -91,7 +91,7 @@
       <!-- Gradient divider before copyright -->
       <div class="mt-8 pt-8 text-center">
         <div class="divider-space mb-8"></div>
-        <p class="text-sm text-neutral-400">
+        <p class="text-sm text-neutral-300">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
       </div>

@@ -62,7 +62,7 @@
           </h1>
 
           <div
-            class="flex items-center gap-4 text-neutral-600 dark:text-neutral-400"
+            class="flex items-center gap-4 text-neutral-600 dark:text-neutral-300"
           >
             <time>{formatDate(data.post.date)}</time>
           </div>
@@ -71,7 +71,7 @@
           <div class="flex flex-wrap gap-2 mt-4">
             {#each data.post.tags as tag}
               <span
-                class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300"
               >
                 {tag}
               </span>
