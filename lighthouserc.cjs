@@ -7,8 +7,8 @@
  * URLs are automatically extracted from sitemap.xml at runtime.
  */
 
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
+const { readFileSync } = require('fs');
+const { resolve } = require('path');
 
 /**
  * Extract URLs from sitemap.xml and convert to localhost URLs
@@ -17,37 +17,36 @@ function getUrlsFromSitemap() {
   const SITEMAP_PATH = '.svelte-kit/cloudflare/sitemap.xml';
   const LOCALHOST_BASE = 'http://localhost:4173';
 
-  try {
-    const sitemap = readFileSync(resolve(SITEMAP_PATH), 'utf-8');
-    const urlMatches = sitemap.matchAll(/<loc>(.*?)<\/loc>/g);
-    const urls = Array.from(urlMatches, match => match[1]);
+  const sitemap = readFileSync(resolve(SITEMAP_PATH), 'utf-8');
+  const urlMatches = sitemap.matchAll(/<loc>(.*?)<\/loc>/g);
+  const urls = Array.from(urlMatches, match => match[1]);
 
-    // Convert production URLs to localhost
-    return urls.map(url => {
-      const path = new URL(url).pathname;
-      return `${LOCALHOST_BASE}${path}`;
-    });
-  } catch (error) {
-    console.error('⚠️  Could not read sitemap.xml');
-    console.error('   Make sure to run "npm run build" first!');
-    console.error(`   Error: ${error.message}\n`);
-    process.exit(1);
+  if (urls.length === 0) {
+    throw new Error('Sitemap is empty - no URLs found');
   }
+
+  // Convert production URLs to localhost
+  const localhostUrls = urls.map(url => {
+    const path = new URL(url).pathname;
+    return `${LOCALHOST_BASE}${path}`;
+  });
+
+  console.log(`✅  Found ${localhostUrls.length} URLs from sitemap.xml`);
+  return localhostUrls;
 }
 
-export default {
+const urls = getUrlsFromSitemap();
+
+module.exports = {
   ci: {
     collect: {
-      // Location of built static files (SvelteKit + Cloudflare adapter)
-      staticDistDir: '.svelte-kit/cloudflare',
-
-      // Build the site before collecting
+      // Start the SvelteKit preview server
       startServerCommand: 'npm run preview',
       startServerReadyPattern: 'Local:',
       startServerReadyTimeout: 30000,
 
       // Automatically discover all URLs from sitemap
-      url: getUrlsFromSitemap(),
+      url: urls,
 
       // Run multiple times for more reliable results
       numberOfRuns: 3,
