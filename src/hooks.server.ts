@@ -11,19 +11,13 @@ export async function handle({ event, resolve }) {
   const response = await resolve(event);
 
   // Add security headers in production
+  // Note: For prerendered pages on Cloudflare Pages:
+  // - CSP is injected via <meta> tags (see svelte.config.js)
+  // - Other headers come from _headers file
+  // These headers serve as fallback for any future dynamic routes
   if (!dev) {
-    response.headers.set(
-      "Content-Security-Policy",
-      [
-        "default-src 'self'",
-        "script-src 'self' 'unsafe-inline'",
-        "style-src 'self' 'unsafe-inline'",
-        "img-src 'self' data: https:",
-        "font-src 'self'",
-        "connect-src 'self'",
-        "frame-ancestors 'none'",
-      ].join("; ")
-    );
+    // CSP is now handled by svelte.config.js (injects via <meta> tags)
+    // Don't set CSP header here to avoid conflicts
 
     response.headers.set("X-Content-Type-Options", "nosniff");
     response.headers.set("X-Frame-Options", "DENY");
@@ -38,6 +32,11 @@ export async function handle({ event, resolve }) {
         "interest-cohort=()",
       ].join(", ")
     );
+    response.headers.set(
+      "Strict-Transport-Security",
+      "max-age=31536000; includeSubDomains"
+    );
+    response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
   }
 
   return response;
