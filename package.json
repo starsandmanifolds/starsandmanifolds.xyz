@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lighthouse": "npm run build && lhci autorun",
+    "lighthouse": "npm run build && lhci collect && lhci assert && lhci upload",
     "lighthouse:urls": "node scripts/extract-sitemap-urls.js",
     "lighthouse:open": "open .lighthouseci/lhr-*.html"
   },
