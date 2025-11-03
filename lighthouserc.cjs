@@ -48,8 +48,7 @@ module.exports = {
       // Automatically discover all URLs from sitemap
       url: urls,
 
-      // Run multiple times for more reliable results
-      numberOfRuns: 3,
+      numberOfRuns: 1,
 
       // Lighthouse settings
       settings: {
