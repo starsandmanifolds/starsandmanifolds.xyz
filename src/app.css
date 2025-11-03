@@ -87,7 +87,7 @@
 
 /* Typography/Prose Styles - Dark Theme Only */
 .prose {
-  color: theme("colors.neutral.300");
+  color: theme("colors.neutral.100");
   max-width: none;
   line-height: 1.75;
 }

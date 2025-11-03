@@ -11,7 +11,7 @@ What’s the difference between a script that *works* and a driver that’s *rel
 
 Let's dissect a driver for the humble [BH1750 ambient light sensor](https://github.com/adyavanapalli/bh1750.py) to see how we can build drivers that don't suck.
 
-### Principle 1: Respect Your Microcontroller's Tiny, Stressed-Out Brain
+## Principle 1: Respect Your Microcontroller's Tiny, Stressed-Out Brain
 
 Your microcontroller has about as much RAM as a potato. Every time you create a new object, you're asking its tiny brain to find a clean spot to put it. Do this a few thousand times in a loop, and you get memory fragmentation, it's like trying to find a parking spot in a crowded lot, and your code eventually just gives up and has a panic attack.
 
@@ -49,7 +49,7 @@ _ADDR_LOW = const(0x23)
 _POWER_DOWN = const(0x00)
 ```
 
-### Principle 2: Don't Let Your Code Throw a Tantrum
+## Principle 2: Don't Let Your Code Throw a Tantrum
 
 Hardware is chaos. Wires get loose, power flickers, and cosmic rays flip bits for fun. If your code assumes the world is perfect, it will crash the moment it isn't. A robust driver is a zen master, it anticipates chaos and handles it gracefully.
 
@@ -69,7 +69,7 @@ def raw(self) -> int:
         raise OSError(f"BH1750 I2C read failed: {e}")
 ```
 
-### Principle 3: Write Code You'd Actually *Want* to Use
+## Principle 3: Write Code You'd Actually *Want* to Use
 
 A good API feels intuitive. Think about driving a car. You have `car.speed` (a property, something you check) and `car.drive_to_the_store()` (a method, an action you perform).
 
@@ -98,7 +98,7 @@ def lux(self) -> float:
 # light = sensor.lux
 ```
 
-### Principle 4: Teach Your Sensor to Take a Nap
+## Principle 4: Teach Your Sensor to Take a Nap
 
 Many sensors, including the BH1750, have low-power modes. For a battery-powered project, this isn't a feature, it's a necessity. A great driver makes power-saving the easy path.
 
@@ -114,7 +114,7 @@ if is_one_shot:
 
 This way, the user can get the latest reading by simply calling `sensor.lux`, and the sensor stays asleep the rest of the time, sipping power like a connoisseur.
 
-### The Glorious Result
+## The Glorious Result
 
 When you put it all together, you get application code that is clean, readable, and robust.
 
