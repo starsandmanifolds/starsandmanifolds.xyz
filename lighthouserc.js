@@ -8,6 +8,9 @@
 export default {
   ci: {
     collect: {
+      // Location of built static files (SvelteKit + Cloudflare adapter)
+      staticDistDir: '.svelte-kit/cloudflare',
+
       // Build the site before collecting
       startServerCommand: 'npm run preview',
       startServerReadyPattern: 'Local:',
