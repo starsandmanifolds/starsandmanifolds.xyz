@@ -10,6 +10,10 @@
 *.woff2
   Cache-Control: public, max-age=31536000, immutable
 
+# Cache KaTeX assets for 1 year (CSS and fonts)
+/katex/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # HTML files - cache but revalidate
 /*.html
   Cache-Control: public, max-age=3600, must-revalidate
