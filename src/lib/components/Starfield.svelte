@@ -280,7 +280,6 @@
       }
     }
 
-    console.log(`Generated ${newStars.length} visible stars for WebGL`);
     return newStars;
   }
 
