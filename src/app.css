@@ -7,7 +7,8 @@
 @import "@fontsource/fira-code/400.css";
 @import "@fontsource/fira-code/500.css";
 @import "@fontsource/fira-code/600.css";
-@import "@fontsource/dancing-script/700.css";
+/* Optimized Dancing Script - latin subset only */
+@import "$lib/fonts/dancing-script.css";
 
 @import "tailwindcss";
 

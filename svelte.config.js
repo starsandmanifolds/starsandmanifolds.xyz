@@ -9,6 +9,18 @@ const config = {
 
   kit: {
     adapter: adapter(),
+    csp: {
+      mode: 'hash',
+      directives: {
+        'default-src': ['self'],
+        'script-src': ['self', 'https://static.cloudflareinsights.com'],
+        'style-src': ['self'],
+        'img-src': ['self', 'data:', 'https:'],
+        'font-src': ['self'],
+        'connect-src': ['self', 'https://cloudflareinsights.com'],
+        'frame-ancestors': ['none']
+      }
+    }
   },
 };
 
