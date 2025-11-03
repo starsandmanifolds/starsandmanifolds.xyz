@@ -9,11 +9,45 @@
 
   let searchQuery = $state("");
 
-  // Helper function to highlight search terms in text
-  function highlightText(text: string, query: string): string {
-    if (!query.trim()) return text;
-    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark class="bg-yellow-200 dark:bg-yellow-600">$1</mark>');
+  // Helper function to split text into highlighted and non-highlighted parts
+  // Returns array of {text: string, highlighted: boolean} objects
+  function splitTextForHighlight(text: string, query: string): Array<{text: string, highlighted: boolean}> {
+    if (!query.trim()) return [{text, highlighted: false}];
+
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    const parts: Array<{text: string, highlighted: boolean}> = [];
+
+    let lastIndex = 0;
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+      // Add non-highlighted text before the match
+      if (match.index > lastIndex) {
+        parts.push({
+          text: text.substring(lastIndex, match.index),
+          highlighted: false
+        });
+      }
+
+      // Add highlighted match
+      parts.push({
+        text: match[0],
+        highlighted: true
+      });
+
+      lastIndex = regex.lastIndex;
+    }
+
+    // Add remaining non-highlighted text
+    if (lastIndex < text.length) {
+      parts.push({
+        text: text.substring(lastIndex),
+        highlighted: false
+      });
+    }
+
+    return parts;
   }
 
   // Helper function to extract content snippet with search term
@@ -157,7 +191,13 @@
                         class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                       >
                         {#if searchQuery}
-                          {@html highlightText(post.title, searchQuery)}
+                          {#each splitTextForHighlight(post.title, searchQuery) as part}
+                            {#if part.highlighted}
+                              <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                            {:else}
+                              {part.text}
+                            {/if}
+                          {/each}
                         {:else}
                           {post.title}
                         {/if}
@@ -166,7 +206,13 @@
                     {#if post.excerpt}
                       <p class="text-neutral-600 dark:text-neutral-400">
                         {#if searchQuery}
-                          {@html highlightText(post.excerpt, searchQuery)}
+                          {#each splitTextForHighlight(post.excerpt, searchQuery) as part}
+                            {#if part.highlighted}
+                              <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                            {:else}
+                              {part.text}
+                            {/if}
+                          {/each}
                         {:else}
                           {post.excerpt}
                         {/if}
@@ -177,7 +223,13 @@
                       {#if snippet}
                         <div class="mt-3 p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-700">
                           <p class="text-sm text-neutral-600 dark:text-neutral-400 italic">
-                            {@html highlightText(snippet, searchQuery)}
+                            {#each splitTextForHighlight(snippet, searchQuery) as part}
+                              {#if part.highlighted}
+                                <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                              {:else}
+                                {part.text}
+                              {/if}
+                            {/each}
                           </p>
                         </div>
                       {/if}
@@ -189,7 +241,13 @@
                             class="px-3 py-1 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-sm"
                           >
                             {#if searchQuery}
-                              {@html highlightText(tag, searchQuery)}
+                              {#each splitTextForHighlight(tag, searchQuery) as part}
+                                {#if part.highlighted}
+                                  <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                                {:else}
+                                  {part.text}
+                                {/if}
+                              {/each}
                             {:else}
                               {tag}
                             {/if}
