@@ -1,4 +1,14 @@
-/* Fonts are loaded via link tags in app.html for better performance */
+/* Self-hosted fonts via Fontsource */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/fira-code/300.css";
+@import "@fontsource/fira-code/400.css";
+@import "@fontsource/fira-code/500.css";
+@import "@fontsource/fira-code/600.css";
+@import "@fontsource/dancing-script/700.css";
+
 @import "tailwindcss";
 
 @theme {
