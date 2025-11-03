@@ -14,7 +14,7 @@ const config = {
       directives: {
         'default-src': ['self'],
         'script-src': ['self', 'https://static.cloudflareinsights.com'],
-        'style-src': ['self', 'unsafe-hashes'],
+        'style-src': ['self', 'unsafe-inline'],
         'img-src': ['self', 'data:', 'https:'],
         'font-src': ['self'],
         'connect-src': ['self', 'https://cloudflareinsights.com'],
