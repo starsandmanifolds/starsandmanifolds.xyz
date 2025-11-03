@@ -105,7 +105,7 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <p class="text-xl text-neutral-600 dark:text-neutral-400 mb-8">
+        <p class="text-xl text-neutral-600 dark:text-neutral-300 mb-8">
           Thoughts on software engineering, technology, and the intersection of
           code with mathematics and physics.
         </p>
@@ -158,7 +158,7 @@
 
         {#if searchQuery && filteredPosts.length === 0}
           <div class="text-center py-24">
-            <p class="text-neutral-600 dark:text-neutral-400 text-lg">
+            <p class="text-neutral-600 dark:text-neutral-300 text-lg">
               No posts found matching "{searchQuery}"
             </p>
             <button
@@ -170,7 +170,7 @@
           </div>
         {:else if filteredPosts.length > 0}
           {#if searchQuery}
-            <p class="text-sm text-neutral-600 dark:text-neutral-400 mb-6">
+            <p class="text-sm text-neutral-600 dark:text-neutral-300 mb-6">
               Found {filteredPosts.length} post{filteredPosts.length === 1 ? '' : 's'} matching "{searchQuery}"
             </p>
           {/if}
@@ -181,7 +181,7 @@
               >
                 <div class="grid grid-cols-[auto_1fr] gap-4">
                   <time
-                    class="text-sm text-neutral-600 dark:text-neutral-400 whitespace-nowrap pt-0.5"
+                    class="text-sm text-neutral-600 dark:text-neutral-300 whitespace-nowrap pt-0.5"
                   >
                     {formatDate(post.date)}
                   </time>
@@ -204,7 +204,7 @@
                       </h2>
                     </a>
                     {#if post.excerpt}
-                      <p class="text-neutral-600 dark:text-neutral-400">
+                      <p class="text-neutral-600 dark:text-neutral-300">
                         {#if searchQuery}
                           {#each splitTextForHighlight(post.excerpt, searchQuery) as part}
                             {#if part.highlighted}
@@ -222,7 +222,7 @@
                       {@const snippet = getContentSnippet(post.content, searchQuery)}
                       {#if snippet}
                         <div class="mt-3 p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-700">
-                          <p class="text-sm text-neutral-600 dark:text-neutral-400 italic">
+                          <p class="text-sm text-neutral-600 dark:text-neutral-300 italic">
                             {#each splitTextForHighlight(snippet, searchQuery) as part}
                               {#if part.highlighted}
                                 <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
@@ -262,7 +262,7 @@
           </ul>
         {:else}
           <div class="text-center py-24">
-            <p class="text-neutral-600 dark:text-neutral-400 text-lg">
+            <p class="text-neutral-600 dark:text-neutral-300 text-lg">
               No blog posts yet. Check back soon!
             </p>
           </div>

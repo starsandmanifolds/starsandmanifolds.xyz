@@ -32,7 +32,7 @@
       </picture>
 
       <!-- Greeting -->
-      <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-2">
+      <p class="text-lg text-neutral-600 dark:text-neutral-300 mb-2">
         {HERO_CONTENT.greeting}
       </p>
 

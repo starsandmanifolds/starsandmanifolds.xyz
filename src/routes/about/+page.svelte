@@ -34,7 +34,7 @@
         <div class="prose prose-xl dark:prose-invert max-w-none">
           {#each ABOUT_CONTENT.paragraphs as paragraph}
             <p
-              class="text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed mb-6"
+              class="text-xl text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6"
             >
               {paragraph}
             </p>

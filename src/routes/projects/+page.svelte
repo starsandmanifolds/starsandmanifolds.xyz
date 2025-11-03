@@ -35,7 +35,7 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <p class="text-xl text-neutral-600 dark:text-neutral-400 mb-12">
+        <p class="text-xl text-neutral-600 dark:text-neutral-300 mb-12">
           Here are some of the projects I've worked on.
         </p>
 
@@ -83,7 +83,7 @@
                   {/if}
 
                   <!-- Description -->
-                  <p class="text-neutral-600 dark:text-neutral-400">
+                  <p class="text-neutral-600 dark:text-neutral-300">
                     {project.description}
                   </p>
 
