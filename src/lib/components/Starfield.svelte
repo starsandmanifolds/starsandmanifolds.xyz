@@ -286,6 +286,8 @@
 
   // Create star geometry and upload to GPU
   function createStarGeometry() {
+    if (!gl) return;
+
     const numStars = stars.length;
 
     // Create separate arrays for each attribute
@@ -337,7 +339,7 @@
   }
 
   function draw() {
-    if (!gl || !shaderProgram || !isVisible) return;
+    if (!gl || !canvas || !shaderProgram || !isVisible) return;
 
     // Clear canvas
     gl.clear(gl.COLOR_BUFFER_BIT);
@@ -379,8 +381,12 @@
   function handleResize() {
     if (!canvas) return;
 
-    clearTimeout(resizeTimeout);
+    if (resizeTimeout) {
+      clearTimeout(resizeTimeout);
+    }
     resizeTimeout = window.setTimeout(() => {
+      if (!canvas) return;
+
       const newWidth = window.innerWidth;
       const newHeight = window.innerHeight;
 
@@ -401,6 +407,8 @@
   }
 
   function initWebGL() {
+    if (!canvas) return false;
+
     const context = canvas.getContext("webgl", {
       alpha: true,
       antialias: false,
@@ -465,25 +473,23 @@
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      clearTimeout(resizeTimeout);
+      if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+      }
       if (animationFrame) {
         cancelAnimationFrame(animationFrame);
-      }
-
-      // Clean up WebGL resources
-      if (gl) {
-        if (positionBuffer) gl.deleteBuffer(positionBuffer);
-        if (sizeBuffer) gl.deleteBuffer(sizeBuffer);
-        if (colorBuffer) gl.deleteBuffer(colorBuffer);
-        if (twinkleBuffer) gl.deleteBuffer(twinkleBuffer);
-        if (shaderProgram) gl.deleteProgram(shaderProgram);
       }
     };
   });
 
   onDestroy(() => {
-    if (animationFrame) {
-      cancelAnimationFrame(animationFrame);
+    // Clean up WebGL resources
+    if (gl) {
+      if (positionBuffer) gl.deleteBuffer(positionBuffer);
+      if (sizeBuffer) gl.deleteBuffer(sizeBuffer);
+      if (colorBuffer) gl.deleteBuffer(colorBuffer);
+      if (twinkleBuffer) gl.deleteBuffer(twinkleBuffer);
+      if (shaderProgram) gl.deleteProgram(shaderProgram);
     }
   });
 </script>

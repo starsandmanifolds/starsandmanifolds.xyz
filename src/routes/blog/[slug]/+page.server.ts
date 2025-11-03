@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ params }) => {
   const post = await loadBlogPost(params.slug);
 
   if (!post) {
-    throw error(404, "Blog post not found");
+    error(404, "Blog post not found");
   }
 
   return {
