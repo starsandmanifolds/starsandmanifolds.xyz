@@ -3,7 +3,37 @@
  *
  * This configuration runs Lighthouse audits on all pages with strict
  * thresholds to ensure 100% scores in all categories.
+ *
+ * URLs are automatically extracted from sitemap.xml at runtime.
  */
+
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
+
+/**
+ * Extract URLs from sitemap.xml and convert to localhost URLs
+ */
+function getUrlsFromSitemap() {
+  const SITEMAP_PATH = '.svelte-kit/cloudflare/sitemap.xml';
+  const LOCALHOST_BASE = 'http://localhost:4173';
+
+  try {
+    const sitemap = readFileSync(resolve(SITEMAP_PATH), 'utf-8');
+    const urlMatches = sitemap.matchAll(/<loc>(.*?)<\/loc>/g);
+    const urls = Array.from(urlMatches, match => match[1]);
+
+    // Convert production URLs to localhost
+    return urls.map(url => {
+      const path = new URL(url).pathname;
+      return `${LOCALHOST_BASE}${path}`;
+    });
+  } catch (error) {
+    console.error('⚠️  Could not read sitemap.xml');
+    console.error('   Make sure to run "npm run build" first!');
+    console.error(`   Error: ${error.message}\n`);
+    process.exit(1);
+  }
+}
 
 export default {
   ci: {
@@ -17,17 +47,7 @@ export default {
       startServerReadyTimeout: 30000,
 
       // Automatically discover all URLs from sitemap
-      url: [
-        'http://localhost:4173/',
-        'http://localhost:4173/about',
-        'http://localhost:4173/blog',
-        'http://localhost:4173/projects',
-        'http://localhost:4173/blog/where-the-sky-remains-open',
-        'http://localhost:4173/blog/when-thats-interesting-means-i-disagree',
-        'http://localhost:4173/blog/writing-a-micropython-driver-that-doesnt-suck-a-bh1750-case-study',
-        'http://localhost:4173/blog/the-laplace-transform-is-just-the-continuous-analogue-of-a-power-series',
-        'http://localhost:4173/blog/why-the-force-on-a-body-undergoing-circular-motion-is-centripetal',
-      ],
+      url: getUrlsFromSitemap(),
 
       // Run multiple times for more reliable results
       numberOfRuns: 3,

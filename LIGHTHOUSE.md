@@ -136,11 +136,12 @@ Or manually open files from `.lighthouseci/`
 When you add new pages:
 
 1. They're automatically added to `sitemap.xml` on build
-2. Run `npm run lighthouse:urls` to see the new URLs
-3. Copy the updated URL list to `lighthouserc.js`
-4. Run `npm run lighthouse` to test
+2. Lighthouse automatically reads from the sitemap at runtime
+3. Just run `npm run lighthouse` - new pages are tested automatically!
 
-Or skip step 3 if you're okay with the current URL list in the config.
+**No manual configuration needed!** The URLs are dynamically extracted from the sitemap each time you run Lighthouse.
+
+(The `npm run lighthouse:urls` script is optional - useful for debugging to see which URLs will be tested.)
 
 ## CI/CD Integration
 
