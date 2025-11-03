@@ -94,6 +94,14 @@
         <p class="text-sm text-neutral-300">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
+        <p class="text-xs text-neutral-400 mt-2 font-mono">
+          Build: <a
+            href="https://github.com/starsandmanifolds/starsandmanifolds.xyz/commit/{__GIT_COMMIT_HASH__}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-neutral-300 hover:text-primary-400 transition-colors underline"
+          >{__GIT_COMMIT_HASH__}</a>
+        </p>
       </div>
     </div>
   </div>
