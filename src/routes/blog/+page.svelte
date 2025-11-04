@@ -8,6 +8,49 @@
   let { data }: { data: PageData } = $props();
 
   let searchQuery = $state("");
+  let searchInput: HTMLInputElement;
+  let isFocused = $state(false);
+
+  function hasModifiers(event: KeyboardEvent): boolean {
+    return event.ctrlKey || event.metaKey || event.altKey || event.shiftKey;
+  }
+
+  /**
+   * Global keyboard shortcut handler
+   * - "/" focuses the search input (when not already typing)
+   * - "Escape" clears the search query (first press), then blurs the input (second press)
+   */
+  function handleGlobalKeydown(event: KeyboardEvent) {
+    const target = event.target as HTMLElement;
+    const isTyping =
+      target.tagName === 'INPUT' ||
+      target.tagName === 'TEXTAREA' ||
+      target.tagName === 'SELECT' ||
+      target.isContentEditable;
+
+    // Focus search with "/"
+    if (event.key === '/' && !isTyping && !hasModifiers(event)) {
+      event.preventDefault();
+      searchInput?.focus();
+      return;
+    }
+
+    // Clear/blur search with "Escape"
+    if (event.key === 'Escape' && target === searchInput) {
+      // Don't interfere with IME composition
+      if (event.isComposing) return;
+
+      event.preventDefault();
+
+      if (searchQuery.trim()) {
+        // First press: clear the query
+        searchQuery = '';
+      } else {
+        // Second press: blur the input
+        searchInput?.blur();
+      }
+    }
+  }
 
   // Helper function to split text into highlighted and non-highlighted parts
   // Returns array of {text: string, highlighted: boolean} objects
@@ -90,6 +133,8 @@
   });
 </script>
 
+<svelte:window onkeydown={handleGlobalKeydown} />
+
 <svelte:head>
   <title>Blog - {SITE_CONFIG.name}</title>
   <meta
@@ -113,10 +158,13 @@
         <!-- Search Box -->
         <div class="relative mb-12">
           <input
+            bind:this={searchInput}
             type="text"
             bind:value={searchQuery}
+            onfocus={() => isFocused = true}
+            onblur={() => isFocused = false}
             placeholder="Search posts by title, content, or tags..."
-            class="w-full px-4 py-3 pl-12 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-colors"
+            class="w-full px-4 py-3 pl-12 pr-12 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-colors"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -153,6 +201,13 @@
                 />
               </svg>
             </button>
+          {:else if !isFocused}
+            <kbd
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-neutral-500 dark:text-neutral-400 border border-neutral-300 dark:border-neutral-600 rounded bg-neutral-100 dark:bg-neutral-800 shadow-sm pointer-events-none"
+              aria-hidden="true"
+            >
+              /
+            </kbd>
           {/if}
         </div>
 
