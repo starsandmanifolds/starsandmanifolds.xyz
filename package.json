@@ -39,7 +39,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@cloudflare/workerd-linux-64": "^1.20251101.0",
+    "@cloudflare/workerd-linux-64": "^1.20251105.0",
     "@tailwindcss/postcss": "^4.1.13",
     "marked": "^16.4.1",
     "marked-katex-extension": "^5.1.5"
