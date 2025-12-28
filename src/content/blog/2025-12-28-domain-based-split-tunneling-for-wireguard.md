@@ -2,7 +2,7 @@
 title: "Domain-Based Split Tunneling for WireGuard"
 excerpt: "Most WireGuard split tunneling guides hardcode IP ranges. But CDNs rotate IPs constantly, making this approach brittle. What if you could route by domain instead? Route traffic to specific domains through WireGuard while everything else uses your regular connection. This guide covers the full stack: intercepting DNS with dnsmasq, dynamically populating nftables sets, policy routing with fwmarks, and connection tracking to keep long-lived connections working."
 tags: ["dnsmasq", "nftables", "policy-routing", "split-tunneling", "vpn", "wireguard"]
-state: published
+state: draft
 ---
 
 Table of Contents
