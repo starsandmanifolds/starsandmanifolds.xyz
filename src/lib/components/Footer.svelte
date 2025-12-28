@@ -7,30 +7,30 @@
 <!-- Gradient divider above footer -->
 <div class="divider-space"></div>
 
-<footer id="contact" class="bg-space py-12">
+<footer id="contact" class="bg-ctp-base py-12">
   <div class="container mx-auto px-4">
     <div class="max-w-6xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <!-- Brand -->
         <div>
-          <div class="text-3xl font-decorative font-bold mb-4 text-neutral-100">
+          <div class="text-3xl font-decorative font-bold mb-4 text-ctp-text">
             {SITE_CONFIG.name}
           </div>
-          <p class="text-neutral-300 text-sm">
+          <p class="text-ctp-subtext1 text-sm">
             {SITE_CONFIG.tagline}
           </p>
         </div>
 
         <!-- Social Links -->
         <div class="md:text-right">
-          <div class="font-semibold mb-4 text-neutral-100">Connect</div>
+          <div class="font-semibold mb-4 text-ctp-text">Connect</div>
           <div class="flex space-x-4 md:justify-end">
             {#each SITE_CONFIG.socialLinks as link}
               <a
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-neutral-300 hover:text-primary-400 transition-colors"
+                class="text-ctp-subtext1 hover:text-ctp-mauve transition-colors"
                 aria-label={link.name}
               >
                 {#if link.name === "GitHub"}
@@ -91,15 +91,15 @@
       <!-- Gradient divider before copyright -->
       <div class="mt-8 pt-8 text-center">
         <div class="divider-space mb-8"></div>
-        <p class="text-sm text-neutral-300">
+        <p class="text-sm text-ctp-subtext1">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
-        <p class="text-xs text-neutral-400 mt-2 font-mono">
+        <p class="text-xs text-ctp-subtext0 mt-2 font-mono">
           Build: <a
             href="https://github.com/starsandmanifolds/starsandmanifolds.xyz/commit/{__GIT_COMMIT_HASH__}"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-neutral-300 hover:text-primary-400 transition-colors underline"
+            class="text-ctp-subtext1 hover:text-ctp-mauve transition-colors underline"
           >{__GIT_COMMIT_HASH__}</a>
         </p>
       </div>

@@ -14,6 +14,7 @@
     "lighthouse:open": "open .lighthouseci/lhr-*.html"
   },
   "devDependencies": {
+    "@catppuccin/tailwindcss": "^1.0.0",
     "@fontsource/dancing-script": "^5.2.8",
     "@fontsource/fira-code": "^5.2.7",
     "@fontsource/inter": "^5.2.8",

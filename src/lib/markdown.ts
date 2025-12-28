@@ -9,7 +9,7 @@ let initPromise: Promise<void> | null = null;
 async function getHighlighter(): Promise<Highlighter> {
   if (!highlighterInstance) {
     highlighterInstance = await createHighlighter({
-      themes: ["dark-plus"],
+      themes: ["catppuccin-mocha"],
       langs: [
         "bash",
         "cpp",
@@ -70,7 +70,7 @@ async function initializeMarked(): Promise<void> {
           try {
             return highlighter.codeToHtml(code, {
               lang,
-              theme: "dark-plus",
+              theme: "catppuccin-mocha",
             });
           } catch (error) {
             console.warn(`Failed to highlight ${lang}:`, error);

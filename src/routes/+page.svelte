@@ -1,6 +1,5 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
-  import Hero from "$lib/components/Hero.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import Starfield from "$lib/components/Starfield.svelte";
   import { SITE_CONFIG, SITE_URL } from "$lib/constants";
@@ -47,7 +46,6 @@
   <div class="min-h-screen flex flex-col relative z-10">
     <Header />
     <main class="flex-grow">
-      <Hero />
     </main>
     <Footer />
   </div>
