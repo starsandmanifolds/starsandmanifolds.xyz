@@ -56,13 +56,13 @@
         <!-- Post header -->
         <header class="mb-8">
           <h1
-            class="text-3xl font-bold mb-4 text-neutral-900 dark:text-neutral-100"
+            class="text-3xl font-bold mb-4 text-ctp-text"
           >
             {data.post.title}
           </h1>
 
           <div
-            class="flex items-center gap-4 text-neutral-600 dark:text-neutral-300"
+            class="flex items-center gap-4 text-ctp-subtext0"
           >
             <time>{formatDate(data.post.date)}</time>
           </div>
@@ -71,7 +71,7 @@
           <div class="flex flex-wrap gap-2 mt-4">
             {#each data.post.tags as tag}
               <span
-                class="px-3 py-1 text-sm rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300"
+                class="px-3 py-1 text-sm rounded-full bg-ctp-surface0 text-ctp-subtext1"
               >
                 {tag}
               </span>
@@ -81,13 +81,13 @@
 
         <!-- Post content -->
         <div
-          class="prose prose-lg dark:prose-invert max-w-none prose-pre:bg-neutral-900 dark:prose-pre:bg-neutral-950 prose-pre:text-neutral-100"
+          class="prose prose-lg max-w-none"
         >
           {#if data.post.content}
             {@html data.post.content}
           {:else}
             <p
-              class="text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed"
+              class="text-xl text-ctp-subtext1 leading-relaxed"
             >
               {data.post.excerpt}
             </p>
@@ -98,7 +98,7 @@
         <div class="mt-12">
           <a
             href="/blog"
-            class="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium transition-colors inline-flex items-center"
+            class="text-ctp-mauve hover:text-ctp-pink font-medium transition-colors inline-flex items-center"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

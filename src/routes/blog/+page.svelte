@@ -150,7 +150,7 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <p class="text-xl text-neutral-600 dark:text-neutral-300 mb-8">
+        <p class="text-xl text-ctp-subtext1 mb-8">
           Thoughts on software engineering, technology, and the intersection of
           code with mathematics and physics.
         </p>
@@ -164,7 +164,7 @@
             onfocus={() => isFocused = true}
             onblur={() => isFocused = false}
             placeholder="Search posts by title, content, or tags..."
-            class="w-full px-4 py-3 pl-12 pr-12 rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-primary-500 dark:focus:ring-primary-400 focus:border-transparent transition-colors"
+            class="w-full px-4 py-3 pl-12 pr-12 rounded-lg border border-ctp-surface1 bg-ctp-surface0 text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent transition-colors"
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -172,7 +172,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-neutral-400 dark:text-neutral-500"
+            class="w-5 h-5 absolute left-4 top-1/2 transform -translate-y-1/2 text-ctp-overlay0"
           >
             <path
               stroke-linecap="round"
@@ -183,7 +183,7 @@
           {#if searchQuery}
             <button
               onclick={() => searchQuery = ''}
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300 transition-colors"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 text-ctp-overlay0 hover:text-ctp-text transition-colors"
               aria-label="Clear search"
             >
               <svg
@@ -203,7 +203,7 @@
             </button>
           {:else if !isFocused}
             <kbd
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-neutral-500 dark:text-neutral-400 border border-neutral-300 dark:border-neutral-600 rounded bg-neutral-100 dark:bg-neutral-800 shadow-sm pointer-events-none"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-ctp-subtext0 border border-ctp-surface1 rounded bg-ctp-surface0 shadow-sm pointer-events-none"
               aria-hidden="true"
             >
               /
@@ -213,42 +213,42 @@
 
         {#if searchQuery && filteredPosts.length === 0}
           <div class="text-center py-24">
-            <p class="text-neutral-600 dark:text-neutral-300 text-lg">
+            <p class="text-ctp-subtext1 text-lg">
               No posts found matching "{searchQuery}"
             </p>
             <button
               onclick={() => searchQuery = ''}
-              class="mt-4 text-primary-600 dark:text-primary-400 hover:underline"
+              class="mt-4 text-ctp-mauve hover:underline"
             >
               Clear search
             </button>
           </div>
         {:else if filteredPosts.length > 0}
           {#if searchQuery}
-            <p class="text-sm text-neutral-600 dark:text-neutral-300 mb-6">
+            <p class="text-sm text-ctp-subtext1 mb-6">
               Found {filteredPosts.length} post{filteredPosts.length === 1 ? '' : 's'} matching "{searchQuery}"
             </p>
           {/if}
           <ul class="space-y-6">
             {#each filteredPosts as post}
               <li
-                class="border-b border-neutral-200 dark:border-neutral-800 pb-6"
+                class="border-b border-ctp-surface0 pb-6"
               >
                 <div class="grid grid-cols-[auto_1fr] gap-4">
                   <time
-                    class="text-sm text-neutral-600 dark:text-neutral-300 whitespace-nowrap pt-0.5"
+                    class="text-sm text-ctp-subtext0 whitespace-nowrap pt-0.5"
                   >
                     {formatDate(post.date)}
                   </time>
                   <div class="space-y-2">
                     <a href="/blog/{post.slug}" class="group">
                       <h2
-                        class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+                        class="text-xl font-medium text-ctp-text group-hover:text-ctp-mauve transition-colors"
                       >
                         {#if searchQuery}
                           {#each splitTextForHighlight(post.title, searchQuery) as part}
                             {#if part.highlighted}
-                              <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                              <mark class="bg-ctp-yellow/30 text-ctp-text">{part.text}</mark>
                             {:else}
                               {part.text}
                             {/if}
@@ -259,11 +259,11 @@
                       </h2>
                     </a>
                     {#if post.excerpt}
-                      <p class="text-neutral-600 dark:text-neutral-300">
+                      <p class="text-ctp-subtext1">
                         {#if searchQuery}
                           {#each splitTextForHighlight(post.excerpt, searchQuery) as part}
                             {#if part.highlighted}
-                              <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                              <mark class="bg-ctp-yellow/30 text-ctp-text">{part.text}</mark>
                             {:else}
                               {part.text}
                             {/if}
@@ -276,11 +276,11 @@
                     {#if searchQuery && post.content}
                       {@const snippet = getContentSnippet(post.content, searchQuery)}
                       {#if snippet}
-                        <div class="mt-3 p-3 bg-neutral-50 dark:bg-neutral-800/50 rounded-lg border border-neutral-200 dark:border-neutral-700">
-                          <p class="text-sm text-neutral-600 dark:text-neutral-300 italic">
+                        <div class="mt-3 p-3 bg-ctp-surface0/50 rounded-lg border border-ctp-surface1">
+                          <p class="text-sm text-ctp-subtext0 italic">
                             {#each splitTextForHighlight(snippet, searchQuery) as part}
                               {#if part.highlighted}
-                                <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                                <mark class="bg-ctp-yellow/30 text-ctp-text">{part.text}</mark>
                               {:else}
                                 {part.text}
                               {/if}
@@ -293,12 +293,12 @@
                       <div class="flex flex-wrap gap-2 mt-2">
                         {#each post.tags as tag}
                           <span
-                            class="px-3 py-1 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-sm"
+                            class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-subtext1 shadow-sm"
                           >
                             {#if searchQuery}
                               {#each splitTextForHighlight(tag, searchQuery) as part}
                                 {#if part.highlighted}
-                                  <mark class="bg-yellow-200 dark:bg-yellow-600">{part.text}</mark>
+                                  <mark class="bg-ctp-yellow/30 text-ctp-text">{part.text}</mark>
                                 {:else}
                                   {part.text}
                                 {/if}
@@ -317,7 +317,7 @@
           </ul>
         {:else}
           <div class="text-center py-24">
-            <p class="text-neutral-600 dark:text-neutral-300 text-lg">
+            <p class="text-ctp-subtext1 text-lg">
               No blog posts yet. Check back soon!
             </p>
           </div>

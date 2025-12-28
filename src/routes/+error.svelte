@@ -48,10 +48,10 @@
       <div class="max-w-2xl w-full text-center">
         <!-- Error Status Code -->
         <div class="mb-8">
-          <h1 class="text-8xl md:text-9xl font-bold text-primary-400 mb-4">
+          <h1 class="text-8xl md:text-9xl font-bold text-ctp-mauve mb-4">
             {status}
           </h1>
-          <h2 class="text-3xl md:text-4xl font-bold text-neutral-100 mb-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-ctp-text mb-6">
             {errorTitle}
           </h2>
         </div>
@@ -59,12 +59,12 @@
         <!-- Error Message -->
         <div class="mb-8">
           {#if friendlyMessage}
-            <p class="text-lg text-neutral-300 mb-4">
+            <p class="text-lg text-ctp-subtext1 mb-4">
               {friendlyMessage}
             </p>
           {/if}
           {#if message && !friendlyMessage}
-            <p class="text-base text-neutral-400 font-mono">
+            <p class="text-base text-ctp-subtext0 font-mono">
               {message}
             </p>
           {/if}
@@ -77,7 +77,7 @@
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
             href="/"
-            class="inline-flex items-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+            class="inline-flex items-center px-6 py-3 bg-ctp-mauve hover:bg-ctp-mauve/80 text-ctp-crust font-semibold rounded-lg transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -97,7 +97,7 @@
           </a>
           <button
             onclick={() => window.history.back()}
-            class="inline-flex items-center px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-neutral-100 font-semibold rounded-lg transition-colors"
+            class="inline-flex items-center px-6 py-3 bg-ctp-surface0 hover:bg-ctp-surface1 text-ctp-text font-semibold rounded-lg transition-colors"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,24 +120,24 @@
         {#if status === 404}
           <!-- Additional help for 404 errors -->
           <div class="mt-12 text-left max-w-md mx-auto">
-            <h3 class="text-xl font-semibold text-neutral-100 mb-4">
+            <h3 class="text-xl font-semibold text-ctp-text mb-4">
               Looking for something specific?
             </h3>
-            <ul class="space-y-3 text-neutral-300">
+            <ul class="space-y-3 text-ctp-subtext1">
               <li>
-                <a href="/blog" class="text-primary-400 hover:text-primary-300 underline">
+                <a href="/blog" class="text-ctp-mauve hover:text-ctp-pink underline">
                   Browse the blog
                 </a>
                 for articles on physics, math, and software engineering
               </li>
               <li>
-                <a href="/about" class="text-primary-400 hover:text-primary-300 underline">
+                <a href="/about" class="text-ctp-mauve hover:text-ctp-pink underline">
                   Learn more about me
                 </a>
                 and my work
               </li>
               <li>
-                <a href="/#contact" class="text-primary-400 hover:text-primary-300 underline">
+                <a href="/#contact" class="text-ctp-mauve hover:text-ctp-pink underline">
                   Get in touch
                 </a>
                 if you need help finding something

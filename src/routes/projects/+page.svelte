@@ -35,7 +35,7 @@
   <main class="flex-grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
-        <p class="text-xl text-neutral-600 dark:text-neutral-300 mb-12">
+        <p class="text-xl text-ctp-subtext1 mb-12">
           Here are some of the projects I've worked on.
         </p>
 
@@ -43,7 +43,7 @@
           <ul class="space-y-6">
             {#each projects as project}
               <li
-                class="border-b border-neutral-200 dark:border-neutral-800 pb-6"
+                class="border-b border-ctp-surface0 pb-6"
               >
                 <div class="space-y-3">
                   <!-- Title with link to external URL -->
@@ -55,7 +55,7 @@
                       class="group inline-flex items-center gap-2"
                     >
                       <h2
-                        class="text-xl font-medium text-neutral-900 dark:text-neutral-100 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+                        class="text-xl font-medium text-ctp-text group-hover:text-ctp-mauve transition-colors"
                       >
                         {project.title}
                       </h2>
@@ -65,7 +65,7 @@
                         viewBox="0 0 24 24"
                         stroke-width="2"
                         stroke="currentColor"
-                        class="w-4 h-4 text-neutral-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+                        class="w-4 h-4 text-ctp-overlay0 group-hover:text-ctp-mauve transition-colors"
                       >
                         <path
                           stroke-linecap="round"
@@ -76,14 +76,14 @@
                     </a>
                   {:else}
                     <h2
-                      class="text-xl font-medium text-neutral-900 dark:text-neutral-100"
+                      class="text-xl font-medium text-ctp-text"
                     >
                       {project.title}
                     </h2>
                   {/if}
 
                   <!-- Description -->
-                  <p class="text-neutral-600 dark:text-neutral-300">
+                  <p class="text-ctp-subtext1">
                     {project.description}
                   </p>
 
@@ -91,7 +91,7 @@
                   {#if project.blogPostSlug}
                     <a
                       href="/blog/{project.blogPostSlug}"
-                      class="inline-flex items-center gap-1.5 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors font-medium"
+                      class="inline-flex items-center gap-1.5 text-sm text-ctp-mauve hover:text-ctp-pink transition-colors font-medium"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@
                   <div class="flex flex-wrap gap-2">
                     {#each project.technologies as tech}
                       <span
-                        class="px-3 py-1 rounded-lg bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-700 dark:text-neutral-300 shadow-sm"
+                        class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-subtext1 shadow-sm"
                       >
                         {tech}
                       </span>
@@ -127,7 +127,7 @@
           </ul>
         {:else}
           <div class="text-center py-24">
-            <p class="text-neutral-500 dark:text-neutral-500 text-lg">
+            <p class="text-ctp-subtext0 text-lg">
               No projects to display yet.
             </p>
           </div>

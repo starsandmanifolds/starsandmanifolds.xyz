@@ -11,35 +11,9 @@
 @import "$lib/fonts/dancing-script.css";
 
 @import "tailwindcss";
+@import "@catppuccin/tailwindcss/mocha.css";
 
 @theme {
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-200: #bae6fd;
-  --color-primary-300: #7dd3fc;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
-  --color-primary-900: #0c4a6e;
-  --color-primary-950: #082f49;
-
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f5f5f5;
-  --color-neutral-200: #e5e5e5;
-  --color-neutral-300: #d4d4d4;
-  --color-neutral-400: #a3a3a3;
-  --color-neutral-500: #737373;
-  --color-neutral-600: #525252;
-  --color-neutral-700: #404040;
-  --color-neutral-800: #262626;
-  --color-neutral-900: #171717;
-  --color-neutral-950: #0a0a0a;
-
-  /* Custom space-inspired background color from logo */
-  --color-space: #00071b;
-
   --font-family-sans:
     Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     sans-serif;
@@ -48,13 +22,9 @@
   --font-family-decorative: "Dancing Script", cursive;
 }
 
-/* Define utility classes for custom fonts and colors in Tailwind CSS v4 */
+/* Define utility classes for custom fonts in Tailwind CSS v4 */
 @utility font-decorative {
   font-family: var(--font-family-decorative);
-}
-
-@utility bg-space {
-  background-color: var(--color-space);
 }
 
 @layer base {
@@ -67,10 +37,10 @@
     color-scheme: dark;
   }
 
-  /* Always use dark theme with space-inspired background */
+  /* Catppuccin Mocha dark theme */
   body {
-    background-color: var(--color-space);
-    color: var(--color-neutral-100);
+    background-color: var(--color-ctp-base);
+    color: var(--color-ctp-text);
     position: relative;
   }
 
@@ -79,21 +49,21 @@
     scroll-behavior: smooth;
   }
 
-  /* Selection colors */
+  /* Selection colors - Catppuccin Mauve */
   ::selection {
-    @apply bg-primary-600 text-white;
+    @apply bg-ctp-mauve text-ctp-crust;
   }
 }
 
-/* Typography/Prose Styles - Dark Theme Only */
+/* Typography/Prose Styles - Catppuccin Mocha Theme */
 .prose {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   max-width: none;
   line-height: 1.75;
 }
 
 .prose h1 {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   font-weight: 800;
   font-size: 2.25em;
   margin-top: 0;
@@ -102,7 +72,7 @@
 }
 
 .prose h2 {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   font-weight: 700;
   font-size: 1.5em;
   margin-top: 2em;
@@ -111,7 +81,7 @@
 }
 
 .prose h3 {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   font-weight: 600;
   font-size: 1.25em;
   margin-top: 1.6em;
@@ -120,7 +90,7 @@
 }
 
 .prose h4 {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   font-weight: 600;
   margin-top: 1.5em;
   margin-bottom: 0.5em;
@@ -133,17 +103,17 @@
 }
 
 .prose a {
-  color: theme("colors.primary.400");
+  color: var(--color-ctp-mauve);
   text-decoration: underline;
   font-weight: 500;
 }
 
 .prose a:hover {
-  color: theme("colors.primary.300");
+  color: var(--color-ctp-pink);
 }
 
 .prose strong {
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-text);
   font-weight: 600;
 }
 
@@ -152,8 +122,8 @@
 }
 
 .prose code {
-  color: theme("colors.neutral.100");
-  background-color: theme("colors.neutral.800");
+  color: var(--color-ctp-text);
+  background-color: var(--color-ctp-surface0);
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875em;
@@ -185,9 +155,9 @@
 .prose blockquote {
   font-weight: 500;
   font-style: italic;
-  color: theme("colors.neutral.100");
+  color: var(--color-ctp-subtext1);
   border-left-width: 0.25rem;
-  border-left-color: theme("colors.neutral.700");
+  border-left-color: var(--color-ctp-surface1);
   quotes: "\201C" "\201D" "\2018" "\2019";
   margin-top: 1.6em;
   margin-bottom: 1.6em;
@@ -196,13 +166,13 @@
 
 /* Code block styling */
 .prose pre {
-  @apply rounded-lg my-6 p-0 overflow-hidden bg-neutral-950;
+  @apply rounded-lg my-6 p-0 overflow-hidden bg-ctp-mantle;
 }
 
 .prose pre code {
   @apply block p-4 overflow-x-auto text-sm;
   background-color: transparent !important;
-  color: theme("colors.neutral.100") !important;
+  color: var(--color-ctp-text) !important;
   font-family:
     "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace !important;
   font-variant-ligatures: common-ligatures !important;
@@ -213,7 +183,7 @@
 
 /* Shiki overrides */
 .prose .shiki {
-  @apply bg-neutral-950 m-0;
+  @apply bg-ctp-mantle m-0;
 }
 
 .prose .shiki code {
@@ -228,7 +198,7 @@
 
 /* KaTeX math styling */
 .prose .katex {
-  @apply text-neutral-100;
+  color: var(--color-ctp-text);
   font-size: 1.1em;
 }
 
@@ -238,7 +208,7 @@
 
 /* Math block background */
 .prose .katex-display > .katex {
-  @apply bg-neutral-900 p-4 rounded-lg;
+  @apply bg-ctp-mantle p-4 rounded-lg;
 }
 
 /* Global ligature support for all code elements */
@@ -254,16 +224,16 @@ pre,
     "calt" 1 !important;
 }
 
-/* Multi-Color Space Theme Divider */
+/* Catppuccin Mocha Divider */
 .divider-space {
   height: 1px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(56, 189, 248, 0.2) 15%,
-    /* blue */ rgba(147, 51, 234, 0.2) 35%,
-    /* purple */ rgba(236, 72, 153, 0.2) 65%,
-    /* pink */ rgba(56, 189, 248, 0.2) 85%,
-    /* blue */ transparent 100%
+    oklch(from var(--color-ctp-blue) l c h / 0.3) 15%,
+    oklch(from var(--color-ctp-mauve) l c h / 0.3) 35%,
+    oklch(from var(--color-ctp-pink) l c h / 0.3) 65%,
+    oklch(from var(--color-ctp-blue) l c h / 0.3) 85%,
+    transparent 100%
   );
 }
