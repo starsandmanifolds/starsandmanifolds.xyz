@@ -1,7 +1,7 @@
 ---
 title: "Domain-Based Split Tunneling Using WireGuard"
 excerpt: "Route traffic to specific domains through WireGuard while everything else uses your regular connection. This guide covers the full stack: intercepting DNS with dnsmasq, dynamically populating nftables sets, policy routing with fwmarks, and connection tracking to keep long-lived connections working."
-tags: ["wireguard", "linux", "networking", "vpn"]
+tags: ["wireguard", "linux", "networking", "vpn", "dnsmasq", "nftables", "dns", "tailscale", "systemd", "privacy"]
 state: published
 ---
 
