@@ -71,11 +71,6 @@ async function initializeMarked(): Promise<void> {
       }),
     );
 
-    // Configure footnotes
-    marked.use(markedFootnote({
-      refMarkers: true,  // Show [1] instead of just superscript
-    }));
-
     // Configure custom renderers
     marked.use({
       async: true,
