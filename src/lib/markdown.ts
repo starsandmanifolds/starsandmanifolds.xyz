@@ -1,5 +1,4 @@
 import { marked } from "marked";
-import markedFootnote from "marked-footnote";
 import markedKatex from "marked-katex-extension";
 import { createHighlighter, type Highlighter } from "shiki";
 
