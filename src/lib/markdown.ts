@@ -1,10 +1,21 @@
 import { marked } from "marked";
+import markedFootnote from "marked-footnote";
 import markedKatex from "marked-katex-extension";
 import { createHighlighter, type Highlighter } from "shiki";
 
 let highlighterInstance: Highlighter | null = null;
 let markedInitialized = false;
 let initPromise: Promise<void> | null = null;
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]*>/g, "") // Remove HTML tags
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/\s+/g, "-") // Replace spaces with hyphens
+    .replace(/-+/g, "-") // Replace multiple hyphens with single
+    .trim();
+}
 
 async function getHighlighter(): Promise<Highlighter> {
   if (!highlighterInstance) {
@@ -17,6 +28,7 @@ async function getHighlighter(): Promise<Highlighter> {
         "css",
         "haskell",
         "html",
+        "ini",
         "javascript",
         "json",
         "latex",
@@ -24,6 +36,7 @@ async function getHighlighter(): Promise<Highlighter> {
         "python",
         "rust",
         "text",
+        "toml",
         "typescript",
       ],
     });
@@ -59,10 +72,20 @@ async function initializeMarked(): Promise<void> {
       }),
     );
 
-    // Configure custom code renderer with Shiki
+    // Configure footnotes
+    marked.use(markedFootnote({
+      refMarkers: true,  // Show [1] instead of just superscript
+    }));
+
+    // Configure custom renderers
     marked.use({
       async: true,
       renderer: {
+        heading(token) {
+          const id = slugify(token.text);
+          const content = this.parser.parseInline(token.tokens);
+          return `<h${token.depth} id="${id}">${content}</h${token.depth}>\n`;
+        },
         code(token) {
           const code = token.text;
           const lang = token.lang || "text";
