@@ -375,7 +375,7 @@
     /* Actor lifelines (vertical dashed lines) */
     & .actor-line,
     & line.actor-line {
-      stroke: #6c7086 !important; /* overlay0 */
+      stroke: #89b4fa !important; /* blue */
     }
 
     /* Message arrows/lines */
@@ -385,7 +385,7 @@
     & line.messageLine1,
     & path.messageLine0,
     & path.messageLine1 {
-      stroke: #bac2de !important; /* subtext1 */
+      stroke: #89b4fa !important; /* blue */
     }
 
     /* Message text labels */
@@ -397,8 +397,8 @@
     /* Arrowheads - target markers */
     & marker path,
     & defs marker path {
-      fill: #bac2de !important; /* subtext1 */
-      stroke: #bac2de !important;
+      fill: #89b4fa !important; /* blue */
+      stroke: #89b4fa !important;
     }
 
     /* Loop boxes and labels */
@@ -455,7 +455,7 @@
     /* General line/path fallback for arrows */
     & line:not(.actor-line),
     & path:not([class]) {
-      stroke: #9399b2 !important; /* overlay2 */
+      stroke: #89b4fa !important; /* blue */
     }
   }
 }
