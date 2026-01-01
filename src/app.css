@@ -140,6 +140,9 @@
   font-feature-settings:
     "liga" 1,
     "calt" 1;
+  /* Allow long inline code to wrap on mobile */
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .prose ul {
