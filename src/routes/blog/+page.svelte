@@ -203,7 +203,7 @@
             </button>
           {:else if !isFocused}
             <kbd
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-ctp-subtext0 border border-ctp-surface1 rounded bg-ctp-surface0 shadow-sm pointer-events-none"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-ctp-text border border-ctp-surface1 rounded bg-ctp-surface0 shadow-sm pointer-events-none"
               aria-hidden="true"
             >
               /
@@ -236,7 +236,7 @@
               >
                 <div class="grid grid-cols-[auto_1fr] gap-4">
                   <time
-                    class="text-sm text-ctp-subtext0 whitespace-nowrap pt-0.5"
+                    class="text-sm text-ctp-subtext1 whitespace-nowrap pt-0.5"
                   >
                     {formatDate(post.date)}
                   </time>
@@ -277,7 +277,7 @@
                       {@const snippet = getContentSnippet(post.content, searchQuery)}
                       {#if snippet}
                         <div class="mt-3 p-3 bg-ctp-surface0/50 rounded-lg border border-ctp-surface1">
-                          <p class="text-sm text-ctp-subtext0 italic">
+                          <p class="text-sm text-ctp-subtext1 italic">
                             {#each splitTextForHighlight(snippet, searchQuery) as part}
                               {#if part.highlighted}
                                 <mark class="bg-ctp-yellow/30 text-ctp-text">{part.text}</mark>
@@ -293,7 +293,7 @@
                       <div class="flex flex-wrap gap-2 mt-2">
                         {#each post.tags as tag}
                           <span
-                            class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-subtext1 shadow-sm"
+                            class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-text shadow-sm"
                           >
                             {#if searchQuery}
                               {#each splitTextForHighlight(tag, searchQuery) as part}

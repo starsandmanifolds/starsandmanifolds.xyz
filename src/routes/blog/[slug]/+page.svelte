@@ -27,6 +27,9 @@
 </script>
 
 <svelte:head>
+  <!-- KaTeX CSS for math rendering (only loaded on blog posts) -->
+  <link rel="stylesheet" href="/katex/katex.min.css" />
+
   <title>{data.post.title} - {SITE_CONFIG.name}</title>
   <meta name="description" content={data.post.excerpt} />
   <link rel="canonical" href={canonicalUrl} />
@@ -62,7 +65,7 @@
           </h1>
 
           <div
-            class="flex items-center gap-4 text-ctp-subtext0"
+            class="flex items-center gap-4 text-ctp-subtext1"
           >
             <time>{formatDate(data.post.date)}</time>
           </div>
@@ -71,7 +74,7 @@
           <div class="flex flex-wrap gap-2 mt-4">
             {#each data.post.tags as tag}
               <span
-                class="px-3 py-1 text-sm rounded-full bg-ctp-surface0 text-ctp-subtext1"
+                class="px-3 py-1 text-sm rounded-full bg-ctp-surface0 text-ctp-text"
               >
                 {tag}
               </span>

@@ -41,12 +41,15 @@
   {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
 </svelte:head>
 
-<div class="min-h-screen relative">
-  <Starfield />
-  <div class="min-h-screen flex flex-col relative z-10">
-    <Header />
-    <main class="flex-grow">
+<div class="min-h-screen flex flex-col">
+  <!-- Header follows OS theme preference -->
+  <Header />
+  <!-- Starfield hero section -->
+  <div class="starfield-section grow relative">
+    <Starfield />
+    <main class="grow relative z-10">
     </main>
-    <Footer />
   </div>
+  <!-- Footer follows OS theme preference -->
+  <Footer />
 </div>

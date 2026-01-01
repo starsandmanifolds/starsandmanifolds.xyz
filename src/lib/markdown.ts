@@ -19,7 +19,9 @@ function slugify(text: string): string {
 async function getHighlighter(): Promise<Highlighter> {
   if (!highlighterInstance) {
     highlighterInstance = await createHighlighter({
-      themes: ["catppuccin-mocha"],
+      // Load both themes for light/dark mode support
+      // catppuccin-latte needs color replacements for WCAG AA compliance
+      themes: ["catppuccin-mocha", "catppuccin-latte"],
       langs: [
         "bash",
         "cpp",
@@ -85,9 +87,34 @@ async function initializeMarked(): Promise<void> {
           const lang = token.lang || "text";
 
           try {
+            // Use dual themes - Shiki outputs CSS variables for both themes
+            // defaultColor: false means NO inline color fallbacks, only CSS variables
+            // This lets CSS handle theme switching cleanly without !important
+            // colorReplacements darkens catppuccin-latte colors for WCAG AA (4.5:1)
             return highlighter.codeToHtml(code, {
               lang,
-              theme: "catppuccin-mocha",
+              themes: {
+                light: "catppuccin-latte",
+                dark: "catppuccin-mocha",
+              },
+              defaultColor: false,
+              colorReplacements: {
+                // Catppuccin Latte colors darkened for WCAG AA compliance
+                // Original colors have 2.3-4.3:1 contrast, these achieve 4.5:1+
+                "#dc8a78": "#975f52", // rosewater
+                "#dd7878": "#a35858", // flamingo
+                "#ea76cb": "#a1518c", // pink
+                "#e64553": "#c53b47", // maroon
+                "#fe640b": "#bb4a08", // peach
+                "#df8e1d": "#996114", // yellow
+                "#40a02b": "#317c21", // green
+                "#179299": "#137a80", // teal
+                "#04a5e5": "#0275a2", // sky
+                "#209fb5": "#187889", // sapphire
+                "#1e66f5": "#1d63f0", // blue
+                "#7287fd": "#5767c2", // lavender
+                "#7c7f93": "#6a6d7e", // overlay2 (comments)
+              },
             });
           } catch (error) {
             console.warn(`Failed to highlight ${lang}:`, error);

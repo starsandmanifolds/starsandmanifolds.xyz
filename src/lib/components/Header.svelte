@@ -31,7 +31,7 @@
         {#each NAV_ITEMS as item}
           <a
             href={item.href}
-            class="text-ctp-subtext0 hover:text-ctp-mauve transition-colors {isActive(item.href) ? 'text-ctp-mauve border-b-2 border-ctp-mauve' : ''}"
+            class="text-ctp-subtext1 hover:text-ctp-mauve transition-colors {isActive(item.href) ? 'text-ctp-mauve border-b-2 border-ctp-mauve' : ''}"
           >
             {item.label}
           </a>
@@ -85,7 +85,7 @@
           <a
             href={item.href}
             onclick={() => (mobileMenuOpen = false)}
-            class="block py-2 text-ctp-subtext0 hover:text-ctp-mauve transition-colors {isActive(item.href) ? 'text-ctp-mauve' : ''}"
+            class="block py-2 text-ctp-subtext1 hover:text-ctp-mauve transition-colors {isActive(item.href) ? 'text-ctp-mauve' : ''}"
           >
             {item.label}
           </a>
