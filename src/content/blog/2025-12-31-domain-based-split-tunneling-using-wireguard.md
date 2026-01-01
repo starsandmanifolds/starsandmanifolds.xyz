@@ -98,17 +98,17 @@ When the client makes a DNS query for a tunneled domain, the following happens:
 sequenceDiagram
     participant Client
     participant dnsmasq
+    participant nftables
     participant WireGuard
     participant VPN DNS
-    participant nftables
 
     Client->>dnsmasq: Query $DOMAIN
     dnsmasq->>WireGuard: Forward query
-    WireGuard->>VPN DNS: Encrypted tunnel
-    VPN DNS-->>WireGuard: $DOMAIN_IP
+    WireGuard->>VPN DNS: Encrypted query
+    VPN DNS-->>WireGuard: Encrypted response
     WireGuard-->>dnsmasq: Response
-    dnsmasq-->>Client: Return IP
     dnsmasq->>nftables: Add IP to wg_domains set
+    dnsmasq-->>Client: Return IP
 ```
 
 ### Stage 2: Traffic Routing
@@ -127,18 +127,17 @@ When the client sends a packet to that IP, the following happens:
 sequenceDiagram
     participant Client
     participant nftables
-    participant Policy Routing
     participant WireGuard
     participant VPN Endpoint
 
     Client->>nftables: Packet to $DOMAIN_IP
-    nftables->>nftables: Mark with fwmark 0x1
-    nftables->>Policy Routing: Route via table 100
-    Policy Routing->>WireGuard: Encrypted request
-    WireGuard->>VPN Endpoint: Encrypted tunnel
+    Note right of nftables: Mark with fwmark 0x1
+    nftables->>nftables:
+    nftables->>WireGuard: Routed via table 100
+    WireGuard->>VPN Endpoint: Encrypted request
     VPN Endpoint-->>WireGuard: Encrypted response
-    WireGuard-->>Policy Routing: Decrypted response
-    Policy Routing-->>Client: Response
+    WireGuard-->>Client: Response
+    Note right of Client: Conntrack reverses<br/>masquerade NAT
 ```
 
 ## How Its Set Up
