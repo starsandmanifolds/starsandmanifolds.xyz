@@ -13,7 +13,7 @@
 <div class="min-h-screen flex flex-col">
   <Header />
 
-  <main class="flex-grow pt-24 pb-16">
+  <main class="grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
         <!-- Greeting -->
@@ -22,7 +22,7 @@
             {HERO_CONTENT.greeting}
           </p>
           <h1
-            class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-ctp-mauve to-ctp-pink bg-clip-text text-transparent"
+            class="text-5xl md:text-7xl font-bold mb-6 bg-linear-to-r from-ctp-mauve to-ctp-pink bg-clip-text text-transparent"
           >
             {HERO_CONTENT.name}
           </h1>

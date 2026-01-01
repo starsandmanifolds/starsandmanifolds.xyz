@@ -44,7 +44,7 @@
 <div class="min-h-screen flex flex-col">
   <Header />
 
-  <main class="flex-grow pt-24 pb-16">
+  <main class="grow pt-24 pb-16">
     <article class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
         <!-- Post header -->

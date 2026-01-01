@@ -17,7 +17,7 @@
 <div class="min-h-screen flex flex-col">
   <Header />
 
-  <main class="flex-grow pt-24 pb-16">
+  <main class="grow pt-24 pb-16">
     <div class="container mx-auto px-4">
       <div class="max-w-4xl mx-auto">
         <p class="text-xl text-ctp-subtext1 mb-12">
