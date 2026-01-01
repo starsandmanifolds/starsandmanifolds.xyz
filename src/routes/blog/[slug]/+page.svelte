@@ -1,8 +1,8 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
-  import { formatDate } from "$lib/utils/date";
+  import Seo from "$lib/components/Seo.svelte";
+  import { SITE_URL } from "$lib/constants";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
@@ -26,25 +26,16 @@
   };
 </script>
 
+<Seo
+  title={data.post.title}
+  description={data.post.excerpt}
+  {canonicalUrl}
+  type="article"
+/>
+
 <svelte:head>
   <!-- KaTeX CSS for math rendering (only loaded on blog posts) -->
   <link rel="stylesheet" href="/katex/katex.min.css" />
-
-  <title>{data.post.title} - {SITE_CONFIG.name}</title>
-  <meta name="description" content={data.post.excerpt} />
-  <link rel="canonical" href={canonicalUrl} />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:title" content={data.post.title} />
-  <meta property="og:description" content={data.post.excerpt} />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={canonicalUrl} />
-  <meta property="twitter:title" content={data.post.title} />
-  <meta property="twitter:description" content={data.post.excerpt} />
 
   <!-- Structured Data -->
   {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
@@ -67,7 +58,7 @@
           <div
             class="flex items-center gap-4 text-ctp-subtext1"
           >
-            <time>{formatDate(data.post.date)}</time>
+            <time>{data.post.date}</time>
           </div>
 
           <!-- Tags -->

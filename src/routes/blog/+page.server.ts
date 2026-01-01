@@ -1,9 +1,7 @@
 import { loadBlogPosts } from "$lib/blog";
 import type { PageServerLoad } from "./$types";
 
-export const prerender = true;
-
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = () => {
   const posts = loadBlogPosts();
 
   return {

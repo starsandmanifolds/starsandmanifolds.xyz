@@ -31,13 +31,6 @@ export interface BlogPost {
   content?: string; // HTML string for rendered markdown
 }
 
-export interface TimelineItem {
-  date: string;
-  title: string;
-  description: string;
-  type: "work" | "education" | "achievement";
-}
-
 export interface SiteConfig {
   name: string;
   title: string;
@@ -52,8 +45,6 @@ export interface HeroContent {
   name: string;
   title: string;
   tagline: string;
-  ctaText: string;
-  ctaHref: string;
 }
 
 export interface AboutContent {

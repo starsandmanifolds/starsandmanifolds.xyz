@@ -4,8 +4,6 @@ import type { PageServerLoad } from "./$types";
 import type { EntryGenerator } from "./$types";
 import { loadBlogPosts } from "$lib/blog";
 
-export const prerender = true;
-
 export const entries: EntryGenerator = () => {
   const posts = loadBlogPosts();
   return posts.map(post => ({ slug: post.slug }));

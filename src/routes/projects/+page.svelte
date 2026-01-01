@@ -1,7 +1,8 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
+  import Seo from "$lib/components/Seo.svelte";
+  import { SITE_URL } from "$lib/constants";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
@@ -11,23 +12,7 @@
   const description = "Projects and open source work by Anand Shankar Dyavanapalli.";
 </script>
 
-<svelte:head>
-  <title>Projects - {SITE_CONFIG.name}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalUrl} />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={canonicalUrl} />
-  <meta property="og:title" content="Projects - {SITE_CONFIG.name}" />
-  <meta property="og:description" content={description} />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={canonicalUrl} />
-  <meta property="twitter:title" content="Projects - {SITE_CONFIG.name}" />
-  <meta property="twitter:description" content={description} />
-</svelte:head>
+<Seo title="Projects" {description} {canonicalUrl} />
 
 <div class="min-h-screen flex flex-col">
   <Header />
