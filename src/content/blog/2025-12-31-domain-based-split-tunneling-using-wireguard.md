@@ -94,7 +94,22 @@ When the client makes a DNS query for a tunneled domain, the following happens:
 
 4. **Set population**: The `nftset=/${DOMAIN}/4#inet#wg_routing#wg_domains4,6#inet#wg_routing#wg_domains6` directive instructs `dnsmasq` to add resolved IPv4 addresses to `wg_domains4` and IPv6 addresses to `wg_domains6`. This happens transparently - the client receives a normal DNS response, unaware that the IPs have been flagged for special routing.
 
-![DNS resolution flow](/wireguard-flow-dns.svg)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant dnsmasq
+    participant WireGuard
+    participant VPN DNS
+    participant nftables
+
+    Client->>dnsmasq: Query $DOMAIN
+    dnsmasq->>WireGuard: Forward query
+    WireGuard->>VPN DNS: Encrypted tunnel
+    VPN DNS-->>WireGuard: $DOMAIN_IP
+    WireGuard-->>dnsmasq: Response
+    dnsmasq-->>Client: Return IP
+    dnsmasq->>nftables: Add IP to wg_domains set
+```
 
 ### Stage 2: Traffic Routing
 
@@ -108,7 +123,23 @@ When the client sends a packet to that IP, the following happens:
 
 4. **Return path**: The response arrives through the WireGuard tunnel. *Masquerade NAT* (source NAT using the outgoing interface's IP) ensures the response is translated back to the original client, so the application receives it transparently.
 
-![Traffic routing flow](/wireguard-flow-traffic.svg)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant nftables
+    participant Policy Routing
+    participant WireGuard
+    participant VPN Endpoint
+
+    Client->>nftables: Packet to $DOMAIN_IP
+    nftables->>nftables: Mark with fwmark 0x1
+    nftables->>Policy Routing: Route via table 100
+    Policy Routing->>WireGuard: Encrypted request
+    WireGuard->>VPN Endpoint: Encrypted tunnel
+    VPN Endpoint-->>WireGuard: Encrypted response
+    WireGuard-->>Policy Routing: Decrypted response
+    Policy Routing-->>Client: Response
+```
 
 ## How Its Set Up
 

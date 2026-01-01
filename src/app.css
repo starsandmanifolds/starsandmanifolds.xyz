@@ -345,6 +345,121 @@
   @apply bg-ctp-mantle p-4 rounded-lg;
 }
 
+/* Mermaid diagram styling */
+.mermaid-container {
+  @apply overflow-x-auto;
+}
+
+.mermaid-diagram {
+  @apply max-w-full h-auto mx-auto block;
+}
+
+/* Mermaid dark mode overrides - SVGs are generated with Latte (light) colors,
+ * so we override them for dark mode using Catppuccin Mocha palette.
+ * The SVG has inline fill/stroke attributes and an embedded <style> block,
+ * so we need high-specificity selectors with !important to override. */
+@media (prefers-color-scheme: dark) {
+  .mermaid-diagram {
+    /* Actor boxes (rect elements with inline fill/stroke) */
+    & rect.actor {
+      fill: #313244 !important; /* surface0 */
+      stroke: #9399b2 !important; /* overlay2 */
+    }
+
+    /* Actor text - target tspan inside text.actor */
+    & text.actor,
+    & text.actor > tspan {
+      fill: #cdd6f4 !important; /* text */
+    }
+
+    /* Actor lifelines (vertical dashed lines) */
+    & .actor-line,
+    & line.actor-line {
+      stroke: #6c7086 !important; /* overlay0 */
+    }
+
+    /* Message arrows/lines */
+    & .messageLine0,
+    & .messageLine1,
+    & line.messageLine0,
+    & line.messageLine1,
+    & path.messageLine0,
+    & path.messageLine1 {
+      stroke: #bac2de !important; /* subtext1 */
+    }
+
+    /* Message text labels */
+    & .messageText,
+    & text.messageText {
+      fill: #cdd6f4 !important; /* text */
+    }
+
+    /* Arrowheads - target markers */
+    & marker path,
+    & defs marker path {
+      fill: #bac2de !important; /* subtext1 */
+      stroke: #bac2de !important;
+    }
+
+    /* Loop boxes and labels */
+    & .loopText,
+    & .loopText > tspan,
+    & text.loopText,
+    & text.loopText > tspan {
+      fill: #a6adc8 !important; /* subtext0 */
+    }
+
+    & .labelBox,
+    & rect.labelBox {
+      fill: #1e1e2e !important; /* base */
+      stroke: #6c7086 !important; /* overlay0 */
+    }
+
+    & .labelText,
+    & .labelText > tspan,
+    & text.labelText,
+    & text.labelText > tspan {
+      fill: #cdd6f4 !important; /* text */
+    }
+
+    /* Note boxes */
+    & .note,
+    & rect.note {
+      fill: #313244 !important; /* surface0 */
+      stroke: #6c7086 !important; /* overlay0 */
+    }
+
+    & .noteText,
+    & .noteText > tspan {
+      fill: #cdd6f4 !important; /* text */
+    }
+
+    /* Activation boxes */
+    & .activation0,
+    & .activation1,
+    & .activation2,
+    & rect.activation0,
+    & rect.activation1,
+    & rect.activation2 {
+      fill: #45475a !important; /* surface1 */
+      stroke: #6c7086 !important; /* overlay0 */
+    }
+
+    /* General text fallback - all text and tspan elements */
+    & text,
+    & text > tspan,
+    & tspan {
+      fill: #cdd6f4 !important; /* text */
+    }
+
+    /* General line/path fallback for arrows */
+    & line:not(.actor-line),
+    & path:not([class]) {
+      stroke: #9399b2 !important; /* overlay2 */
+    }
+  }
+}
+
 /* Global ligature support for all code elements */
 code,
 pre,
