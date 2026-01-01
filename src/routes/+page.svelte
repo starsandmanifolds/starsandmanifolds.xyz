@@ -2,6 +2,7 @@
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import Starfield from "$lib/components/Starfield.svelte";
+  import Seo from "$lib/components/Seo.svelte";
   import { SITE_CONFIG, SITE_URL } from "$lib/constants";
 
   // Structured data for homepage
@@ -20,23 +21,13 @@
   };
 </script>
 
+<Seo
+  title={SITE_CONFIG.title}
+  description={SITE_CONFIG.description}
+  canonicalUrl={SITE_URL}
+/>
+
 <svelte:head>
-  <title>{SITE_CONFIG.title}</title>
-  <meta name="description" content={SITE_CONFIG.description} />
-  <link rel="canonical" href={SITE_URL} />
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content={SITE_URL} />
-  <meta property="og:title" content={SITE_CONFIG.title} />
-  <meta property="og:description" content={SITE_CONFIG.description} />
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary_large_image" />
-  <meta property="twitter:url" content={SITE_URL} />
-  <meta property="twitter:title" content={SITE_CONFIG.title} />
-  <meta property="twitter:description" content={SITE_CONFIG.description} />
-
   <!-- Structured Data -->
   {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}
 </svelte:head>

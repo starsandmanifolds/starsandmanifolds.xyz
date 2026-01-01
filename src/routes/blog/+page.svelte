@@ -1,15 +1,14 @@
 <script lang="ts">
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
-  import { SITE_CONFIG, SITE_URL } from "$lib/constants";
-  import { formatDate } from "$lib/utils/date";
+  import Seo from "$lib/components/Seo.svelte";
+  import { SITE_URL } from "$lib/constants";
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
 
   let searchQuery = $state("");
   let searchInput: HTMLInputElement;
-  let isFocused = $state(false);
 
   function hasModifiers(event: KeyboardEvent): boolean {
     return event.ctrlKey || event.metaKey || event.altKey || event.shiftKey;
@@ -52,49 +51,24 @@
     }
   }
 
-  // Helper function to split text into highlighted and non-highlighted parts
-  // Returns array of {text: string, highlighted: boolean} objects
+  // Split text into highlighted and non-highlighted parts for search results
   function splitTextForHighlight(text: string, query: string): Array<{text: string, highlighted: boolean}> {
     if (!query.trim()) return [{text, highlighted: false}];
 
     const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapedQuery})`, 'gi');
-    const parts: Array<{text: string, highlighted: boolean}> = [];
+    // Split with capturing group keeps matches in the result array
+    const parts = text.split(new RegExp(`(${escapedQuery})`, 'gi'));
 
-    let lastIndex = 0;
-    let match;
-
-    while ((match = regex.exec(text)) !== null) {
-      // Add non-highlighted text before the match
-      if (match.index > lastIndex) {
-        parts.push({
-          text: text.substring(lastIndex, match.index),
-          highlighted: false
-        });
-      }
-
-      // Add highlighted match
-      parts.push({
-        text: match[0],
-        highlighted: true
-      });
-
-      lastIndex = regex.lastIndex;
-    }
-
-    // Add remaining non-highlighted text
-    if (lastIndex < text.length) {
-      parts.push({
-        text: text.substring(lastIndex),
-        highlighted: false
-      });
-    }
-
-    return parts;
+    return parts
+      .filter(Boolean)
+      .map(part => ({
+        text: part,
+        highlighted: part.toLowerCase() === query.toLowerCase()
+      }));
   }
 
   // Helper function to extract content snippet with search term
-  function getContentSnippet(content: string, query: string, maxLength: number = 150): string | null {
+  function getContentSnippet(content: string, query: string): string | null {
     if (!content || !query.trim()) return null;
 
     const lowerContent = content.toLowerCase();
@@ -135,14 +109,11 @@
 
 <svelte:window onkeydown={handleGlobalKeydown} />
 
-<svelte:head>
-  <title>Blog - {SITE_CONFIG.name}</title>
-  <meta
-    name="description"
-    content="Blog posts about software engineering, technology, and more."
-  />
-  <link rel="canonical" href="{SITE_URL}/blog" />
-</svelte:head>
+<Seo
+  title="Blog"
+  description="Blog posts about software engineering, technology, and more."
+  canonicalUrl="{SITE_URL}/blog"
+/>
 
 <div class="min-h-screen flex flex-col">
   <Header />
@@ -156,13 +127,11 @@
         </p>
         
         <!-- Search Box -->
-        <div class="relative mb-12">
+        <div class="group relative mb-12">
           <input
             bind:this={searchInput}
             type="text"
             bind:value={searchQuery}
-            onfocus={() => isFocused = true}
-            onblur={() => isFocused = false}
             placeholder="Search posts by title, content, or tags..."
             class="w-full px-4 py-3 pl-12 pr-12 rounded-lg border border-ctp-surface1 bg-ctp-surface0 text-ctp-text placeholder-ctp-overlay0 focus:outline-none focus:ring-2 focus:ring-ctp-mauve focus:border-transparent transition-colors"
           />
@@ -201,9 +170,9 @@
                 />
               </svg>
             </button>
-          {:else if !isFocused}
+          {:else}
             <kbd
-              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-ctp-text border border-ctp-surface1 rounded bg-ctp-surface0 shadow-sm pointer-events-none"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 px-2 py-0.5 text-xs font-semibold text-ctp-text border border-ctp-surface1 rounded bg-ctp-surface0 shadow-sm pointer-events-none group-focus-within:hidden"
               aria-hidden="true"
             >
               /
@@ -238,7 +207,7 @@
                   <time
                     class="text-sm text-ctp-subtext1 whitespace-nowrap pt-0.5"
                   >
-                    {formatDate(post.date)}
+                    {post.date}
                   </time>
                   <div class="space-y-2">
                     <a href="/blog/{post.slug}" class="group">

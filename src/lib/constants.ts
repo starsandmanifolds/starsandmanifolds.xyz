@@ -3,9 +3,6 @@ import type {
   NavItem,
   HeroContent,
   AboutContent,
-  Project,
-  BlogPost,
-  TimelineItem,
 } from "./types";
 
 export const SITE_URL = "https://starsandmanifolds.xyz";
@@ -35,8 +32,6 @@ export const HERO_CONTENT: HeroContent = {
   name: "Anand",
   title: "Software Engineer",
   tagline: "May your coffee kick in before reality does.",
-  ctaText: "View My Work",
-  ctaHref: "/projects",
 };
 
 export const ABOUT_CONTENT: AboutContent = {
@@ -48,6 +43,3 @@ export const ABOUT_CONTENT: AboutContent = {
   ],
 };
 
-export const TIMELINE: TimelineItem[] = [
-  // Professional timeline will be added here when needed
-];

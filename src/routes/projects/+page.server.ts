@@ -1,9 +1,7 @@
 import { loadProjects } from "$lib/projects";
 import type { PageServerLoad } from "./$types";
 
-export const prerender = true;
-
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = () => {
   const projects = loadProjects();
 
   return {
