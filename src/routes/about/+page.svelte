@@ -33,7 +33,7 @@
       <div class="max-w-4xl mx-auto">
         <!-- Greeting -->
         <div class="text-center mb-12">
-          <p class="text-lg text-ctp-subtext0 mb-2">
+          <p class="text-lg text-ctp-subtext1 mb-2">
             {HERO_CONTENT.greeting}
           </p>
           <h1

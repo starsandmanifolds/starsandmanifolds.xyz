@@ -238,8 +238,9 @@
   // Generate stars with varied sizes and opacities
   function generateStars() {
     const newStars: Star[] = [];
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    // Use canvas dimensions for star positioning
+    const width = canvas?.width || canvas?.clientWidth || window.innerWidth;
+    const height = canvas?.height || canvas?.clientHeight || window.innerHeight;
 
     const starCounts = [
       { count: 50, sizeRange: [6, 8], opacityRange: [0.95, 1] }, // Brightest stars
@@ -386,8 +387,9 @@
     resizeTimeout = window.setTimeout(() => {
       if (!canvas) return;
 
-      const newWidth = window.innerWidth;
-      const newHeight = window.innerHeight;
+      // Use canvas's rendered dimensions, not window dimensions
+      const newWidth = canvas.clientWidth;
+      const newHeight = canvas.clientHeight;
 
       // Skip if dimensions haven't actually changed
       if (canvas.width === newWidth && canvas.height === newHeight) {
@@ -436,8 +438,8 @@
     uTime = gl.getUniformLocation(shaderProgram, "uTime")!;
     uResolution = gl.getUniformLocation(shaderProgram, "uResolution")!;
 
-    // Set clear color (transparent)
-    gl.clearColor(0, 0, 0, 0);
+    // Set clear color to Catppuccin Mocha base (#1e1e2e)
+    gl.clearColor(0x1e / 255, 0x1e / 255, 0x2e / 255, 1);
 
     // Enable blending for transparency
     gl.enable(gl.BLEND);
@@ -447,8 +449,10 @@
   }
 
   onMount(() => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Use the canvas's rendered dimensions, not window dimensions
+    // This ensures correct sizing when the starfield section is smaller than viewport
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
 
     if (!initWebGL()) {
       console.error("Failed to initialize WebGL");
@@ -497,12 +501,12 @@
 
 <style>
   .starfield-canvas {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -10;
+    z-index: 0;
   }
 </style>

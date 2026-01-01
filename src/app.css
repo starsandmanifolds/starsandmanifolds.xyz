@@ -1,17 +1,47 @@
-/* Self-hosted fonts via Fontsource */
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-@import "@fontsource/inter/600.css";
-@import "@fontsource/inter/700.css";
-@import "@fontsource/fira-code/300.css";
-@import "@fontsource/fira-code/400.css";
-@import "@fontsource/fira-code/500.css";
-@import "@fontsource/fira-code/600.css";
+/* Self-hosted fonts via Fontsource - Latin subset only for smaller bundle */
+@import "@fontsource/inter/latin-400.css";
+@import "@fontsource/inter/latin-500.css";
+@import "@fontsource/inter/latin-600.css";
+@import "@fontsource/inter/latin-700.css";
+/* Fira Code - only 400 weight is used for code blocks */
+@import "@fontsource/fira-code/latin-400.css";
 /* Optimized Dancing Script - latin subset only */
 @import "$lib/fonts/dancing-script.css";
 
 @import "tailwindcss";
 @import "@catppuccin/tailwindcss/mocha.css";
+
+/* Light theme (Latte) - applied when OS prefers light color scheme */
+@media (prefers-color-scheme: light) {
+  :root {
+    --catppuccin-color-rosewater: #dc8a78;
+    --catppuccin-color-flamingo: #dd7878;
+    --catppuccin-color-pink: #ea76cb;
+    --catppuccin-color-mauve: #8839ef;
+    --catppuccin-color-red: #d20f39;
+    --catppuccin-color-maroon: #e64553;
+    --catppuccin-color-peach: #fe640b;
+    --catppuccin-color-yellow: #df8e1d;
+    --catppuccin-color-green: #40a02b;
+    --catppuccin-color-teal: #179299;
+    --catppuccin-color-sky: #04a5e5;
+    --catppuccin-color-sapphire: #209fb5;
+    --catppuccin-color-blue: #1e66f5;
+    --catppuccin-color-lavender: #7287fd;
+    --catppuccin-color-text: #4c4f69;
+    --catppuccin-color-subtext1: #5c5f77;
+    --catppuccin-color-subtext0: #6c6f85;
+    --catppuccin-color-overlay2: #7c7f93;
+    --catppuccin-color-overlay1: #8c8fa1;
+    --catppuccin-color-overlay0: #9ca0b0;
+    --catppuccin-color-surface2: #acb0be;
+    --catppuccin-color-surface1: #bcc0cc;
+    --catppuccin-color-surface0: #ccd0da;
+    --catppuccin-color-base: #eff1f5;
+    --catppuccin-color-mantle: #e6e9ef;
+    --catppuccin-color-crust: #dce0e8;
+  }
+}
 
 @theme {
   --font-family-sans:
@@ -33,11 +63,11 @@
     @apply transition-colors duration-300;
     /* Always show vertical scrollbar to prevent layout shift */
     overflow-y: scroll;
-    /* Force dark theme */
-    color-scheme: dark;
+    /* Respect OS color scheme preference */
+    color-scheme: light dark;
   }
 
-  /* Catppuccin Mocha dark theme */
+  /* Base body styling - uses Catppuccin theme colors (Latte/Mocha based on OS preference) */
   body {
     background-color: var(--color-ctp-base);
     color: var(--color-ctp-text);
@@ -55,7 +85,7 @@
   }
 }
 
-/* Typography/Prose Styles - Catppuccin Mocha Theme */
+/* Typography/Prose Styles - Catppuccin Theme (Latte light / Mocha dark) */
 .prose {
   color: var(--color-ctp-text);
   max-width: none;
@@ -195,15 +225,13 @@
   padding-left: 1em;
 }
 
-/* Code block styling */
+/* Code block styling - base styles only, colors handled by Shiki rules below */
 .prose pre {
-  @apply rounded-lg my-6 p-0 overflow-hidden bg-ctp-mantle;
+  @apply rounded-lg my-6 p-0 overflow-hidden;
 }
 
 .prose pre code {
-  @apply block p-4 overflow-x-auto text-sm;
-  background-color: transparent !important;
-  color: var(--color-ctp-text) !important;
+  @apply block p-4 overflow-x-auto text-sm bg-transparent;
   font-family:
     "Fira Code", "JetBrains Mono", Consolas, Monaco, monospace !important;
   font-variant-ligatures: common-ligatures !important;
@@ -212,9 +240,35 @@
     "calt" 1 !important;
 }
 
-/* Shiki overrides */
+/* Shiki dual-theme support
+ * With defaultColor: false, Shiki outputs NO inline colors - only CSS variables.
+ * We use these variables directly, switching based on OS color scheme preference.
+ * No !important needed since there are no inline styles to override.
+ *
+ * Theme choices for WCAG AA compliance:
+ * - Dark: catppuccin-mocha (good contrast against dark backgrounds)
+ * - Light: catppuccin-latte with 13 colorReplacements for WCAG AA (4.5:1)
+ */
+.shiki {
+  background-color: var(--shiki-dark-bg);
+}
+
+.shiki span {
+  color: var(--shiki-dark);
+}
+
+@media (prefers-color-scheme: light) {
+  .shiki {
+    background-color: var(--shiki-light-bg);
+  }
+
+  .shiki span {
+    color: var(--shiki-light);
+  }
+}
+
 .prose .shiki {
-  @apply bg-ctp-mantle m-0;
+  @apply rounded-lg m-0;
 }
 
 .prose .shiki code {
@@ -255,7 +309,7 @@ pre,
     "calt" 1 !important;
 }
 
-/* Catppuccin Mocha Divider */
+/* Catppuccin Divider */
 .divider-space {
   height: 1px;
   background: linear-gradient(
@@ -267,4 +321,27 @@ pre,
     oklch(from var(--color-ctp-blue) l c h / 0.3) 85%,
     transparent 100%
   );
+}
+
+/* Starfield section - always uses dark theme (Mocha) for cosmic background */
+.starfield-section {
+  /* Force Mocha colors in this section regardless of OS preference */
+  --catppuccin-color-base: #1e1e2e;
+  --catppuccin-color-mantle: #181825;
+  --catppuccin-color-crust: #11111b;
+  --catppuccin-color-text: #cdd6f4;
+  --catppuccin-color-subtext1: #bac2de;
+  --catppuccin-color-subtext0: #a6adc8;
+  --catppuccin-color-overlay2: #9399b2;
+  --catppuccin-color-overlay1: #7f849c;
+  --catppuccin-color-overlay0: #6c7086;
+  --catppuccin-color-surface2: #585b70;
+  --catppuccin-color-surface1: #45475a;
+  --catppuccin-color-surface0: #313244;
+  --catppuccin-color-mauve: #cba6f7;
+  --catppuccin-color-pink: #f5c2e7;
+  --catppuccin-color-blue: #89b4fa;
+  /* Background is transparent to let the canvas starfield show through */
+  background-color: transparent;
+  color: var(--catppuccin-color-text);
 }

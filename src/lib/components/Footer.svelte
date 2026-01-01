@@ -94,7 +94,7 @@
         <p class="text-sm text-ctp-subtext1">
           © {currentYear} Anand Shankar Dyavanapalli. All rights reserved.
         </p>
-        <p class="text-xs text-ctp-subtext0 mt-2 font-mono">
+        <p class="text-xs text-ctp-subtext1 mt-2 font-mono">
           Build: <a
             href="https://github.com/starsandmanifolds/starsandmanifolds.xyz/commit/{__GIT_COMMIT_HASH__}"
             target="_blank"

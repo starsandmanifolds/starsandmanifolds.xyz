@@ -115,7 +115,7 @@
                   <div class="flex flex-wrap gap-2">
                     {#each project.technologies as tech}
                       <span
-                        class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-subtext1 shadow-sm"
+                        class="px-3 py-1 rounded-lg bg-ctp-surface0 border border-ctp-surface1 text-xs font-medium text-ctp-text shadow-sm"
                       >
                         {tech}
                       </span>
@@ -127,7 +127,7 @@
           </ul>
         {:else}
           <div class="text-center py-24">
-            <p class="text-ctp-subtext0 text-lg">
+            <p class="text-ctp-subtext1 text-lg">
               No projects to display yet.
             </p>
           </div>

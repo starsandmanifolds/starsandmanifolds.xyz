@@ -459,7 +459,7 @@ Now `my-server.tailnet-name.ts.net` will resolve correctly via MagicDNS, while e
 
 If you want to access Tailscale devices by short name (e.g., `http://my-server/` instead of `http://my-server.tailnet-name.ts.net/`), add a search domain to `/etc/resolv.conf`:
 
-```
+```ini
 nameserver 127.0.0.53
 search tailnet-name.ts.net
 ```
