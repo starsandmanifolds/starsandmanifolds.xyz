@@ -57,8 +57,8 @@
   };
 
   // Lazy-load mermaid.js only if the page contains mermaid diagrams
-  onMount(async () => {
-    const mermaidElements = document.querySelectorAll("pre.mermaid");
+  onMount(() => {
+    const mermaidElements = Array.from(document.querySelectorAll("pre.mermaid"));
     if (mermaidElements.length === 0) return;
 
     // Store original mermaid code for re-rendering on theme change
@@ -67,36 +67,55 @@
       originalCode.set(el, el.textContent || "");
     });
 
-    // Dynamically import mermaid (self-hosted)
-    const mermaidUrl = new URL("/mermaid/mermaid.esm.min.mjs", window.location.origin).href;
-    const mermaid = await import(/* @vite-ignore */ mermaidUrl);
     const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    let isRendering = false;
+    let cleanup = () => {};
 
-    // Render diagrams with current theme
-    async function renderDiagrams(isDark: boolean) {
-      mermaid.default.initialize({
-        startOnLoad: false,
-        theme: "base",
-        themeVariables: isDark ? THEME_DARK : THEME_LIGHT,
-        fontFamily: "Inter, system-ui, sans-serif",
-      });
-      await mermaid.default.run({ nodes: mermaidElements });
-    }
+    // Initialize mermaid and render (async IIFE)
+    (async () => {
+      // Dynamically import mermaid (self-hosted)
+      const mermaidUrl = new URL("/mermaid/mermaid.esm.min.mjs", window.location.origin).href;
+      const mermaid = await import(/* @vite-ignore */ mermaidUrl);
 
-    // Initial render
-    await renderDiagrams(colorSchemeQuery.matches);
-
-    // Re-render on theme change
-    colorSchemeQuery.addEventListener("change", async (e) => {
-      mermaidElements.forEach((el) => {
-        const code = originalCode.get(el);
-        if (code) {
-          el.innerHTML = code;
-          el.removeAttribute("data-processed");
+      // Render diagrams with current theme
+      async function renderDiagrams(isDark: boolean) {
+        if (isRendering) return;
+        isRendering = true;
+        try {
+          mermaid.default.initialize({
+            startOnLoad: false,
+            theme: "base",
+            themeVariables: isDark ? THEME_DARK : THEME_LIGHT,
+            fontFamily: "Inter, system-ui, sans-serif",
+          });
+          await mermaid.default.run({ nodes: mermaidElements });
+        } finally {
+          isRendering = false;
         }
-      });
-      await renderDiagrams(e.matches);
-    });
+      }
+
+      // Initial render
+      await renderDiagrams(colorSchemeQuery.matches);
+
+      // Re-render on theme change
+      const handleThemeChange = async (e: MediaQueryListEvent) => {
+        mermaidElements.forEach((el) => {
+          const code = originalCode.get(el);
+          if (code) {
+            el.innerHTML = code;
+            el.removeAttribute("data-processed");
+          }
+        });
+        await renderDiagrams(e.matches);
+      };
+
+      colorSchemeQuery.addEventListener("change", handleThemeChange);
+
+      // Store cleanup reference
+      cleanup = () => colorSchemeQuery.removeEventListener("change", handleThemeChange);
+    })();
+
+    return () => cleanup();
   });
 
   // Create structured data for SEO
