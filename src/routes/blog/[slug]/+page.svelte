@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Header from "$lib/components/Header.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import Seo from "$lib/components/Seo.svelte";
@@ -8,6 +9,95 @@
   let { data }: { data: PageData } = $props();
 
   const canonicalUrl = `${SITE_URL}/blog/${data.post.slug}`;
+
+  // Check if content has mermaid diagrams (for preload hint)
+  const hasMermaid = data.post.content?.includes('class="mermaid"') ?? false;
+
+  // Catppuccin theme variables for mermaid
+  const THEME_DARK = {
+    primaryColor: "#313244",
+    primaryTextColor: "#cdd6f4",
+    primaryBorderColor: "#9399b2",
+    lineColor: "#89b4fa",
+    secondaryColor: "#45475a",
+    tertiaryColor: "#1e1e2e",
+    textColor: "#cdd6f4",
+    mainBkg: "#1e1e2e",
+    nodeBorder: "#9399b2",
+    actorBorder: "#9399b2",
+    actorBkg: "#313244",
+    actorTextColor: "#cdd6f4",
+    actorLineColor: "#89b4fa",
+    signalColor: "#89b4fa",
+    signalTextColor: "#cdd6f4",
+    noteBorderColor: "#6c7086",
+    noteBkgColor: "#313244",
+    noteTextColor: "#cdd6f4",
+  };
+
+  const THEME_LIGHT = {
+    primaryColor: "#ccd0da",
+    primaryTextColor: "#4c4f69",
+    primaryBorderColor: "#6c6f85",
+    lineColor: "#5c5f77",
+    secondaryColor: "#e6e9ef",
+    tertiaryColor: "#eff1f5",
+    textColor: "#4c4f69",
+    mainBkg: "#eff1f5",
+    nodeBorder: "#6c6f85",
+    actorBorder: "#6c6f85",
+    actorBkg: "#dce0e8",
+    actorTextColor: "#4c4f69",
+    actorLineColor: "#5c5f77",
+    signalColor: "#5c5f77",
+    signalTextColor: "#4c4f69",
+    noteBorderColor: "#6c6f85",
+    noteBkgColor: "#e6e9ef",
+    noteTextColor: "#4c4f69",
+  };
+
+  // Lazy-load mermaid.js only if the page contains mermaid diagrams
+  onMount(async () => {
+    const mermaidElements = document.querySelectorAll("pre.mermaid");
+    if (mermaidElements.length === 0) return;
+
+    // Store original mermaid code for re-rendering on theme change
+    const originalCode = new Map<Element, string>();
+    mermaidElements.forEach((el) => {
+      originalCode.set(el, el.textContent || "");
+    });
+
+    // Dynamically import mermaid (self-hosted)
+    const mermaidUrl = new URL("/mermaid/mermaid.esm.min.mjs", window.location.origin).href;
+    const mermaid = await import(/* @vite-ignore */ mermaidUrl);
+    const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    // Render diagrams with current theme
+    async function renderDiagrams(isDark: boolean) {
+      mermaid.default.initialize({
+        startOnLoad: false,
+        theme: "base",
+        themeVariables: isDark ? THEME_DARK : THEME_LIGHT,
+        fontFamily: "Inter, system-ui, sans-serif",
+      });
+      await mermaid.default.run({ nodes: mermaidElements });
+    }
+
+    // Initial render
+    await renderDiagrams(colorSchemeQuery.matches);
+
+    // Re-render on theme change
+    colorSchemeQuery.addEventListener("change", async (e) => {
+      mermaidElements.forEach((el) => {
+        const code = originalCode.get(el);
+        if (code) {
+          el.innerHTML = code;
+          el.removeAttribute("data-processed");
+        }
+      });
+      await renderDiagrams(e.matches);
+    });
+  });
 
   // Create structured data for SEO
   const structuredData = {
@@ -36,6 +126,11 @@
 <svelte:head>
   <!-- KaTeX CSS for math rendering (only loaded on blog posts) -->
   <link rel="stylesheet" href="/katex/katex.min.css" />
+
+  <!-- Preload mermaid.js for faster diagram rendering -->
+  {#if hasMermaid}
+    <link rel="modulepreload" href="/mermaid/mermaid.esm.min.mjs" />
+  {/if}
 
   <!-- Structured Data -->
   {@html `<script type="application/ld+json">${JSON.stringify(structuredData)}</script>`}

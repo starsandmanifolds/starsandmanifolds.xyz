@@ -346,6 +346,14 @@
 }
 
 /* Mermaid diagram styling */
+
+/* Hide raw mermaid code until rendered (prevents FOUC) */
+pre.mermaid:not([data-processed="true"]) {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
 .mermaid-container {
   @apply overflow-x-auto;
 }

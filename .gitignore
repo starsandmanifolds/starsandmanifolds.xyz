@@ -11,3 +11,7 @@ vite.config.ts.timestamp-*
 CLAUDE.md
 .lighthouseci
 .cache
+
+# Generated during prebuild
+/static/mermaid
+/_headers

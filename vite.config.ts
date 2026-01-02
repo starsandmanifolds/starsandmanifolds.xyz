@@ -1,6 +1,7 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import { defineConfig } from "vite";
 import { execSync } from 'child_process';
+import { securityHeaders } from './src/lib/headers.ts';
 
 // Get git commit hash at build time
 function getGitCommitHash() {
@@ -17,5 +18,11 @@ export default defineConfig({
   ],
   define: {
     '__GIT_COMMIT_HASH__': JSON.stringify(getGitCommitHash()),
-  }
+  },
+  server: {
+    headers: securityHeaders,
+  },
+  preview: {
+    headers: securityHeaders,
+  },
 });

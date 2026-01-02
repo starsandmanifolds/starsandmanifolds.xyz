@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "prebuild": "mkdir -p static/katex && cp -r node_modules/katex/dist/* static/katex/",
+    "prebuild": "npx tsx scripts/generate-headers.ts && mkdir -p static/katex && cp -r node_modules/katex/dist/* static/katex/ && mkdir -p static/mermaid/chunks/mermaid.esm.min && cp node_modules/mermaid/dist/mermaid.esm.min.mjs static/mermaid/ && find node_modules/mermaid/dist/chunks/mermaid.esm.min -name '*.mjs' ! -name '*.map' -exec cp {} static/mermaid/chunks/mermaid.esm.min/ \\;",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -48,6 +48,7 @@
     "svelte-check": "^4.3.3",
     "tailwindcss": "^4.1.16",
     "tslib": "^2.8.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^7.1.12",
     "wrangler": "^4.54.0"
