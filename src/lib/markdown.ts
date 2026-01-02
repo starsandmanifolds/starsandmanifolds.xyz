@@ -1,14 +1,6 @@
 import { marked } from "marked";
 import markedKatex from "marked-katex-extension";
 import { createHighlighter, type Highlighter } from "shiki";
-import { execSync } from "child_process";
-import { writeFileSync, readFileSync, unlinkSync, rmdirSync, mkdtempSync, existsSync, mkdirSync } from "fs";
-import { tmpdir } from "os";
-import { join } from "path";
-import { createHash } from "crypto";
-
-// Cache directory for rendered mermaid diagrams
-const MERMAID_CACHE_DIR = ".cache/mermaid";
 
 let highlighterInstance: Highlighter | null = null;
 let markedInitialized = false;
@@ -22,73 +14,6 @@ function slugify(text: string): string {
     .replace(/\s+/g, "-") // Replace spaces with hyphens
     .replace(/-+/g, "-") // Replace multiple hyphens with single
     .trim();
-}
-
-/**
- * Render a Mermaid diagram to SVG using mermaid-cli
- * Caches rendered SVGs to avoid re-rendering on every request
- * Returns the SVG markup wrapped in a figure element
- */
-function renderMermaid(code: string): string {
-  // Create cache key from content hash
-  const hash = createHash("sha256").update(code).digest("hex").slice(0, 16);
-  const cacheFile = join(MERMAID_CACHE_DIR, `${hash}.svg`);
-
-  // Check cache first
-  if (existsSync(cacheFile)) {
-    const svg = readFileSync(cacheFile, "utf-8");
-    return `<figure class="mermaid-container my-6">${svg}</figure>`;
-  }
-
-  // Ensure cache directory exists
-  if (!existsSync(MERMAID_CACHE_DIR)) {
-    mkdirSync(MERMAID_CACHE_DIR, { recursive: true });
-  }
-
-  const tempDir = mkdtempSync(join(tmpdir(), "mermaid-"));
-  const inputFile = join(tempDir, "input.mmd");
-  const outputFile = join(tempDir, "output.svg");
-
-  try {
-    writeFileSync(inputFile, code);
-
-    // Run mmdc to generate SVG
-    execSync(
-      `npx mmdc -i "${inputFile}" -o "${outputFile}" -c mermaid.config.json -p puppeteer.config.json -b transparent`,
-      { stdio: "pipe" }
-    );
-
-    // Read the generated SVG
-    let svg = readFileSync(outputFile, "utf-8");
-
-    // Make SVG responsive
-    svg = svg.replace(/<svg /, '<svg class="mermaid-diagram" ');
-
-    // Cache the result
-    writeFileSync(cacheFile, svg);
-
-    return `<figure class="mermaid-container my-6">${svg}</figure>`;
-  } catch (error) {
-    console.error("Mermaid rendering error:", error);
-    // Return error message with the original code
-    const escaped = code
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
-    return `<div class="mermaid-error p-4 my-4 border-2 border-red-500 bg-red-50 rounded">
-      <p class="font-bold text-red-700">Mermaid diagram error</p>
-      <pre class="mt-2 text-sm">${escaped}</pre>
-    </div>`;
-  } finally {
-    // Cleanup temp files
-    try {
-      unlinkSync(inputFile);
-      unlinkSync(outputFile);
-      rmdirSync(tempDir);
-    } catch {
-      // Ignore cleanup errors
-    }
-  }
 }
 
 async function getHighlighter(): Promise<Highlighter> {
@@ -161,9 +86,9 @@ async function initializeMarked(): Promise<void> {
           const code = token.text;
           const lang = token.lang || "text";
 
-          // Handle Mermaid diagrams specially
+          // Handle Mermaid diagrams - output raw code for client-side rendering
           if (lang === "mermaid") {
-            return renderMermaid(code);
+            return `<pre class="mermaid">${code}</pre>`;
           }
 
           try {
