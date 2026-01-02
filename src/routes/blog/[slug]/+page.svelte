@@ -89,6 +89,21 @@
             fontFamily: "Inter, system-ui, sans-serif",
           });
           await mermaid.default.run({ nodes: mermaidElements });
+
+          // Chrome bug: SVG markers in <defs> don't paint on initial render of
+          // dynamically inserted content. Workaround: wait for browser idle
+          // (after paint completes), then force repaint. Firefox is unaffected.
+          // See: https://bugs.chromium.org/p/chromium/issues/detail?id=109212
+          requestIdleCallback(() => {
+            mermaidElements.forEach((el) => {
+              const svg = el.querySelector("svg");
+              if (svg) {
+                svg.style.transform = "translateZ(0)";
+                svg.getBoundingClientRect(); // Force reflow
+                svg.style.transform = "";
+              }
+            });
+          });
         } finally {
           isRendering = false;
         }
