@@ -86,6 +86,17 @@ When the client makes a DNS query for a tunneled domain, the following happens:
    >
    > Any process (except root) sending DNS queries to port 53 - regardless of destination IP - gets redirected to `127.0.0.1:53` where `dnsmasq` is listening. The `meta skuid != 0` exception is critical: `dnsmasq` runs as root and needs to query upstream DNS servers without being redirected back to itself.
    >
+   > ```mermaid
+   > sequenceDiagram
+   >     participant App
+   >     participant NAT as output_nat
+   >     participant DM as dnsmasq
+   >
+   >     App->>DM: 127.0.0.53
+   >     App->>NAT: 8.8.8.8:53
+   >     NAT->>DM: redirect
+   > ```
+   >
    > </details>
 
 2. **Upstream selection**: For tunneled domains, the `server=/${DOMAIN}/${VPN_DNS}` directive tells `dnsmasq` to forward the query to a DNS server running on the VPN endpoint (e.g., `10.1.0.1`). Since this IP is only reachable through the WireGuard tunnel, the DNS query naturally routes through the VPN - no special `nftables` marking required. This prevents ISP interception of DNS queries for tunneled domains.
@@ -334,7 +345,52 @@ sequenceDiagram
    - **`Table = off`** - By default, `wg-quick` automatically creates routing table entries based on `AllowedIPs`. With `AllowedIPs = 0.0.0.0/0, ::/0`, it would route *all* traffic through WireGuard. Setting `Table = off` disables this automatic routing, allowing us to use our own fwmark-based policy routing instead.
    - **`AllowedIPs = 0.0.0.0/0, ::/0`** - `AllowedIPs` serves two purposes: outbound routing (disabled by `Table = off`) and inbound filtering (still active). WireGuard drops any packet arriving through the tunnel if its source IP isn't in `AllowedIPs`. Since we're routing arbitrary internet traffic, we need to accept responses from any IP - hence the full range.
    - **Connection tracking** - The `ct mark` rules (in the dnsmasq drop-in) persist the fwmark across all packets in a connection. When a new connection is established, the mark is saved to the connection tracking entry. Subsequent packets restore this mark, ensuring the connection continues routing through WireGuard even if the destination IP expires from the `nftables` set.
+
+   ```mermaid
+   sequenceDiagram
+       participant P1 as 1st Packet
+       participant NFT as nftables
+       participant CT as conntrack
+       participant P2 as Later Packet
+
+       P1->>NFT: dst in set
+       NFT->>CT: ct mark = 0x1
+       Note over CT: Tracked
+
+       Note over NFT: IP expires
+
+       P2->>NFT: dst NOT in set
+       NFT->>CT: check mark
+       CT-->>NFT: 0x1
+       NFT->>P2: restore mark
+   ```
+
    - **Fail-closed** - The blackhole route (metric 200) ensures that if WireGuard goes down, tunneled traffic gets dropped instead of leaking. The PostDown only removes the route through `wg0`, leaving the blackhole and ip rules in place.
+
+   **WireGuard UP:**
+
+   ```mermaid
+   sequenceDiagram
+       participant Packet
+       participant K as Kernel
+       participant WG as wg0
+
+       Packet->>K: fwmark 0x1
+       K->>WG: route
+       Note over WG: Tunneled ✓
+   ```
+
+   **WireGuard DOWN:**
+
+   ```mermaid
+   sequenceDiagram
+       participant Packet
+       participant K as Kernel
+
+       Packet->>K: fwmark 0x1
+       Note over K: blackhole
+       Note over Packet: Dropped ✗
+   ```
 
 7. **`/etc/systemd/system/wg-quick@wg0.service.d/after-dnsmasq.conf`**
 
@@ -374,6 +430,42 @@ sequenceDiagram
    ```
 
 ### Putting It Together
+
+Here's how the nine configuration files relate to each other:
+
+```mermaid
+flowchart TD
+    subgraph Config["Config Files"]
+        TOML["domains.toml"]
+        GENPY["generate-config.py"]
+        DNSCONF["wireguard.conf"]
+    end
+
+    subgraph Systemd["Systemd"]
+        PATH[".path"]
+        GEN[".service"]
+        DROPIN["nftables drop-in"]
+        AFTER["wg drop-in"]
+    end
+
+    subgraph Runtime["Runtime"]
+        DM["dnsmasq"]
+        NFT["nftables"]
+        WG["wg-quick"]
+        ROUTES["routes"]
+    end
+
+    PATH -->|watches| TOML
+    PATH -->|triggers| GEN
+    GEN --> GENPY
+    GENPY --> DNSCONF
+    DNSCONF --> DM
+    DROPIN --> NFT
+    DROPIN --> DM
+    AFTER --> WG
+    WG --> ROUTES
+    DM --> NFT
+```
 
 Create all nine files above, then:
 

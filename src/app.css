@@ -365,9 +365,11 @@ pre.mermaid:not([data-processed="true"]) {
 /* Mermaid dark mode overrides - SVGs are generated with Latte (light) colors,
  * so we override them for dark mode using Catppuccin Mocha palette.
  * The SVG has inline fill/stroke attributes and an embedded <style> block,
- * so we need high-specificity selectors with !important to override. */
+ * so we need high-specificity selectors with !important to override.
+ * Targets both server-side (.mermaid-diagram) and client-side (pre.mermaid svg) rendered diagrams. */
 @media (prefers-color-scheme: dark) {
-  .mermaid-diagram {
+  .mermaid-diagram,
+  pre.mermaid svg {
     /* Actor boxes (rect elements with inline fill/stroke) */
     & rect.actor {
       fill: #313244 !important; /* surface0 */
