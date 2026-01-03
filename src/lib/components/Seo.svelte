@@ -10,9 +10,9 @@
 
   let { title, description, canonicalUrl, type = "website" }: Props = $props();
 
-  const fullTitle = title.includes(SITE_CONFIG.name)
-    ? title
-    : `${title} - ${SITE_CONFIG.name}`;
+  let fullTitle = $derived(
+    title.includes(SITE_CONFIG.name) ? title : `${title} - ${SITE_CONFIG.name}`
+  );
 </script>
 
 <svelte:head>
