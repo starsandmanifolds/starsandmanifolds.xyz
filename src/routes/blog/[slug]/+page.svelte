@@ -15,6 +15,7 @@
 
   // Catppuccin theme variables for mermaid
   const THEME_DARK = {
+    // General
     primaryColor: "#313244",
     primaryTextColor: "#cdd6f4",
     primaryBorderColor: "#9399b2",
@@ -24,6 +25,7 @@
     textColor: "#cdd6f4",
     mainBkg: "#1e1e2e",
     nodeBorder: "#9399b2",
+    // Sequence diagrams
     actorBorder: "#9399b2",
     actorBkg: "#313244",
     actorTextColor: "#cdd6f4",
@@ -33,9 +35,22 @@
     noteBorderColor: "#6c7086",
     noteBkgColor: "#313244",
     noteTextColor: "#cdd6f4",
+    // Flowcharts
+    clusterBkg: "#1e1e2e",
+    clusterBorder: "#9399b2",
+    edgeLabelBackground: "#313244",
+    nodeTextColor: "#cdd6f4",
+    nodeBkg: "#313244",
+    // Flowchart node fills (fill0-8 for different depths)
+    fill0: "#313244",
+    fill1: "#313244",
+    fill2: "#313244",
+    fill3: "#313244",
+    fill4: "#313244",
   };
 
   const THEME_LIGHT = {
+    // General
     primaryColor: "#ccd0da",
     primaryTextColor: "#4c4f69",
     primaryBorderColor: "#6c6f85",
@@ -45,6 +60,7 @@
     textColor: "#4c4f69",
     mainBkg: "#eff1f5",
     nodeBorder: "#6c6f85",
+    // Sequence diagrams
     actorBorder: "#6c6f85",
     actorBkg: "#dce0e8",
     actorTextColor: "#4c4f69",
@@ -54,6 +70,18 @@
     noteBorderColor: "#6c6f85",
     noteBkgColor: "#e6e9ef",
     noteTextColor: "#4c4f69",
+    // Flowcharts
+    clusterBkg: "#eff1f5",
+    clusterBorder: "#6c6f85",
+    edgeLabelBackground: "#e6e9ef",
+    nodeTextColor: "#4c4f69",
+    nodeBkg: "#dce0e8",
+    // Flowchart node fills (fill0-8 for different depths)
+    fill0: "#dce0e8",
+    fill1: "#dce0e8",
+    fill2: "#dce0e8",
+    fill3: "#dce0e8",
+    fill4: "#dce0e8",
   };
 
   // Lazy-load mermaid.js only if the page contains mermaid diagrams

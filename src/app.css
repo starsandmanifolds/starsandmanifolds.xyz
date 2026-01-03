@@ -467,6 +467,41 @@ pre.mermaid:not([data-processed="true"]) {
     & path:not([class]) {
       stroke: #89b4fa !important; /* blue */
     }
+
+    /* Flowchart nodes */
+    & .node rect,
+    & .node polygon,
+    & .node circle,
+    & .node ellipse {
+      fill: #313244 !important; /* surface0 */
+      stroke: #9399b2 !important; /* overlay2 */
+    }
+
+    & .node .label {
+      color: #cdd6f4 !important; /* text */
+    }
+
+    /* Flowchart subgraph/cluster */
+    & .cluster rect {
+      fill: #1e1e2e !important; /* base */
+      stroke: #9399b2 !important; /* overlay2 */
+    }
+
+    & .cluster span,
+    & .cluster-label span,
+    & .cluster-label {
+      color: #cdd6f4 !important; /* text */
+    }
+
+    /* Flowchart edge labels */
+    & .edgeLabel {
+      background-color: #313244 !important; /* surface0 */
+      color: #cdd6f4 !important; /* text */
+    }
+
+    & .edgeLabel rect {
+      fill: #313244 !important; /* surface0 */
+    }
   }
 }
 

@@ -88,13 +88,13 @@ When the client makes a DNS query for a tunneled domain, the following happens:
    >
    > ```mermaid
    > sequenceDiagram
-   >     participant App
-   >     participant NAT as output_nat
-   >     participant DM as dnsmasq
+   >     participant Client
+   >     participant nftables
+   >     participant dnsmasq
    >
-   >     App->>DM: 127.0.0.53
-   >     App->>NAT: 8.8.8.8:53
-   >     NAT->>DM: redirect
+   >     Client->>nftables: 8.8.8.8:53
+   >     Note right of nftables: output_nat catches all<br/>outbound port 53 traffic
+   >     nftables->>dnsmasq: redirect
    > ```
    >
    > </details>
@@ -348,48 +348,32 @@ sequenceDiagram
 
    ```mermaid
    sequenceDiagram
-       participant P1 as 1st Packet
-       participant NFT as nftables
-       participant CT as conntrack
-       participant P2 as Later Packet
+       participant Client
+       participant nftables
 
-       P1->>NFT: dst in set
-       NFT->>CT: ct mark = 0x1
-       Note over CT: Tracked
+       Note over Client: 1st packet
+       Client->>nftables: dst in set
+       Note right of nftables: mark 0x1, save to conntrack
 
-       Note over NFT: IP expires
+       Note over nftables: IP expires from set
 
-       P2->>NFT: dst NOT in set
-       NFT->>CT: check mark
-       CT-->>NFT: 0x1
-       NFT->>P2: restore mark
+       Note over Client: Later packet
+       Client->>nftables: dst NOT in set
+       Note right of nftables: conntrack has mark,<br/>restore 0x1
    ```
 
    - **Fail-closed** - The blackhole route (metric 200) ensures that if WireGuard goes down, tunneled traffic gets dropped instead of leaking. The PostDown only removes the route through `wg0`, leaving the blackhole and ip rules in place.
 
-   **WireGuard UP:**
-
    ```mermaid
    sequenceDiagram
-       participant Packet
-       participant K as Kernel
-       participant WG as wg0
+       participant Client
+       participant nftables
 
-       Packet->>K: fwmark 0x1
-       K->>WG: route
-       Note over WG: Tunneled ✓
-   ```
-
-   **WireGuard DOWN:**
-
-   ```mermaid
-   sequenceDiagram
-       participant Packet
-       participant K as Kernel
-
-       Packet->>K: fwmark 0x1
-       Note over K: blackhole
-       Note over Packet: Dropped ✗
+       Client->>nftables: Packet to $DOMAIN_IP
+       Note right of nftables: Mark with fwmark 0x1
+       nftables->>nftables: Route via table 100
+       Note right of nftables: wg0 route gone<br/>blackhole remains
+       nftables--xClient: Dropped
    ```
 
 7. **`/etc/systemd/system/wg-quick@wg0.service.d/after-dnsmasq.conf`**
@@ -441,7 +425,7 @@ flowchart TD
         DNSCONF["wireguard.conf"]
     end
 
-    subgraph Systemd["Systemd"]
+    subgraph Systemd["systemd"]
         PATH[".path"]
         GEN[".service"]
         DROPIN["nftables drop-in"]
