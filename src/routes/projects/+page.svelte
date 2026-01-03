@@ -6,7 +6,6 @@
   import type { PageData } from "./$types";
 
   let { data }: { data: PageData } = $props();
-  const { projects } = data;
 
   const canonicalUrl = `${SITE_URL}/projects`;
   const description = "Projects and open source work by Anand Shankar Dyavanapalli.";
@@ -24,9 +23,9 @@
           Here are some of the projects I've worked on.
         </p>
 
-        {#if projects.length > 0}
+        {#if data.projects.length > 0}
           <ul class="space-y-6">
-            {#each projects as project}
+            {#each data.projects as project}
               <li
                 class="border-b border-ctp-surface0 pb-6"
               >

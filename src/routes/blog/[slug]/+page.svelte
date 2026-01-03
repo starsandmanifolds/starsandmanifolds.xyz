@@ -8,10 +8,7 @@
 
   let { data }: { data: PageData } = $props();
 
-  const canonicalUrl = `${SITE_URL}/blog/${data.post.slug}`;
-
-  // Check if content has mermaid diagrams (for preload hint)
-  const hasMermaid = data.post.content?.includes('class="mermaid"') ?? false;
+  let canonicalUrl = $derived(`${SITE_URL}/blog/${data.post.slug}`);
 
   // Catppuccin theme variables for mermaid
   const THEME_DARK = {
@@ -162,7 +159,7 @@
   });
 
   // Create structured data for SEO
-  const structuredData = {
+  let structuredData = $derived({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": data.post.title,
@@ -175,7 +172,7 @@
     },
     "keywords": data.post.tags.join(", "),
     "url": canonicalUrl
-  };
+  });
 </script>
 
 <Seo
@@ -186,11 +183,13 @@
 />
 
 <svelte:head>
-  <!-- KaTeX CSS for math rendering (only loaded on blog posts) -->
-  <link rel="stylesheet" href="/katex/katex.min.css" />
+  <!-- KaTeX CSS for math rendering (only loaded when post contains math) -->
+  {#if data.hasMath}
+    <link rel="stylesheet" href="/katex/katex.min.css" />
+  {/if}
 
   <!-- Preload mermaid.js for faster diagram rendering -->
-  {#if hasMermaid}
+  {#if data.hasMermaid}
     <link rel="modulepreload" href="/mermaid/mermaid.esm.min.mjs" />
   {/if}
 

@@ -18,5 +18,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
   return {
     post,
+    hasMath: post.content?.includes('class="katex"') ?? false,
+    hasMermaid: post.content?.includes('class="mermaid"') ?? false,
   };
 };
