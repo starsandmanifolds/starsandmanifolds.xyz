@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@catppuccin/tailwindcss": "^1.0.0",
-    "@cloudflare/workerd-linux-64": "^1.20260103.0",
+    "@cloudflare/workerd-linux-64": "^1.20260127.0",
     "@lhci/cli": "^0.15.1",
     "@mermaid-js/mermaid-cli": "^11.12.0",
     "@sveltejs/adapter-auto": "^7.0.0",
