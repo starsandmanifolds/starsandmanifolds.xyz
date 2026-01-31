@@ -4,5 +4,5 @@ description: "A high-performance, production-ready multicast DNS (mDNS) listener
 technologies: ["C#", ".NET", "mDNS", "Networking"]
 state: published
 githubUrl: "https://github.com/adyavanapalli/MdnsListener"
-order: 2
+order: 3
 ---
