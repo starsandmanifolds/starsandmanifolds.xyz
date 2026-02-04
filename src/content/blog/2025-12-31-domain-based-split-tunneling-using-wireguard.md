@@ -592,6 +592,7 @@ sudo systemctl disable --now dnsmasq
 
 # Restore original resolv.conf
 sudo cp /etc/resolv.conf.bak /etc/resolv.conf
+sudo rm -f /etc/resolv.conf.bak
 
 # Re-enable systemd-resolved stub listener
 sudo rm /etc/systemd/resolved.conf.d/no-stub.conf
