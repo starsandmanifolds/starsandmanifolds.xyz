@@ -57,7 +57,7 @@
   "type": "module",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.18",
-    "marked": "^17.0.1",
+    "marked": "^17.0.2",
     "marked-katex-extension": "^5.1.6"
   }
 }
