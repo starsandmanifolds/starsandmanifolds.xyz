@@ -1,6 +1,6 @@
 ---
 title: Stanislav Petrov Did Bayes' Theorem in His Head
-excerpt: In 1983, a Soviet warning system said American missiles were incoming. The important probability was not the accuracy of the alarm, but the base rate of an actual first strike.
+excerpt: On 26 September 1983, Stanislav Petrov faced a Soviet missile alarm that might have triggered nuclear war. The crucial question was not how accurate the system was, but how likely a real launch was once the siren sounded.
 tags: ["Mathematics", "Probability", "History", "Bayes"]
 state: published
 ---
