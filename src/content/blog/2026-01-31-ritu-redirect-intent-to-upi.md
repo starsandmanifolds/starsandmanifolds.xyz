@@ -23,7 +23,7 @@ The entire core logic is one line of Svelte 5:
 const upiUrl = $derived(`upi://pay?${params.toString()}`);
 ```
 
-Every query parameter from the HTTPS URL passes through to the `upi://` URL verbatim. No validation, no transformation, no storage — just a transparent protocol bridge. It's a SvelteKit app with Tailwind CSS v4 and a Catppuccin Mocha theme, deployed to Cloudflare Pages. No backend, no database, zero runtime dependencies.
+Every query parameter from the HTTPS URL passes through to the `upi://` URL verbatim. No validation, no transformation, no storage - just a transparent protocol bridge. It's a SvelteKit app with Tailwind CSS v4 and a Catppuccin Mocha theme, deployed to Cloudflare Pages. No backend, no database, zero runtime dependencies.
 
 The whole thing took about an hour to build and saves me roughly ten seconds per payment. At this rate, it'll pay for itself in productivity gains sometime around the heat death of the universe. Worth it.
 
