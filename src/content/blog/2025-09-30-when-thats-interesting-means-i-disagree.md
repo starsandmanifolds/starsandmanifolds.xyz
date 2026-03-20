@@ -1,6 +1,6 @@
 ---
 title: "When 'That's Interesting' Means 'I Disagree'"
-excerpt: "A tool that converts educational videos into enhanced transcripts with cultural context, quizzes, and flashcards—built because my wife needed it for her doctorate."
+excerpt: "A tool that converts educational videos into enhanced transcripts with cultural context, quizzes, and flashcards-built because my wife needed it for her doctorate."
 tags: ["C#", ".NET", "AI", "Education", "CLI"]
 state: published
 ---
