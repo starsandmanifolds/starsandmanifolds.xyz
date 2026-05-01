@@ -1,4 +1,5 @@
 import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import { execSync } from 'child_process';
 import { securityHeaders } from './src/lib/headers';
@@ -14,6 +15,7 @@ function getGitCommitHash() {
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     sveltekit()
   ],
   define: {

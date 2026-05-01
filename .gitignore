@@ -11,6 +11,7 @@ vite.config.ts.timestamp-*
 CLAUDE.md
 .lighthouseci
 .cache
+/.wrangler
 
 # Generated during prebuild
 /static/mermaid
