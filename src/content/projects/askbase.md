@@ -5,5 +5,5 @@ technologies: ["Python", "RAG", "SQLite", "LiteLLM", "Docling", "CLI"]
 state: published
 githubUrl: "https://github.com/adyavanapalli/askbase"
 liveUrl: "https://pypi.org/project/askbase/"
-order: 0
+order: 1
 ---
