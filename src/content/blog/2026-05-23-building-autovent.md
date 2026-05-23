@@ -73,42 +73,12 @@ This prevents the fan from cycling on and off rapidly when a reading hovers near
 
 Default thresholds, configured in `autovent.json`:
 
-<table style="width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; text-align: left; border: 1px solid var(--color-ctp-surface1, #45475a); border-radius: 8px; overflow: hidden;">
-  <thead>
-    <tr style="background-color: var(--color-ctp-surface0, #313244); border-bottom: 2px solid var(--color-ctp-surface1, #45475a);">
-      <th style="padding: 10px 15px; font-weight: bold; color: var(--color-ctp-text, #cdd6f4);">Metric</th>
-      <th style="padding: 10px 15px; font-weight: bold; color: var(--color-ctp-text, #cdd6f4);">Range</th>
-      <th style="padding: 10px 15px; font-weight: bold; color: var(--color-ctp-text, #cdd6f4);">Off below</th>
-      <th style="padding: 10px 15px; font-weight: bold; color: var(--color-ctp-text, #cdd6f4);">On above</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="border-bottom: 1px solid var(--color-ctp-surface0, #313244);">
-      <td style="padding: 10px 15px; font-weight: bold;">CO₂</td>
-      <td style="padding: 10px 15px;">400–1000 ppm</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-subtext1, #a6adc8);">500</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-teal, #94e2d5); font-weight: bold;">800</td>
-    </tr>
-    <tr style="border-bottom: 1px solid var(--color-ctp-surface0, #313244);">
-      <td style="padding: 10px 15px; font-weight: bold;">PM2.5</td>
-      <td style="padding: 10px 15px;">0–100 ug/m³</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-subtext1, #a6adc8);">35</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-teal, #94e2d5); font-weight: bold;">50</td>
-    </tr>
-    <tr style="border-bottom: 1px solid var(--color-ctp-surface0, #313244);">
-      <td style="padding: 10px 15px; font-weight: bold;">TVOC</td>
-      <td style="padding: 10px 15px;">0–300 index</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-subtext1, #a6adc8);">90</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-teal, #94e2d5); font-weight: bold;">160</td>
-    </tr>
-    <tr>
-      <td style="padding: 10px 15px; font-weight: bold;">NOx</td>
-      <td style="padding: 10px 15px;">1–10 index</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-subtext1, #a6adc8);">2</td>
-      <td style="padding: 10px 15px; color: var(--color-ctp-teal, #94e2d5); font-weight: bold;">2</td>
-    </tr>
-  </tbody>
-</table>
+| Metric | Range | Off below | On above |
+|---|---|---|---|
+| **CO₂** | 400–1000 ppm | 500 | **800** |
+| **PM2.5** | 0–100 ug/m³ | 35 | **50** |
+| **TVOC** | 0–300 index | 90 | **160** |
+| **NOx** | 1–10 index | 2 | **2** |
 
 <img src="/images/blog/autovent/autovent-main.png" alt="AutoVent main UI" style="max-width: 320px; width: 100%; height: auto; display: block; margin: 2rem auto; border-radius: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 
