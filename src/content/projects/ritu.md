@@ -6,5 +6,5 @@ state: published
 githubUrl: "https://github.com/adyavanapalli/ritu"
 liveUrl: "https://payviaupi.link"
 blogPostSlug: "ritu-redirect-intent-to-upi"
-order: 1
+order: 2
 ---
