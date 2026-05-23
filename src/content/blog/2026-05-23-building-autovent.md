@@ -30,7 +30,7 @@ The app fetches this endpoint every second over plain HTTP.
 
 ### The plug
 
-The exhaust fan is plugged into an AZIOT 10A Smart Plug with Energy Monitoring (WiFi/Bluetooth, works with Google Home and Alexa). Under the hood it runs Tuya's firmware and speaks Tuya's local protocol (version 3.5).
+The exhaust fan is plugged into an [AZIOT 10A Smart Plug with Energy Monitoring](https://www.aziot.co.in/product-page/10a-smart-plug-with-energy-monitoring) (WiFi/Bluetooth, works with Google Home and Alexa). Under the hood it runs Tuya's firmware and speaks Tuya's local protocol (version 3.5).
 
 The plug is controlled by opening an encrypted TCP socket to its IP address on port 6668. The Tuya protocol uses a sequence of handshake messages to derive a session key, then exchanges AES-GCM encrypted JSON payloads to read and write datapoints (dps). The specific datapoint that controls the relay is `dps["1"]`: set it to `true` to turn the fan on, `false` to turn it off.
 
