@@ -1,23 +1,44 @@
 ---
 title: The Agent Loop
-excerpt: Every AI agent is a three-branch recursive function.
+excerpt: "Every AI agent is a recursive loop: ask the model, answer or act, then continue."
 tags: ["AI", "LLMs", "agents"]
 state: published
 ---
 
-Every AI agent you've ever used is this:
+Every AI agent you've ever used is this loop:
 
 $$
-\begin{array}{lcl}
-\text{agent}(s) & = & \textbf{match } \text{model}(s) \\[6pt]
-\;\; | \;\; \text{Answer}(a) & \to & s + a \\[3pt]
-\;\; | \;\; \text{Action}(t) & \to & \text{agent}(s + t + \text{exec}(t)) \\[3pt]
-\;\; | \;\; \text{Length} & \to & \text{agent}(\text{compress}(s))
-\end{array}
+A(s)=
+\operatorname{case} M(s) \operatorname{of}
+\begin{cases}
+\mathrm{Answer}(a) \Rightarrow s\oplus a \\
+\mathrm{Action}(t) \Rightarrow A(s\oplus t\oplus E(t))
+\end{cases}
 $$
 
-$s$ is the conversation history. $+$ is concatenation. That's the whole architecture.
+Here $A$ is the agent, $M$ is the model, and $E$ is tool or environment execution. The state $s$ is the model-visible transcript, modeled as a sequence of messages and tool events. The outputs $a$, $t$, and $E(t)$ are transcript entries, and $\oplus$ appends them to the transcript.
 
----
+The loop is simple: the model either answers, or asks for an action. If it asks for an action, the agent executes it, concatenates the action and result onto the transcript, and runs the loop again.
 
-<small><em>P.S. Everything the equation doesn't cover: streaming, error handling, retries, context window management, token counting, cost control, prompt caching, tool sandboxing, rate limiting, authentication, parallel execution, observability, structured output validation, latency optimization, evaluation, and getting the system prompt right. Minor details.</em></small>
+This version quietly assumes infinite context. Real agents have finite context windows, so the state may need to be normalized before each model call. Context management is a preprocessing step, not a third model outcome. Let $\ell(s)$ be the length of the state, $L$ be the context limit, and $C$ be the compression function. For a given state $s$, define the model-visible state $\hat{s}$ as:
+
+$$
+\hat{s}=C_L(s)=
+\begin{cases}
+C(s), & \ell(s)>L \\
+s, & \text{otherwise}
+\end{cases}
+$$
+
+With finite context, the loop becomes:
+
+$$
+A(s)=
+\operatorname{case} M(\hat{s}) \operatorname{of}
+\begin{cases}
+\mathrm{Answer}(a) \Rightarrow \hat{s}\oplus a \\
+\mathrm{Action}(t) \Rightarrow A(\hat{s}\oplus t\oplus E(t))
+\end{cases}
+$$
+
+$\hat{s}$ is the transcript the model actually sees: compressed if needed, otherwise unchanged.
