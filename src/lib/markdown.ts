@@ -63,6 +63,7 @@ async function initializeMarked(): Promise<void> {
       markedKatex({
         throwOnError: false,
         output: "html",
+        nonStandard: true,
         macros: {
           "\\vec": "\\mathbf",
           "\\RR": "\\mathbb{R}",
