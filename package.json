@@ -44,7 +44,7 @@
     "katex": "^0.16.45",
     "postcss": "^8.5.13",
     "puppeteer": "^24.42.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.3",
     "shiki": "^4.0.2",
     "svelte": "^5.55.5",
     "svelte-check": "^4.4.7",
@@ -53,7 +53,7 @@
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.10",
-    "wrangler": "^4.87.0"
+    "wrangler": "^4.114.0"
   },
   "type": "module",
   "dependencies": {
