@@ -42,7 +42,7 @@
     "concurrently": "^9.2.1",
     "gray-matter": "^4.0.3",
     "katex": "^0.16.45",
-    "postcss": "^8.5.13",
+    "postcss": "^8.5.14",
     "puppeteer": "^24.42.0",
     "sharp": "^0.34.5",
     "shiki": "^4.0.2",
